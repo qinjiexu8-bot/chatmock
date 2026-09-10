@@ -14,7 +14,6 @@ import InstagramChat from "@/components/chats/InstagramChat";
 import SnapchatChat from "@/components/chats/SnapchatChat";
 import WhatsAppCallLog from "@/components/chats/WhatsAppCallLog";
 import AndroidSmsChat from "@/components/chats/AndroidSmsChat";
-import { exportNodeAsPng } from "@/lib/export";
 import { getTheme } from "@/lib/themes";
 import { livePages } from "@/lib/seo";
 import {
@@ -139,6 +138,9 @@ export default function GeneratorShell({ platformId }: Props) {
     if (!exportRef.current) return;
     setBusy(true);
     try {
+      // 动态导入：modern-screenshot 只在真正点导出时才加载，
+      // 10 个生成器页的首屏 JS 都不用为它买单
+      const { exportNodeAsPng } = await import("@/lib/export");
       const safeName = (conversation.title || "chat").replace(/[^\w-]+/g, "_").slice(0, 40);
       await exportNodeAsPng(exportRef.current, {
         scale,
