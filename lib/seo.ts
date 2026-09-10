@@ -112,7 +112,7 @@ export const generatorPages: GeneratorPage[] = [
     description:
       "Create realistic Telegram chat mockups with custom names, avatars, checkmarks and day dividers. Free, no signup, no watermark.",
     batch: "P1",
-    live: false,
+    live: true,
   },
   {
     platformId: "snapchat",

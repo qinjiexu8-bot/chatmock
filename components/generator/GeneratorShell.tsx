@@ -7,6 +7,7 @@ import TextMessageChat from "@/components/chats/TextMessageChat";
 import WhatsAppChat from "@/components/chats/WhatsAppChat";
 import MessengerChat from "@/components/chats/MessengerChat";
 import DiscordChat from "@/components/chats/DiscordChat";
+import TelegramChat from "@/components/chats/TelegramChat";
 import { exportNodeAsPng } from "@/lib/export";
 import { getTheme } from "@/lib/themes";
 import {
@@ -42,6 +43,9 @@ const PLATFORM_DEFAULTS: Partial<Record<PlatformId, Partial<Conversation>>> = {
       { id: "d3", senderId: "self", text: "I will join from the laptop.", timestamp: "7:56" },
       { id: "d4", senderId: "p_alex", text: "Ping me when you are in.", timestamp: "7:57" },
     ],
+  },
+  telegram: {
+    dateSeparator: "Yesterday",
   },
   "group-chat": {
     title: "Weekend Trip",
@@ -180,6 +184,8 @@ export default function GeneratorShell({ platformId }: Props) {
                 <MessengerChat conversation={conversation} theme={theme} />
               ) : platformId === "discord" ? (
                 <DiscordChat conversation={conversation} theme={theme} />
+              ) : platformId === "telegram" ? (
+                <TelegramChat conversation={conversation} theme={theme} />
               ) : null}
             </PhoneFrame>
           </div>
