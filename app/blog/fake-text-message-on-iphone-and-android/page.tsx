@@ -107,7 +107,7 @@ export default function Post() {
             <li>
               <strong>Status bar geometry.</strong> Android shows the clock on the left and the
               battery/signal cluster on the right, with a camera hole punch rather than a notch
-              — the reason our Android preview turns the phone frame off by default.
+              — the reason our exports skip the phone frame by default: a real screenshot is captured by the OS and never contains the body of the phone.
             </li>
           </ul>
 

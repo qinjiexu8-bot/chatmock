@@ -150,9 +150,9 @@ export default function WhatsAppGeneratorPage() {
               and it is the first thing a viewer subconsciously checks.
             </li>
             <li>
-              <strong>Export.</strong> Choose 1x, 2x or 3x and hit <em>Download PNG</em>. If you
-              want just the chat without the phone shell, untick <em>Phone frame</em> — handy
-              when you are compositing the screenshot into another design.
+              <strong>Export.</strong> Choose 1x, 2x or 3x and hit <em>Download PNG</em>. Exports are plain screen captures by default — a real screenshot never
+              contains the phone body. Tick <em>Phone frame</em> only when you want a
+              device-mockup look for a thumbnail, slide or composite design.
             </li>
           </ol>
 

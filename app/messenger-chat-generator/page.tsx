@@ -147,8 +147,9 @@ export default function MessengerGeneratorPage() {
             </li>
             <li>
               <strong>Export.</strong> Pick 1x, 2x or 3x and hit <em>Download PNG</em>.
-              Untick <em>Phone frame</em> when you are compositing the screenshot into a
-              thumbnail, slide or design rather than showing a whole phone.
+              Exports are plain screen captures by default — a real screenshot never
+              includes the phone body. Tick <em>Phone frame</em> only when you want a
+              device-mockup look for a thumbnail, slide or design.
             </li>
           </ol>
 

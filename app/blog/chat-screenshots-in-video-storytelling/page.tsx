@@ -120,7 +120,7 @@ export default function Post() {
           </ol>
           <p>
             Export at 2x for video use (780px wide is plenty for a full-screen insert on any
-            vertical video), and turn the phone frame off when you will composite the screen
+            vertical video), and keep the phone frame off (it is off by default) when you composite the screen
             into your own device mockup.
           </p>
 

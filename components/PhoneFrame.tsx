@@ -163,7 +163,14 @@ export default function PhoneFrame({
   ) : null;
 
   if (!frame) {
-    return <div className="flex flex-col w-full h-full">{children}</div>;
+    // 纯截图模式：真实手机截图 = 屏幕内容（含状态栏），永远不含机身边框。
+    // 尺寸与带框时的屏幕一致（390x780），保证 1x/2x/3x 导出规格统一。
+    return (
+      <div className="flex flex-col w-full overflow-hidden" style={{ width: 390, height: 780 }}>
+        {statusBarEl}
+        <div className="flex-1 flex flex-col min-h-0">{children}</div>
+      </div>
+    );
   }
 
   return (

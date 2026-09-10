@@ -253,22 +253,43 @@ export default function WhatsAppChat({ conversation, theme }: Props) {
                     />
                   ) : null}
 
-                  {m.text ? <span>{m.text}</span> : null}
-
-                  <span
-                    className="inline-flex items-center gap-1 align-bottom"
-                    style={{ float: "right", marginLeft: 8, marginTop: 4, height: 14 }}
-                  >
-                    <span style={{ fontSize: 11, color: c.timestamp, lineHeight: "14px" }}>
-                      {m.timestamp}
-                    </span>
-                    {features.receipt && isSelf && m.receipt ? (
-                      <Ticks
-                        state={m.receipt}
-                        color={m.receipt === "read" ? c.accent : c.timestamp}
-                      />
-                    ) : null}
-                  </span>
+                  {m.text ? (
+                    // flex 布局防 float 悬垂：float 在末行宽度不足时会掉出气泡背景外
+                    <div style={{ display: "flex", alignItems: "flex-end" }}>
+                      <span style={{ flex: "1 1 auto", minWidth: 0, wordBreak: "break-word" }}>
+                        {m.text}
+                      </span>
+                      <span
+                        className="inline-flex items-center gap-1"
+                        style={{ marginLeft: 8, marginBottom: -1, height: 14, flexShrink: 0 }}
+                      >
+                        <span style={{ fontSize: 11, color: c.timestamp, lineHeight: "14px" }}>
+                          {m.timestamp}
+                        </span>
+                        {features.receipt && isSelf && m.receipt ? (
+                          <Ticks
+                            state={m.receipt}
+                            color={m.receipt === "read" ? c.accent : c.timestamp}
+                          />
+                        ) : null}
+                      </span>
+                    </div>
+                  ) : m.image ? (
+                    <div
+                      className="flex justify-end items-center gap-1"
+                      style={{ paddingTop: 3 }}
+                    >
+                      <span style={{ fontSize: 11, color: c.timestamp, lineHeight: "14px" }}>
+                        {m.timestamp}
+                      </span>
+                      {features.receipt && isSelf && m.receipt ? (
+                        <Ticks
+                          state={m.receipt}
+                          color={m.receipt === "read" ? c.accent : c.timestamp}
+                        />
+                      ) : null}
+                    </div>
+                  ) : null}
                 </div>
               </div>
             </div>

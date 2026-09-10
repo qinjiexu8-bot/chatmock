@@ -238,10 +238,10 @@ export default function MessengerChat({ conversation, theme }: Props) {
                   }}
                 >
                   <span style={{ fontSize: 11, color: c.timestamp }}>
-                    {m.timestamp}
+                    {/* 真机格式：末条外发挂 Seen（不带时间），其余组只显示时间 */}
                     {showSeen && conversation.deliveryText
-                      ? `  ·  ${conversation.deliveryText}`
-                      : ""}
+                      ? conversation.deliveryText
+                      : m.timestamp}
                   </span>
                 </div>
               ) : null}

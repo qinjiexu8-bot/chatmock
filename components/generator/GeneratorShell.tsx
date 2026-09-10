@@ -33,7 +33,8 @@ const PLATFORM_DEFAULTS: Partial<Record<PlatformId, Partial<Conversation>>> = {
     deliveryText: "Seen",
   },
   telegram: {
-    dateSeparator: "Yesterday",
+    dateSeparator: "Today",
+    subtitle: "last seen recently",
   },
   "instagram-dm": {
     dateSeparator: "Mon 9:41",
@@ -117,8 +118,9 @@ export default function GeneratorShell({ platformId }: Props) {
   const [conversation, setConversation] = useState<Conversation>(() =>
     defaultConversation(platformId)
   );
-  // Android 页默认不带 iPhone 外框（UI 对不上），其余平台默认带
-  const [frame, setFrame] = useState(() => theme.statusBarStyle !== "android");
+  // 默认不带手机外框：手机截图是 OS 层面截取的屏幕内容，永远不会有机身。
+  // 外框只作为"设备 mockup"风格选项保留（Phone frame 勾选）。
+  const [frame, setFrame] = useState(false);
   const [scale, setScale] = useState(2);
   const [busy, setBusy] = useState(false);
   const exportRef = useRef<HTMLDivElement>(null);

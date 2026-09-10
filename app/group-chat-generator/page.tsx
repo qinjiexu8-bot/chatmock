@@ -147,9 +147,9 @@ export default function GroupChatGeneratorPage() {
               bubble with a caption.
             </li>
             <li>
-              <strong>Export.</strong> Choose 1x, 2x or 3x and hit <em>Download PNG</em>. Turn
-              off <em>Phone frame</em> if you are dropping the screenshot into a thumbnail or
-              a slide rather than showing a whole phone.
+              <strong>Export.</strong> Choose 1x, 2x or 3x and hit <em>Download PNG</em>. Exports are plain screen captures by default — a real screenshot never
+              includes the phone body. Tick <em>Phone frame</em> only when you want a
+              device-mockup look for a thumbnail or slide.
             </li>
           </ol>
 

@@ -104,10 +104,9 @@ export default function Post() {
           <h2>Step 5: Export at the right resolution</h2>
           <p>
             Export at 2x for thumbnails and presentations (780px wide), 3x for print or when
-            the image will be zoomed. If you are compositing the screenshot into a video
-            frame or a design, turn off the phone frame and export just the screen —
-            compositing an entire phone into a scene that already has a phone looks
-            redundant.
+            the image will be zoomed. Exports skip the phone frame by default — a real screenshot never contains
+            the phone body. Keep it off when compositing into a video frame or a design:
+            an entire phone inside a scene that already has a phone looks redundant.
           </p>
 
           <h2>What makes viewers smell a fake</h2>

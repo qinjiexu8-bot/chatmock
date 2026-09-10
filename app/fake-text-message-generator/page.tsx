@@ -147,9 +147,9 @@ export default function TextMessageGeneratorPage() {
               that detail alone makes a screenshot noticeably more convincing.
             </li>
             <li>
-              <strong>Export.</strong> Pick 1x, 2x or 3x and hit <em>Download PNG</em>. Untick{" "}
-              <em>Phone frame</em> if you are compositing the screenshot into another design
-              instead of showing a full phone.
+              <strong>Export.</strong> Pick 1x, 2x or 3x and hit <em>Download PNG</em>. Exports are plain screen captures by default — a real screenshot never
+              includes the phone body. Tick <em>Phone frame</em> if you want a
+              device-mockup look instead of a full-screen capture.
             </li>
           </ol>
 
