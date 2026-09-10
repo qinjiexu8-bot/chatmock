@@ -20,6 +20,9 @@ export function generateStaticParams() {
   return livePages.map((p) => ({ slug: p.slug }));
 }
 
+/** 全静态架构：未预渲染的 slug 直接 404，不走运行时渲染。 */
+export const dynamicParams = false;
+
 export async function generateMetadata({
   params,
 }: {
