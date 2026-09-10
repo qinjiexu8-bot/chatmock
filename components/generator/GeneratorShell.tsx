@@ -203,11 +203,12 @@ export default function GeneratorShell({ platformId }: Props) {
 
       <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr]">
         {/* ---------------- 左：编辑面板 ----------------
-            self-start：不让 grid 把本栏拉伸到预览列的高度——预览列更高时
-            栏底会挂出一大块空白灰底（滚动容器只有 78vh），看起来像面板
-            凭空多出一段够不到的内容。sticky：页面下滚看长截图时编辑器保持可见。 */}
-        <div className="border-b lg:border-b-0 lg:border-r border-black/[0.08] bg-[#f8f9fd] lg:self-start lg:sticky lg:top-4">
-          <div className="max-h-[78vh] overflow-y-auto overscroll-contain p-5">
+            flex-col + lg:flex-1：桌面端编辑区滚动容器铺满整列高度（与右侧
+            预览列等高，背景/边框不留截断），内容超出时容器内部滚动；
+            min-h-0 允许 flex 子项收缩到内容高度以下，否则 overflow 失效。
+            移动端单列堆叠时仍用 max-h-[78vh] 封顶。 */}
+        <div className="border-b lg:border-b-0 lg:border-r border-black/[0.08] bg-[#f8f9fd] flex flex-col">
+          <div className="max-h-[78vh] lg:max-h-none lg:min-h-0 lg:flex-1 overflow-y-auto overscroll-contain p-5">
             <EditorPanel
               conversation={conversation}
               setConversation={setConversation}
