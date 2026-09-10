@@ -203,12 +203,12 @@ export default function GeneratorShell({ platformId }: Props) {
 
       <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr]">
         {/* ---------------- 左：编辑面板 ----------------
-            flex-col + lg:flex-1：桌面端编辑区滚动容器铺满整列高度（与右侧
-            预览列等高，背景/边框不留截断），内容超出时容器内部滚动；
-            min-h-0 允许 flex 子项收缩到内容高度以下，否则 overflow 失效。
-            移动端单列堆叠时仍用 max-h-[78vh] 封顶。 */}
-        <div className="border-b lg:border-b-0 lg:border-r border-black/[0.08] bg-[#f8f9fd] flex flex-col">
-          <div className="max-h-[78vh] lg:max-h-none lg:min-h-0 lg:flex-1 overflow-y-auto overscroll-contain p-5">
+            桌面端滚动容器 lg:absolute inset-0：脱离文档流后 grid 行高完全
+            由右侧预览列决定，面板精确铺满预览列高度（底边对齐），内容超出
+            时在面板内部滚动，不会把页面越撑越长。移动端单列堆叠，仍用
+            max-h-[78vh] 封顶。 */}
+        <div className="border-b lg:border-b-0 lg:border-r border-black/[0.08] bg-[#f8f9fd] lg:relative">
+          <div className="max-h-[78vh] lg:absolute lg:inset-0 lg:max-h-none overflow-y-auto overscroll-contain p-5">
             <EditorPanel
               conversation={conversation}
               setConversation={setConversation}
