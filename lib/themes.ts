@@ -414,6 +414,72 @@ export const instagramDmTheme: PlatformTheme = {
   supportedModes: ["light", "dark"],
 };
 
+/**
+ * Snapchat（聊天详情页）
+ *
+ * 第八种结构，也是竞品最容易做错的一个：
+ * 1. 黄色 #fffc00 只在 header —— 聊天区是白底（暗色纯黑），整页黄的"Snapchat"都是错的
+ * 2. outgoing 是淡紫气泡（右对齐），incoming 浅灰（左对齐），无尾巴
+ * 3. outgoing 每条下方独立 "Delivered" 小字；气泡内无时间戳
+ * 4. 每条 incoming 左侧都挂小头像（不是仅组末）
+ */
+export const snapchatTheme: PlatformTheme = {
+  id: "snapchat",
+  name: "Snapchat",
+  slug: "snapchat-chat-generator",
+  trademark: { name: "Snapchat", owner: "Snap Inc." },
+  colors: {
+    light: {
+      chatBg: "#ffffff",
+      headerBg: "#fffc00",
+      headerText: "#000000",
+      headerSubText: "#a0a0a0",
+      incomingBubble: "#f0f0f0",
+      incomingText: "#000000",
+      outgoingBubble: "#d9a7f9",
+      outgoingText: "#000000",
+      timestamp: "#a0a0a0",
+      accent: "#0fadff",
+      pillBg: "#ffffff",
+      pillText: "#a0a0a0",
+      footerBg: "#ffffff",
+    },
+    dark: {
+      chatBg: "#000000",
+      headerBg: "#fffc00",
+      headerText: "#000000",
+      headerSubText: "#8e8e93",
+      incomingBubble: "#262626",
+      incomingText: "#ffffff",
+      outgoingBubble: "#5b3a8e",
+      outgoingText: "#ffffff",
+      timestamp: "#8e8e93",
+      accent: "#0fadff",
+      pillBg: "#000000",
+      pillText: "#8e8e93",
+      footerBg: "#000000",
+    },
+  },
+  bubble: {
+    radius: 18,
+    maxWidthPct: 72,
+    fontSize: 15,
+    fontFamily: SYSTEM_FONT,
+    tailOnFirst: false,
+  },
+  features: {
+    receipt: false,
+    avatar: true,
+    dateSeparator: true,
+    senderNames: false,
+    imageMessage: true,
+    perMessageTimestamp: false,
+    deliveryLine: true,
+  },
+  statusBarStyle: "ios",
+  supportedModes: ["light", "dark"],
+};
+
 export const themes: Partial<Record<PlatformId, PlatformTheme>> = {
   whatsapp: whatsappTheme,
   "text-message": textMessageTheme,
@@ -422,6 +488,7 @@ export const themes: Partial<Record<PlatformId, PlatformTheme>> = {
   discord: discordTheme,
   telegram: telegramTheme,
   "instagram-dm": instagramDmTheme,
+  snapchat: snapchatTheme,
 };
 
 export function getTheme(id: PlatformId): PlatformTheme {

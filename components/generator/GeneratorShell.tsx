@@ -9,6 +9,7 @@ import MessengerChat from "@/components/chats/MessengerChat";
 import DiscordChat from "@/components/chats/DiscordChat";
 import TelegramChat from "@/components/chats/TelegramChat";
 import InstagramChat from "@/components/chats/InstagramChat";
+import SnapchatChat from "@/components/chats/SnapchatChat";
 import { exportNodeAsPng } from "@/lib/export";
 import { getTheme } from "@/lib/themes";
 import {
@@ -52,6 +53,11 @@ const PLATFORM_DEFAULTS: Partial<Record<PlatformId, Partial<Conversation>>> = {
     dateSeparator: "Mon 9:41",
     subtitle: "",
     deliveryText: "Seen",
+  },
+  snapchat: {
+    dateSeparator: "Today",
+    subtitle: "",
+    deliveryText: "Delivered",
   },
   "group-chat": {
     title: "Weekend Trip",
@@ -194,6 +200,8 @@ export default function GeneratorShell({ platformId }: Props) {
                 <TelegramChat conversation={conversation} theme={theme} />
               ) : platformId === "instagram-dm" ? (
                 <InstagramChat conversation={conversation} theme={theme} />
+              ) : platformId === "snapchat" ? (
+                <SnapchatChat conversation={conversation} theme={theme} />
               ) : null}
             </PhoneFrame>
           </div>

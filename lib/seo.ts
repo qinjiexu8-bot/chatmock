@@ -121,9 +121,9 @@ export const generatorPages: GeneratorPage[] = [
     h1: "Free Snapchat Chat Generator",
     title: "Free Snapchat Chat Generator — No Signup | ChatMock",
     description:
-      "Make realistic Snapchat conversation mockups with Bitmoji-style avatars, streak indicators and chat backgrounds. Free, no signup, PNG export.",
+      "Make realistic Snapchat conversation mockups with the signature yellow header, lavender bubbles and Delivered status. Free, no signup, PNG export.",
     batch: "P1",
-    live: false,
+    live: true,
   },
   {
     platformId: "android-sms",
