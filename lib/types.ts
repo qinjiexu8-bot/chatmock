@@ -44,6 +44,8 @@ export interface Message {
   receipt?: ReceiptState;
   /** 仅通话记录页使用：该行的通话方向 */
   call?: "outgoing" | "incoming" | "missed";
+  /** 仅通话记录页使用：视频通话（方向由 call 决定，媒介由本字段决定） */
+  video?: boolean;
 }
 
 export interface StatusBar {

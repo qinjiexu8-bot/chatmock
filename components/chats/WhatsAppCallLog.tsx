@@ -150,7 +150,15 @@ export default function WhatsAppCallLog({ conversation, theme }: Props) {
                 <div className="flex items-center gap-1.5" style={{ marginTop: 1 }}>
                   <DirectionArrow call={call} />
                   <span style={{ fontSize: 13.5, color: isMissed ? "#ea4335" : c.timestamp }}>
-                    {isMissed ? "Missed" : call === "outgoing" ? "Outgoing" : "Incoming"}
+                    {isMissed
+                      ? "Missed"
+                      : call === "outgoing"
+                        ? m.video
+                          ? "Outgoing video call"
+                          : "Outgoing"
+                        : m.video
+                          ? "Incoming video call"
+                          : "Incoming"}
                     {m.timestamp ? `, ${m.timestamp}` : ""}
                   </span>
                 </div>
@@ -160,15 +168,22 @@ export default function WhatsAppCallLog({ conversation, theme }: Props) {
                 ) : null}
               </div>
 
-              {/* 右侧绿色电话图标 */}
-              <svg width="22" height="22" viewBox="0 0 19 19" fill="none" style={{ flexShrink: 0 }}>
-                <path
-                  d="M16.5 13.3v2c0 .9-.8 1.7-1.7 1.6-2.4-.2-4.7-1-6.8-2.2a16.4 16.4 0 0 1-5-5C1.8 7.6 1 5.3.8 2.9.7 2 1.4 1.2 2.3 1.2h2c.8 0 1.5.6 1.6 1.4.1.8.3 1.6.6 2.3.2.5.1 1.1-.3 1.5l-1 1.1a14 14 0 0 0 4.7 4.7l1.1-1c.4-.4 1-.5 1.5-.3.7.3 1.5.5 2.3.6.8.1 1.4.8 1.4 1.6Z"
-                  stroke="#00a884"
-                  strokeWidth="1.5"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              {/* 右侧图标：语音通话为绿色听筒，视频通话为绿色摄像机 */}
+              {m.video ? (
+                <svg width="23" height="20" viewBox="0 0 21 17" fill="none" style={{ flexShrink: 0 }}>
+                  <rect x="0.75" y="2.25" width="13" height="12.5" rx="3" stroke="#00a884" strokeWidth="1.6" />
+                  <path d="M14.9 7.1 L19.6 4.2 v8.6 l-4.7-2.9 z" stroke="#00a884" strokeWidth="1.6" strokeLinejoin="round" />
+                </svg>
+              ) : (
+                <svg width="22" height="22" viewBox="0 0 19 19" fill="none" style={{ flexShrink: 0 }}>
+                  <path
+                    d="M16.5 13.3v2c0 .9-.8 1.7-1.7 1.6-2.4-.2-4.7-1-6.8-2.2a16.4 16.4 0 0 1-5-5C1.8 7.6 1 5.3.8 2.9.7 2 1.4 1.2 2.3 1.2h2c.8 0 1.5.6 1.6 1.4.1.8.3 1.6.6 2.3.2.5.1 1.1-.3 1.5l-1 1.1a14 14 0 0 0 4.7 4.7l1.1-1c.4-.4 1-.5 1.5-.3.7.3 1.5.5 2.3.6.8.1 1.4.8 1.4 1.6Z"
+                    stroke="#00a884"
+                    strokeWidth="1.5"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              )}
             </div>
           );
         })}

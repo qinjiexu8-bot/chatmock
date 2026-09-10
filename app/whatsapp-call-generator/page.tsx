@@ -68,6 +68,7 @@ export default function WhatsAppCallGeneratorPage() {
     featureList: [
       "Calls tab layout with bottom navigation bar",
       "Direction arrows: outgoing, incoming and missed (red)",
+      "Video call entries with camera icon and 'video call' label",
       "Missed calls render the caller name in red",
       "Optional call durations",
       "Light and dark mode",
@@ -213,7 +214,7 @@ export default function WhatsAppCallGeneratorPage() {
           <ul>
             <li>Caller names and avatar photos</li>
             <li>Unlimited call entries, reorderable, any caller</li>
-            <li>Direction per call: outgoing, incoming or missed</li>
+            <li>Direction per call: outgoing, incoming or missed — plus a Video toggle for camera-call entries</li>
             <li>Time per call, plus optional duration notes</li>
             <li>Light or dark mode</li>
             <li>Status bar: clock, carrier, battery and signal</li>

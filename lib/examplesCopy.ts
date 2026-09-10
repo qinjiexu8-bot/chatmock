@@ -253,7 +253,7 @@ export const examplePageCopy: Record<string, ExamplePageCopy> = {
       "A call log tells a story in numbers: durations, directions and the occasional missed call. This gallery pairs the WhatsApp chat generator with its call-log sibling — incoming, outgoing, video and missed entries, each with editable duration and timestamp.",
     designNotes: [
       "Incoming, outgoing and missed entries with correct arrow and colour codes",
-      "Missed calls render red with an empty duration field",
+      "Video-call entries with the green camera icon and 'video call' label",
       "The authentic five-tab bottom bar: Status, Calls, Chats, Communities, Settings",
       "Yesterday-style date entries mixed with same-day times",
     ],
@@ -270,7 +270,7 @@ export const examplePageCopy: Record<string, ExamplePageCopy> = {
       },
       {
         q: "Can I show a video call?",
-        a: "The call log covers voice directions — incoming, outgoing and missed. For a video-call scene, most creators pair this mockup with a chat thread showing a follow-up message.",
+        a: "Yes — tick the Video box on any call entry and the row renders with a green camera icon and an 'Incoming/Outgoing video call' label, as in the first example above.",
       },
     ],
   },

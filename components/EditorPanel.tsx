@@ -316,19 +316,30 @@ export default function EditorPanel({ conversation, setConversation, theme }: Pr
                     ))}
                   </select>
                   {theme.features.callLog ? (
-                    <select
-                      value={m.call ?? "incoming"}
-                      onChange={(e) =>
-                        setMessage(m.id, {
-                          call: e.target.value as Message["call"],
-                        })
-                      }
-                      className="px-1.5 py-1 rounded-md border border-black/15 text-[11.5px] bg-white"
-                    >
-                      <option value="outgoing">Outgoing</option>
-                      <option value="incoming">Incoming</option>
-                      <option value="missed">Missed</option>
-                    </select>
+                    <>
+                      <select
+                        value={m.call ?? "incoming"}
+                        onChange={(e) =>
+                          setMessage(m.id, {
+                            call: e.target.value as Message["call"],
+                          })
+                        }
+                        className="px-1.5 py-1 rounded-md border border-black/15 text-[11.5px] bg-white"
+                      >
+                        <option value="outgoing">Outgoing</option>
+                        <option value="incoming">Incoming</option>
+                        <option value="missed">Missed</option>
+                      </select>
+                      <label className="flex items-center gap-1 text-[11.5px] text-black/60 cursor-pointer select-none">
+                        <input
+                          type="checkbox"
+                          checked={m.video ?? false}
+                          onChange={(e) => setMessage(m.id, { video: e.target.checked || undefined })}
+                          className="w-3 h-3"
+                        />
+                        Video
+                      </label>
+                    </>
                   ) : null}
                   {theme.features.perMessageTimestamp || theme.features.callLog ? (
                     <input

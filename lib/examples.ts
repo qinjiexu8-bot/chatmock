@@ -74,9 +74,18 @@ function m(
   text: string,
   timestamp: string,
   receipt?: Message["receipt"],
-  call?: Message["call"]
+  call?: Message["call"],
+  video?: boolean
 ): Message {
-  return { id, senderId, text, timestamp, ...(receipt ? { receipt } : {}), ...(call ? { call } : {}) };
+  return {
+    id,
+    senderId,
+    text,
+    timestamp,
+    ...(receipt ? { receipt } : {}),
+    ...(call ? { call } : {}),
+    ...(video ? { video } : {}),
+  };
 }
 
 function conv(
@@ -509,7 +518,7 @@ export const examples: ExampleItem[] = [
         other("p_sofia", "Aisha"),
       ],
       messages: [
-        m("c1", "p_emma", "32 min", "20:15", undefined, "outgoing"),
+        m("c1", "p_emma", "32 min", "20:15", undefined, "outgoing", true),
         m("c2", "p_sofia", "8 min", "18:40", undefined, "incoming"),
         m("c3", "p_marcus", "", "Sunday", undefined, "missed"),
         m("c4", "p_emma", "14 min", "Sunday", undefined, "incoming"),
