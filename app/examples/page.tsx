@@ -10,6 +10,18 @@ export const metadata: Metadata = {
   description:
     "Browse realistic chat screenshot examples by scene: creator DMs, team workflows, group threads and everyday plans. Every example is rendered live — open the matching free generator and make your own.",
   alternates: { canonical: abs("/examples") },
+  openGraph: {
+    type: "website",
+    url: abs("/examples"),
+    title: "Chat Screenshot Examples — WhatsApp, iMessage, Telegram & More | ChatMock",
+    description:
+      "Browse realistic chat screenshot examples by scene: creator DMs, team workflows, group threads and everyday plans. Every example is rendered live — open the matching free generator and make your own.",
+    images: [abs("/og/examples")],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: [abs("/og/examples")],
+  },
 };
 
 export default function ExamplesPage() {

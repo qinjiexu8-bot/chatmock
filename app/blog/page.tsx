@@ -9,6 +9,18 @@ export const metadata: Metadata = {
   description:
     "Guides on creating chat mockups responsibly: platform UI details, storytelling techniques for creators, and the ethics of fabricated conversations.",
   alternates: { canonical: "/blog" },
+  openGraph: {
+    type: "website",
+    url: abs("/blog"),
+    title: "Blog — Chat Mockup Guides and Design References",
+    description:
+      "Guides on creating chat mockups responsibly: platform UI details, storytelling techniques for creators, and the ethics of fabricated conversations.",
+    images: [abs("/og/blog")],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: [abs("/og/blog")],
+  },
 };
 
 export default function BlogIndexPage() {

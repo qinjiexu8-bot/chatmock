@@ -38,6 +38,10 @@ function buildCopy(): Map<string, OgCopy> {
     title: "Chat Screenshot Examples, Rendered Live",
     sub: "Creator DMs · Team workflows · Group threads · Everyday plans",
   });
+  map.set("blog", {
+    title: "Chat Mockup Guides and Design References",
+    sub: "ChatMock Blog",
+  });
 
   return map;
 }

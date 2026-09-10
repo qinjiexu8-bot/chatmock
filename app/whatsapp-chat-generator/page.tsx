@@ -51,7 +51,7 @@ const FAQ = [
   },
   {
     q: "Can I make group chats?",
-    a: "The dedicated group chat generator (with multiple participants and coloured sender names, the way WhatsApp renders them) is on our roadmap and will be published as a separate page. Subscribe to nothing — just check back.",
+    a: "Yes — use the dedicated group chat generator. It supports multiple participants with the coloured sender names WhatsApp uses in groups, per-member names and timestamps, and the same export options as this page.",
   },
   {
     q: "Can I use the mockups commercially?",
