@@ -192,32 +192,74 @@ export default function WhatsAppCallLog({ conversation, theme }: Props) {
           { label: "Chats", active: false },
           { label: "Communities", active: false },
           { label: "Settings", active: false },
-        ].map((tab) => (
-          <div
-            key={tab.label}
-            className="flex flex-col items-center gap-0.5"
-            style={{ flex: 1 }}
-          >
-            <span
-              style={{
-                width: 22,
-                height: 22,
-                borderRadius: tab.label === "Status" ? "50%" : 6,
-                border: `1.6px solid ${tab.active ? "#00a884" : c.timestamp}`,
-                display: "block",
-              }}
-            />
-            <span
-              style={{
-                fontSize: 10.5,
-                fontWeight: tab.active ? 600 : 400,
-                color: tab.active ? "#00a884" : c.timestamp,
-              }}
+        ].map((tab) => {
+          const col = tab.active ? "#00a884" : c.timestamp;
+          // 真机 iOS WhatsApp 底栏五图标：Status 圆环缺口 / Calls 听筒 /
+          // Chats 气泡 / Communities 双人 / Settings 齿轮
+          const icons: Record<string, React.ReactNode> = {
+            Status: (
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                <circle cx="11" cy="11" r="8.6" stroke={col} strokeWidth="1.8" strokeDasharray="41 13" strokeLinecap="round" transform="rotate(54 11 11)" />
+                <circle cx="11" cy="11" r="4.2" fill="none" stroke={col} strokeWidth="1.8" />
+              </svg>
+            ),
+            Calls: (
+              <svg width="21" height="21" viewBox="0 0 18 18" fill="none">
+                <path
+                  d="M16 12.2v1.9c0 .9-.8 1.6-1.7 1.5-2.3-.2-4.5-.9-6.5-2.1a15.6 15.6 0 0 1-4.8-4.8C1.8 6.7 1.1 4.5.9 2.2.8 1.3 1.5.5 2.4.5h1.9c.8 0 1.5.6 1.6 1.4.1.8.3 1.5.6 2.2.2.5.1 1.1-.2 1.5L5.5 7c-.3.4-.3.9 0 1.2a11.9 11.9 0 0 0 4.3 3.5c.4.2.9.2 1.2-.1l1.3-1.1c.4-.3 1-.4 1.5-.2.7.3 1.4.5 2.2.6.8.1 1.4.8 1.4 1.6Z"
+                  fill={col}
+                />
+              </svg>
+            ),
+            Chats: (
+              <svg width="21" height="21" viewBox="0 0 22 22" fill="none">
+                <path
+                  d="M11 2.6c-5 0-9 3.5-9 7.8 0 2.4 1.3 4.6 3.3 6l-.6 3.2 3.4-1.8c.9.2 1.9.4 2.9.4 5 0 9-3.5 9-7.8s-4-7.8-9-7.8Z"
+                  stroke={col}
+                  strokeWidth="1.7"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            ),
+            Communities: (
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                <circle cx="8" cy="7.5" r="3.2" stroke={col} strokeWidth="1.7" />
+                <path d="M2.5 18.5c.6-3 2.9-4.6 5.5-4.6s4.9 1.6 5.5 4.6" stroke={col} strokeWidth="1.7" strokeLinecap="round" />
+                <circle cx="15.5" cy="8.5" r="2.5" stroke={col} strokeWidth="1.5" />
+                <path d="M15.5 13.6c2.1.2 3.6 1.6 4.1 3.9" stroke={col} strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+            ),
+            Settings: (
+              <svg width="21" height="21" viewBox="0 0 22 22" fill="none">
+                <circle cx="11" cy="11" r="3" stroke={col} strokeWidth="1.7" />
+                <path
+                  d="M11 2.8l1.2 2.4 2.6-.6 1.4 2.3 2.5.8-.3 2.7 1.8 2-1.8 2 .3 2.7-2.5.8-1.4 2.3-2.6-.6L11 21l-1.2-2.4-2.6.6-1.4-2.3-2.5-.8.3-2.7-1.8-2 1.8-2-.3-2.7 2.5-.8 1.4-2.3 2.6.6L11 2.8Z"
+                  stroke={col}
+                  strokeWidth="1.4"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            ),
+          };
+          return (
+            <div
+              key={tab.label}
+              className="flex flex-col items-center gap-0.5"
+              style={{ flex: 1 }}
             >
-              {tab.label}
-            </span>
-          </div>
-        ))}
+              {icons[tab.label]}
+              <span
+                style={{
+                  fontSize: 10.5,
+                  fontWeight: tab.active ? 600 : 400,
+                  color: tab.active ? "#00a884" : c.timestamp,
+                }}
+              >
+                {tab.label}
+              </span>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
