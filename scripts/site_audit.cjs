@@ -1,7 +1,5 @@
 /* Full-site audit: status codes, meta uniqueness, word counts, console errors. */
-const { chromium } = require(
-  "/Users/xuqinjie/.workbuddy/binaries/node/versions/22.22.2-2/lib/node_modules/@playwright/cli/node_modules/playwright"
-);
+const { chromium } = require("playwright-core");
 
 const ROUTES = [
   "/",
@@ -17,6 +15,11 @@ const ROUTES = [
   "/blog/messaging-app-ui-colour-reference",
   "/acceptable-use", "/privacy", "/about",
   "/examples",
+  "/examples/whatsapp-chat-generator", "/examples/messenger-chat-generator",
+  "/examples/group-chat-generator", "/examples/fake-text-message-generator",
+  "/examples/instagram-dm-generator", "/examples/snapchat-chat-generator",
+  "/examples/telegram-chat-generator", "/examples/discord-chat-generator",
+  "/examples/whatsapp-call-generator", "/examples/android-sms-generator",
 ];
 
 (async () => {

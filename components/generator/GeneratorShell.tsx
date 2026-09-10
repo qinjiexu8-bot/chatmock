@@ -316,7 +316,7 @@ export default function GeneratorShell({ platformId }: Props) {
 
       <div className="text-center pb-6 -mt-1">
         <Link
-          href="/examples"
+          href={`/examples/${livePages.find((p) => p.platformId === platformId)?.slug ?? ""}`}
           className="inline-flex items-center gap-1 text-[13.5px] font-medium text-primary hover:underline underline-offset-2"
         >
           See {theme.name} screenshot examples →

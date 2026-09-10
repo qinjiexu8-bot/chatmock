@@ -1,17 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteFooter, SiteHeader, JsonLd } from "@/components/SiteChrome";
-import TextMessageChat from "@/components/chats/TextMessageChat";
-import WhatsAppChat from "@/components/chats/WhatsAppChat";
-import MessengerChat from "@/components/chats/MessengerChat";
-import DiscordChat from "@/components/chats/DiscordChat";
-import TelegramChat from "@/components/chats/TelegramChat";
-import InstagramChat from "@/components/chats/InstagramChat";
-import SnapchatChat from "@/components/chats/SnapchatChat";
-import WhatsAppCallLog from "@/components/chats/WhatsAppCallLog";
-import AndroidSmsChat from "@/components/chats/AndroidSmsChat";
-import { getTheme } from "@/lib/themes";
-import { examples, TOPICS, type ExampleItem } from "@/lib/examples";
+import { ExampleCard } from "@/components/ExampleGallery";
+import { examples, TOPICS } from "@/lib/examples";
 import { livePages, site, abs } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -20,82 +11,6 @@ export const metadata: Metadata = {
     "Browse realistic chat screenshot examples by scene: creator DMs, team workflows, group threads and everyday plans. Every example is rendered live — open the matching free generator and make your own.",
   alternates: { canonical: abs("/examples") },
 };
-
-/** 与 GeneratorShell 相同的平台 → 渲染组件映射（纯展示，服务端可渲染）。 */
-function ChatRenderer({ item }: { item: ExampleItem }) {
-  const theme = getTheme(item.platformId);
-  const { conversation } = item;
-  switch (item.platformId) {
-    case "whatsapp":
-    case "group-chat":
-      return <WhatsAppChat conversation={conversation} theme={theme} />;
-    case "text-message":
-      return <TextMessageChat conversation={conversation} theme={theme} />;
-    case "messenger":
-      return <MessengerChat conversation={conversation} theme={theme} />;
-    case "discord":
-      return <DiscordChat conversation={conversation} theme={theme} />;
-    case "telegram":
-      return <TelegramChat conversation={conversation} theme={theme} />;
-    case "instagram-dm":
-      return <InstagramChat conversation={conversation} theme={theme} />;
-    case "snapchat":
-      return <SnapchatChat conversation={conversation} theme={theme} />;
-    case "whatsapp-call":
-      return <WhatsAppCallLog conversation={conversation} theme={theme} />;
-    case "android-sms":
-      return <AndroidSmsChat conversation={conversation} theme={theme} />;
-    default:
-      return null;
-  }
-}
-
-const SCALE = 0.78; // 390 宽的屏幕内容缩放进卡片
-
-function ExampleCard({ item, platformName }: { item: ExampleItem; platformName: string }) {
-  const gen = livePages.find((p) => p.platformId === item.platformId);
-  return (
-    <article className="w-[312px] shrink-0">
-      <div className="overflow-hidden rounded-[var(--radius-card)] border border-black/10 bg-white shadow-[0_1px_3px_rgba(0,0,0,0.05)]">
-        <div
-          className="overflow-hidden"
-          style={{ height: Math.round(780 * SCALE), width: Math.round(390 * SCALE) }}
-        >
-          <div
-            style={{
-              width: 390,
-              height: 780,
-              transform: `scale(${SCALE})`,
-              transformOrigin: "top left",
-            }}
-          >
-            <ChatRenderer item={item} />
-          </div>
-        </div>
-      </div>
-      <div className="mt-3 px-1">
-        <span className="inline-block rounded-full bg-primary/10 px-2.5 py-0.5 text-[11.5px] font-medium text-primary">
-          {platformName}
-          {item.conversation.mode === "dark" ? " · Dark" : ""}
-        </span>
-        <h3 className="mt-2 text-[16.5px] font-semibold leading-snug tracking-tight text-foreground">
-          {item.title}
-        </h3>
-        <p className="mt-1.5 text-[13.5px] leading-relaxed text-muted-foreground">
-          {item.description}
-        </p>
-        {gen ? (
-          <Link
-            href={`/${gen.slug}`}
-            className="mt-2 inline-flex items-center gap-1 text-[13.5px] font-medium text-primary hover:underline underline-offset-2"
-          >
-            Open the {gen.name} generator →
-          </Link>
-        ) : null}
-      </div>
-    </article>
-  );
-}
 
 export default function ExamplesPage() {
   const nameOf = (platformId: string) =>
@@ -126,7 +41,7 @@ export default function ExamplesPage() {
               "@type": "ListItem",
               position: i + 1,
               name: e.title,
-              url: gen ? abs(`/${gen.slug}`) : abs("/examples"),
+              url: gen ? abs(`/examples/${gen.slug}`) : abs("/examples"),
             };
           }),
         }}
@@ -200,25 +115,24 @@ export default function ExamplesPage() {
           );
         })}
 
-        {/* ---------------- 平台速览 ---------------- */}
+        {/* ---------------- 平台速览（链到分平台子画廊） ---------------- */}
         <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-14">
           <div className="hairline" />
           <h2 className="font-display mt-8 text-[24px] sm:text-[27px] font-semibold tracking-tight text-foreground">
-            Every example starts in a free generator
+            Browse the gallery by platform
           </h2>
           <p className="mt-2 max-w-2xl text-[15px] leading-relaxed text-muted-foreground">
-            Each scene above was made with one of the tools below. Open any generator and you
-            start from a conversation shaped like these examples — then edit every name,
-            message, timestamp and colour.
+            Each platform has its own example gallery with scene breakdowns, the design
+            details we reproduce and answers to common mockup questions.
           </p>
           <div className="mt-5 flex flex-wrap gap-2">
             {livePages.map((p) => (
               <Link
                 key={p.slug}
-                href={`/${p.slug}`}
+                href={`/examples/${p.slug}`}
                 className="rounded-full border border-black/10 bg-white/80 px-4 py-1.5 text-[13px] text-black/70 transition hover:border-primary/40 hover:text-primary"
               >
-                {p.name} generator
+                {p.name} examples
               </Link>
             ))}
           </div>

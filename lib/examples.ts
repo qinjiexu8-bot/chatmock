@@ -340,4 +340,203 @@ export const examples: ExampleItem[] = [
       ],
     }),
   },
+  // ------------------------------------------------ Platform gallery #2
+  {
+    id: "ig-cafe",
+    platformId: "instagram-dm",
+    topic: "everyday",
+    title: "Cafe date planning",
+    description:
+      "A casual Instagram DM exchange with the compact bubble stack and double-tap energy — weekend plans that stay light and visual.",
+    conversation: conv("instagram-dm", {
+      title: "Rina",
+      subtitle: "",
+      dateSeparator: "Today",
+      deliveryText: "Seen",
+      participants: [self(), other("p1", "Rina")],
+      messages: [
+        m("e1", "self", "That new place near the station looks so good", "15:12"),
+        m("e2", "p1", "Right?? The latte art alone is worth the trip", "15:14"),
+        m("e3", "self", "Saturday around 2? I'll book a table", "15:15"),
+        m("e4", "p1", "Works for me ☕", "15:18"),
+      ],
+    }),
+  },
+  {
+    id: "im-movienight",
+    platformId: "text-message",
+    topic: "everyday",
+    title: "Movie night invite",
+    description:
+      "Green and grey iMessage bubbles with typing-indicator pacing — the classic two-thumb Friday night thread on iPhone.",
+    conversation: conv("text-message", {
+      title: "Sam",
+      subtitle: "",
+      dateSeparator: "Today 9:41",
+      deliveryText: "Delivered",
+      participants: [self(), other("p1", "Sam")],
+      messages: [
+        m("e1", "self", "Cinema at 8? The new one everyone's posting about", "17:40"),
+        m("e2", "p1", "I was literally about to text you the same thing", "17:41"),
+        m("e3", "self", "Haha great minds. Row F back left?", "17:42"),
+        m("e4", "p1", "Booked. Snacks on me 🍿", "17:45"),
+      ],
+    }),
+  },
+  {
+    id: "ms-family",
+    platformId: "messenger",
+    topic: "everyday",
+    title: "Sunday family dinner",
+    description:
+      "A Messenger thread in dark mode with the Seen marker — coordinating a family roast across three time zones.",
+    conversation: conv("messenger", {
+      mode: "dark",
+      title: "Mum",
+      subtitle: "Active 2h ago",
+      dateSeparator: "Today 9:41",
+      deliveryText: "Seen",
+      participants: [self(), other("p1", "Mum")],
+      messages: [
+        m("e1", "p1", "Sunday roast is on. 1pm, everyone's coming.", "10:05"),
+        m("e2", "self", "I'll bring dessert — the one from the market?", "10:12"),
+        m("e3", "p1", "Perfect. Your sister's bringing the dog.", "10:15"),
+        m("e4", "self", "Best news all week 😄", "10:16"),
+      ],
+    }),
+  },
+  {
+    id: "dc-event",
+    platformId: "discord",
+    topic: "creator",
+    title: "Community event announcement",
+    description:
+      "A creator pinning an event in #announcements with coloured roles and quick member reactions — Discord's community rhythm in one screen.",
+    conversation: conv("discord", {
+      title: "announcements",
+      subtitle: "Community hub",
+      dateSeparator: "Today",
+      participants: [
+        self(),
+        other("p1", "mod_jules", "#f0b232"),
+        other("p2", "pixelpine", "#5865f2"),
+      ],
+      messages: [
+        m("e1", "p1", "Community game night this Friday, 8pm UTC — same voice channel.", "12:00"),
+        m("e2", "p2", "Adding it to the calendar now.", "12:04"),
+        m("e3", "p1", "Prizes for the winners, as always 👑", "12:06"),
+        m("e4", "self", "Count me in!", "12:11"),
+      ],
+    }),
+  },
+  {
+    id: "tg-handoff",
+    platformId: "telegram",
+    topic: "team",
+    title: "Sprint handoff notes",
+    description:
+      "Telegram in dark mode with double ticks — a tidy end-of-sprint handoff that reads like the tool it stands in for.",
+    conversation: conv("telegram", {
+      mode: "dark",
+      title: "Omar",
+      subtitle: "last seen recently",
+      dateSeparator: "Today",
+      participants: [self(), other("p1", "Omar")],
+      messages: [
+        m("e1", "self", "Sprint 14 wrap: all tickets closed except the export bug.", "18:02"),
+        m("e2", "p1", "I'll take the export bug into Sprint 15.", "18:10"),
+        m("e3", "self", "Docs are updated too — handoff notes in Notion.", "18:12", "read"),
+        m("e4", "p1", "Legend. See you at planning Monday 🙌", "18:15"),
+      ],
+    }),
+  },
+  {
+    id: "sc-study",
+    platformId: "snapchat",
+    topic: "team",
+    title: "Study session streaks",
+    description:
+      "Snapchat's playful side: lavender bubbles, a Delivered line and the kind of short bursts students actually send between classes.",
+    conversation: conv("snapchat", {
+      mode: "dark",
+      title: "Jo",
+      subtitle: "",
+      dateSeparator: "Today",
+      deliveryText: "Delivered",
+      participants: [self(), other("p1", "Jo")],
+      messages: [
+        m("e1", "self", "Library at 4? Exam cram round two", "13:30"),
+        m("e2", "p1", "Ugh fine. Coffee first though", "13:34"),
+        m("e3", "self", "Obviously. I'll grab us a table", "13:35"),
+        m("e4", "p1", "Bringing flash cards 📚", "13:39"),
+      ],
+    }),
+  },
+  {
+    id: "as-appointment",
+    platformId: "android-sms",
+    topic: "team",
+    title: "Appointment confirmation",
+    description:
+      "A business-style SMS thread with the Read marker and Material bubbles — appointment reminders are one of the most recreated text scenes.",
+    conversation: conv("android-sms", {
+      title: "Bright Smile Dental",
+      subtitle: "Mobile",
+      dateSeparator: "Today",
+      deliveryText: "Read",
+      participants: [self(), other("p1", "Bright Smile Dental")],
+      messages: [
+        m("e1", "p1", "Reminder: your check-up is Thu 11 Sep at 3:30pm.", "9:00"),
+        m("e2", "self", "Can I move it to 4:30?", "9:22"),
+        m("e3", "p1", "Done — see you Thu at 4:30pm.", "9:25"),
+      ],
+    }),
+  },
+  {
+    id: "wc-family",
+    platformId: "whatsapp-call",
+    topic: "everyday",
+    title: "Calls with home",
+    description:
+      "A personal call history mixing voice and video entries across a couple of days — the warm, everyday counterpart to a chat thread.",
+    conversation: conv("whatsapp-call", {
+      title: "Calls",
+      subtitle: "",
+      participants: [
+        self(),
+        other("p_emma", "Mum"),
+        other("p_marcus", "Dad"),
+        other("p_sofia", "Aisha"),
+      ],
+      messages: [
+        m("c1", "p_emma", "32 min", "20:15", undefined, "outgoing"),
+        m("c2", "p_sofia", "8 min", "18:40", undefined, "incoming"),
+        m("c3", "p_marcus", "", "Sunday", undefined, "missed"),
+        m("c4", "p_emma", "14 min", "Sunday", undefined, "incoming"),
+      ],
+    }),
+  },
+  {
+    id: "gc-flatmates",
+    platformId: "group-chat",
+    topic: "everyday",
+    title: "Flatmates shopping list",
+    description:
+      "Three flatmates split the weekly shop with coloured names and quick receipts — the mundane group thread every household knows.",
+    conversation: conv("group-chat", {
+      title: "Flat 4B",
+      subtitle: "You, Taylor, Priya",
+      participants: [
+        self(),
+        other("p_taylor", "Taylor", "#02a698"),
+        other("p_priya", "Priya", "#e542a3"),
+      ],
+      messages: [
+        m("e1", "p_taylor", "Adding to the list: milk, rice, laundry pods", "11:20"),
+        m("e2", "p_priya", "We're out of coffee too. The good one.", "11:22"),
+        m("e3", "self", "Got it. Doing the shop at 6, anyone home?", "11:25", "read"),
+        m("e4", "p_taylor", "I will be — leave the bags, I'll unpack", "11:26"),
+      ],
+    }),
+  },
 ];

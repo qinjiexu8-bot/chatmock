@@ -19,6 +19,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     })),
     { url: abs("/examples"), lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    ...livePages.map((p) => ({
+      url: abs(`/examples/${p.slug}`),
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
     { url: abs("/blog"), lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     ...blogPosts.map((p) => ({
       url: abs(`/blog/${p.slug}`),
