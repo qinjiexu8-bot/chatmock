@@ -140,3 +140,18 @@ body {
   padding: 1px 5px;
   font-size: 13.5px;
 }
+
+/* 移动端汉堡菜单下拉动画 */
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.menu-pop {
+  animation: menu-in 160ms ease-out;
+}

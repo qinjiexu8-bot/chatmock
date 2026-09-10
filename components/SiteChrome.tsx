@@ -1,12 +1,12 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { livePages, site } from "@/lib/seo";
 
 export function SiteHeader({ current }: { current?: string }) {
-  const links = [
-    ...livePages.slice(0, 4).map((p) => ({ href: `/${p.slug}`, label: p.name })),
-    { href: "/examples", label: "Examples" },
-    { href: "/blog", label: "Blog" },
-  ];
+  const [open, setOpen] = useState(false);
+  const close = () => setOpen(false);
 
   const navLinkClass = (slug: string) =>
     `shrink-0 px-3 min-h-10 inline-flex items-center rounded-full transition ${
@@ -15,28 +15,40 @@ export function SiteHeader({ current }: { current?: string }) {
         : "hover:bg-black/5 hover:text-black"
     }`;
 
+  const menuLinkClass = (slug: string) =>
+    `inline-flex items-center px-3.5 py-2.5 rounded-xl text-[14px] transition ${
+      current === slug
+        ? "bg-primary/10 text-primary font-medium"
+        : "text-black/75 hover:bg-black/5"
+    }`;
+
   return (
-    <header className="sticky top-0 z-30 backdrop-blur bg-white/75 border-b border-black/[0.06]">
+    <header className="sticky top-0 z-30 backdrop-blur bg-white/85 border-b border-black/[0.06]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* 桌面：3 列网格；移动：logo + CTA */}
-        <div className="grid h-16 grid-cols-[1fr_auto] lg:grid-cols-[1fr_auto_1fr] items-center gap-3">
-          {/* Logo：手写体，hover 微旋转（竞品同款细节） */}
+        {/* 第一行：桌面 3 列网格（logo / 导航 / CTA）；移动 logo + 汉堡 */}
+        <div className="grid h-14 lg:h-16 grid-cols-[1fr_auto] lg:grid-cols-[1fr_auto_1fr] items-center gap-3">
           <Link href="/" className="group inline-flex items-center gap-2 select-none">
             <span className="font-script text-primary text-[1.3rem] lg:text-[1.45rem] leading-relaxed transition-transform duration-200 ease-out group-hover:-rotate-2 group-hover:scale-[1.03]">
               {site.name}
             </span>
           </Link>
 
-          {/* 中部导航（桌面） */}
+          {/* 桌面导航 */}
           <nav className="hidden lg:flex items-center gap-1 text-[13.5px] text-black/60">
-            {links.map((l) => (
-              <Link key={l.href} href={l.href} className={navLinkClass(l.href.slice(1))}>
-                {l.label}
+            {livePages.slice(0, 4).map((p) => (
+              <Link key={p.slug} href={`/${p.slug}`} className={navLinkClass(p.slug)}>
+                {p.name}
               </Link>
             ))}
+            <Link href="/examples" className={navLinkClass("examples")}>
+              Examples
+            </Link>
+            <Link href="/blog" className={navLinkClass("blog")}>
+              Blog
+            </Link>
           </nav>
 
-          {/* 右侧 CTA */}
+          {/* 桌面右侧 CTA */}
           <span className="hidden lg:flex justify-end">
             <Link
               href={`/${livePages[0]?.slug ?? "whatsapp-chat-generator"}`}
@@ -46,26 +58,72 @@ export function SiteHeader({ current }: { current?: string }) {
             </Link>
           </span>
 
-          {/* 移动端右 CTA 简化 */}
-          <span className="lg:hidden justify-self-end">
-            <Link
-              href={`/${livePages[0]?.slug ?? "whatsapp-chat-generator"}`}
-              className="inline-flex items-center h-9 px-3.5 rounded-full bg-primary text-primary-foreground text-[12.5px] font-medium"
-            >
-              Start →
-            </Link>
-          </span>
+          {/* 移动端汉堡按钮 */}
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-label={open ? "Close menu" : "Open menu"}
+            className="lg:hidden justify-self-end inline-flex h-10 w-10 items-center justify-center rounded-full text-black/70 transition hover:bg-black/5"
+          >
+            {open ? (
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+                <path
+                  d="M3 3l12 12M15 3L3 15"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                />
+              </svg>
+            ) : (
+              <svg width="20" height="16" viewBox="0 0 20 16" fill="none" aria-hidden="true">
+                <path
+                  d="M1 1.5h18M1 8h18M1 14.5h18"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                />
+              </svg>
+            )}
+          </button>
         </div>
-
-        {/* 移动端第二行：横向滚动导航 */}
-        <nav className="flex gap-1 overflow-x-auto pb-2 -mx-1 px-1 lg:hidden text-[13px] text-black/60 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-          {links.map((l) => (
-            <Link key={l.href} href={l.href} className={navLinkClass(l.href.slice(1))}>
-              {l.label}
-            </Link>
-          ))}
-        </nav>
       </div>
+
+      {/* 移动端下拉菜单 */}
+      {open ? (
+        <div className="lg:hidden menu-pop border-t border-black/[0.06] bg-white/95 px-4 pt-4 pb-5 max-h-[calc(100dvh-3.5rem)] overflow-y-auto">
+          <p className="px-1 text-[11px] font-medium uppercase tracking-wider text-black/40">
+            Generators
+          </p>
+          <div className="mt-2 grid grid-cols-2 gap-1.5">
+            {livePages.map((p) => (
+              <Link key={p.slug} href={`/${p.slug}`} onClick={close} className={menuLinkClass(p.slug)}>
+                {p.name}
+              </Link>
+            ))}
+          </div>
+
+          <p className="mt-4 px-1 text-[11px] font-medium uppercase tracking-wider text-black/40">
+            Explore
+          </p>
+          <div className="mt-2 grid grid-cols-2 gap-1.5">
+            <Link href="/examples" onClick={close} className={menuLinkClass("examples")}>
+              Examples
+            </Link>
+            <Link href="/blog" onClick={close} className={menuLinkClass("blog")}>
+              Blog
+            </Link>
+          </div>
+
+          <Link
+            href={`/${livePages[0]?.slug ?? "whatsapp-chat-generator"}`}
+            onClick={close}
+            className="mt-5 flex h-11 items-center justify-center rounded-full bg-primary text-primary-foreground text-[14px] font-medium"
+          >
+            Start creating →
+          </Link>
+        </div>
+      ) : null}
     </header>
   );
 }
