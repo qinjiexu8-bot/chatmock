@@ -37,8 +37,12 @@ export async function generateMetadata({
       url: abs(`/examples/${slug}`),
       title: `${page.name} Chat Screenshot Examples — Rendered Live`,
       description: `Study real ${page.name} mockup scenes, then open the free generator and make your own. No signup, no watermark.`,
+      images: [abs(`/og/examples/${slug}`)],
     },
-    twitter: { card: "summary_large_image" },
+    twitter: {
+      card: "summary_large_image",
+      images: [abs(`/og/examples/${slug}`)],
+    },
   };
 }
 

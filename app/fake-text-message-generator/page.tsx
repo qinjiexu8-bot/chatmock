@@ -16,11 +16,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: abs(CANONICAL),
+    images: [abs(`/og/${SLUG}`)],
     title: "Free iPhone Text Message Generator — No Signup, No Watermark",
     description:
       "Create realistic iPhone text message mockups in your browser and export high-resolution PNGs. Free, no signup, nothing uploaded.",
   },
-  twitter: { card: "summary_large_image" },
+  twitter: {
+    card: "summary_large_image",
+    images: [abs(`/og/${SLUG}`)],
+  },
 };
 
 const FAQ = [

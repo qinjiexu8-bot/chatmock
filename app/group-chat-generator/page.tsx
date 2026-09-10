@@ -16,11 +16,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: abs(CANONICAL),
+    images: [abs(`/og/${SLUG}`)],
     title: "Free Group Chat Generator — Multiple Participants, No Signup",
     description:
       "Build realistic WhatsApp group chat mockups with coloured sender names and multiple participants. Free, no signup, PNG export.",
   },
-  twitter: { card: "summary_large_image" },
+  twitter: {
+    card: "summary_large_image",
+    images: [abs(`/og/${SLUG}`)],
+  },
 };
 
 const FAQ = [

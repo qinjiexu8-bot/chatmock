@@ -16,11 +16,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: abs(CANONICAL),
+    images: [abs(`/og/${SLUG}`)],
     title: "Free Android SMS Generator — Google Messages Mockup",
     description:
       "Build realistic Google Messages mockups with Material blue bubbles and Read receipts. Free, no signup, PNG export.",
   },
-  twitter: { card: "summary_large_image" },
+  twitter: {
+    card: "summary_large_image",
+    images: [abs(`/og/${SLUG}`)],
+  },
 };
 
 const FAQ = [

@@ -16,11 +16,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: abs(CANONICAL),
+    images: [abs(`/og/${SLUG}`)],
     title: "Free Discord Chat Generator — Server Message Mockups",
     description:
       "Build realistic Discord channel message mockups with coloured usernames and avatars. Free, no signup, PNG export.",
   },
-  twitter: { card: "summary_large_image" },
+  twitter: {
+    card: "summary_large_image",
+    images: [abs(`/og/${SLUG}`)],
+  },
 };
 
 const FAQ = [

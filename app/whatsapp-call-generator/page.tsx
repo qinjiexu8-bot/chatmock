@@ -16,11 +16,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: abs(CANONICAL),
+    images: [abs(`/og/${SLUG}`)],
     title: "Free WhatsApp Call Log Generator — No Signup",
     description:
       "Build realistic WhatsApp call log mockups with direction arrows and the Calls tab layout. Free, no signup, PNG export.",
   },
-  twitter: { card: "summary_large_image" },
+  twitter: {
+    card: "summary_large_image",
+    images: [abs(`/og/${SLUG}`)],
+  },
 };
 
 const FAQ = [
