@@ -6,6 +6,7 @@ import PhoneFrame from "@/components/PhoneFrame";
 import TextMessageChat from "@/components/chats/TextMessageChat";
 import WhatsAppChat from "@/components/chats/WhatsAppChat";
 import MessengerChat from "@/components/chats/MessengerChat";
+import DiscordChat from "@/components/chats/DiscordChat";
 import { exportNodeAsPng } from "@/lib/export";
 import { getTheme } from "@/lib/themes";
 import {
@@ -25,6 +26,22 @@ const PLATFORM_DEFAULTS: Partial<Record<PlatformId, Partial<Conversation>>> = {
     dateSeparator: "Today 9:41",
     subtitle: "Active now",
     deliveryText: "Seen",
+  },
+  discord: {
+    title: "general",
+    subtitle: "Welcome to the server",
+    dateSeparator: "Today",
+    participants: [
+      { id: "self", name: "You", avatar: null, isSelf: true, color: "#5865f2" },
+      { id: "p_alex", name: "alex_plays", avatar: null, isSelf: false, color: "#eb459e" },
+      { id: "p_sam", name: "samstream", avatar: null, isSelf: false, color: "#57f287" },
+    ],
+    messages: [
+      { id: "d1", senderId: "p_alex", text: "Stream starts at 8, do not be late.", timestamp: "7:52" },
+      { id: "d2", senderId: "p_sam", text: "Setting up my mic right now.", timestamp: "7:54" },
+      { id: "d3", senderId: "self", text: "I will join from the laptop.", timestamp: "7:56" },
+      { id: "d4", senderId: "p_alex", text: "Ping me when you are in.", timestamp: "7:57" },
+    ],
   },
   "group-chat": {
     title: "Weekend Trip",
@@ -161,6 +178,8 @@ export default function GeneratorShell({ platformId }: Props) {
                 <TextMessageChat conversation={conversation} theme={theme} />
               ) : platformId === "messenger" ? (
                 <MessengerChat conversation={conversation} theme={theme} />
+              ) : platformId === "discord" ? (
+                <DiscordChat conversation={conversation} theme={theme} />
               ) : null}
             </PhoneFrame>
           </div>

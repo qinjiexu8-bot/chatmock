@@ -218,11 +218,77 @@ export const messengerTheme: PlatformTheme = {
   supportedModes: ["light", "dark"],
 };
 
+/**
+ * Discord（频道消息，桌面/移动通用布局）
+ *
+ * 第五种结构 —— 与前四种完全不同：
+ * 1. 没有气泡：消息是通栏"行"，左右对齐概念消失（自己的消息也靠左）
+ * 2. 每组消息开头一行：40px 头像 + 彩色用户名 + "Today at 9:32"，续行只缩进文本
+ * 3. 暗色是默认主题（#313338），这是 Discord 的身份色
+ */
+export const discordTheme: PlatformTheme = {
+  id: "discord",
+  name: "Discord",
+  slug: "discord-chat-generator",
+  trademark: { name: "Discord", owner: "Discord Inc." },
+  colors: {
+    light: {
+      chatBg: "#ffffff",
+      headerBg: "#ffffff",
+      headerText: "#060607",
+      headerSubText: "#949ba4",
+      incomingBubble: "#ffffff",
+      incomingText: "#313338",
+      outgoingBubble: "#ffffff",
+      outgoingText: "#313338",
+      timestamp: "#949ba4",
+      accent: "#5865f2",
+      pillBg: "#ffffff",
+      pillText: "#949ba4",
+      footerBg: "#ffffff",
+    },
+    dark: {
+      chatBg: "#313338",
+      headerBg: "#313338",
+      headerText: "#f2f3f5",
+      headerSubText: "#949ba4",
+      incomingBubble: "#313338",
+      incomingText: "#dbdee1",
+      outgoingBubble: "#313338",
+      outgoingText: "#dbdee1",
+      timestamp: "#949ba4",
+      accent: "#5865f2",
+      pillBg: "#313338",
+      pillText: "#949ba4",
+      footerBg: "#313338",
+    },
+  },
+  bubble: {
+    radius: 0,
+    maxWidthPct: 100,
+    fontSize: 15,
+    fontFamily: SYSTEM_FONT,
+    tailOnFirst: false,
+  },
+  features: {
+    receipt: false,
+    avatar: true,
+    dateSeparator: true,
+    senderNames: true,
+    imageMessage: true,
+    perMessageTimestamp: false,
+    deliveryLine: false,
+  },
+  statusBarStyle: "ios",
+  supportedModes: ["light", "dark"],
+};
+
 export const themes: Partial<Record<PlatformId, PlatformTheme>> = {
   whatsapp: whatsappTheme,
   "text-message": textMessageTheme,
   "group-chat": groupChatTheme,
   messenger: messengerTheme,
+  discord: discordTheme,
 };
 
 export function getTheme(id: PlatformId): PlatformTheme {

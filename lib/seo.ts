@@ -101,7 +101,7 @@ export const generatorPages: GeneratorPage[] = [
     description:
       "Build Discord server conversation mockups with roles, coloured usernames and avatars. Free, no signup, export a high-resolution PNG.",
     batch: "P1",
-    live: false,
+    live: true,
   },
   {
     platformId: "telegram",
