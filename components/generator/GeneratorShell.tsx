@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import EditorPanel from "@/components/EditorPanel";
 import PhoneFrame from "@/components/PhoneFrame";
 import TextMessageChat from "@/components/chats/TextMessageChat";
@@ -283,6 +284,15 @@ export default function GeneratorShell({ platformId }: Props) {
         <p className="px-5 pb-4 text-[11.5px] text-black/40 text-center">
           Everything runs in your browser. Nothing you type is uploaded to a server.
         </p>
+      </div>
+
+      <div className="text-center pb-6 -mt-1">
+        <Link
+          href="/examples"
+          className="inline-flex items-center gap-1 text-[13.5px] font-medium text-primary hover:underline underline-offset-2"
+        >
+          See {theme.name} screenshot examples →
+        </Link>
       </div>
     </div>
   );

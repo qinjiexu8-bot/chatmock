@@ -53,7 +53,9 @@ export default function Post() {
             ethical line sits. The{" "}
             <Link href="/whatsapp-chat-generator">WhatsApp generator</Link>,{" "}
             <Link href="/fake-text-message-generator">text message generator</Link> and other
-            ChatMock tools are built exactly for this kind of staged storytelling.
+            ChatMock tools are built exactly for this kind of staged storytelling — and the{" "}
+            <Link href="/examples">examples gallery</Link> shows finished scenes from DM
+            outreach to group threads if you need a starting structure.
           </p>
 
           <h2>Why chat screenshots work on screen</h2>

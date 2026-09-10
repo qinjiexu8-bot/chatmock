@@ -60,6 +60,12 @@ export default function HomePage() {
                 Open the WhatsApp generator →
               </Link>
               <Link
+                href="/examples"
+                className="px-6 py-3 rounded-full border border-black/12 bg-white/70 text-[14.5px] hover:border-black/30 transition"
+              >
+                Browse examples
+              </Link>
+              <Link
                 href="#generators"
                 className="px-6 py-3 rounded-full border border-black/12 bg-white/70 text-[14.5px] hover:border-black/30 transition"
               >

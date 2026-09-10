@@ -52,7 +52,9 @@ export default function Post() {
             <Link href="/whatsapp-chat-generator">WhatsApp chat generator</Link> — no signup,
             no watermark, everything rendered in your own browser. The same principles apply
             whichever tool you use, so it is worth reading even if you end up building the
-            mockup by hand in Figma.
+            mockup by hand in Figma. If you would rather start from a finished scene, the{" "}
+            <Link href="/examples">chat screenshot examples</Link> gallery shows complete
+            conversations you can borrow structure from.
           </p>
 
           <h2>Step 1: Start from the scene, not the screen</h2>
