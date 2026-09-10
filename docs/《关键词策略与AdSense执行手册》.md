@@ -421,6 +421,21 @@ Autocomplete 只给相对热度。上线后用 GSC 回填真实数据：
 
 采集脚本已落地：`scripts/keyword_research.py`（采集）+ `scripts/analyze_keywords.py`（分析），改种子词即可重跑。
 
+**触发式迭代规则（GSC 数据 → 动作对照，2026-09-10 定稿）**
+
+背景数据：fake 系词占大盘热度 79%，mockup 系仅 2%；首页 H1 "Free chat mockup generator" 是品牌防守位（域名对齐 + AdSense 安全），不改动。fake 意图的三层承接已闭环：URL（fake-text-message-generator）→ 博客 how-to 文 → 生成器页 H2/FAQ（commit bcdf438：WhatsApp 页 "What a fake WhatsApp chat generator is — and what it isn't" + iPhone 短信页 "Fake text messages, done responsibly" + 两页 fake FAQ，JSON-LD 自动同步）。
+
+| GSC 触发条件（上线后观察） | 动作 | 优先级 |
+|---|---|---|
+| WhatsApp 页有 fake 系曝光但排名 20-50 不动 | 正文再织 fake 系同义词（H3 级小节），**不动 title/H1** | 第一刀 |
+| fake 系曝光有、CTR < 3% | 重写 meta description（加入 free/no signup 转化词） | 第二刀 |
+| 排名进前 20 但 CTR 仍低 | 此时才考虑 title 加 "fake"（品牌取舍让位于流量） | 最后手段 |
+| 其余 8 页某页出现 fake/平台系曝光 | 给该页补同款 H2 + FAQ（照 bcdf438 模式） | 按曝光定向 |
+| 某平台生成器页曝光/转化明显起量 | 补该平台博客 how-to 指南（剩 5 篇存量） | 按数据定，不预铺 |
+| 索引率 < 80%（W+4） | 查内链覆盖 + sitemap，不急着加内容 | 基线 |
+
+红线不变：任何内容扩充必须单页定制、不碰 how-to 句式与博客蚕食、不做多语言/多模板批量生成（见 8.3 scaled content）。
+
 ### 6.3 验收指标
 
 | 指标 | 目标 | 观测 |
