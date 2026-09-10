@@ -31,17 +31,30 @@ function luminance(hex: string): number {
   return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 }
 
+/**
+ * iOS 状态栏三件套，按 SF Symbols 真实几何绘制：
+ * - cellularbars：4 根胶囊形信号条（rx ≈ 半宽，非小圆角），高度 4.5/7/9.5/12
+ * - wifi：实心扇形弧带（真机不是描边弧线），两条环带 + 底部圆点
+ * - battery：圆角描边外壳（35% 透明度）+ 内部胶囊电量 + 右侧逗号形正极
+ */
+
 function SignalBars({ level, color }: { level: number; color: string }) {
+  const bars = [
+    { x: 0, h: 4.5 },
+    { x: 4.8, h: 7 },
+    { x: 9.6, h: 9.5 },
+    { x: 14.4, h: 12 },
+  ];
   return (
     <svg width="18" height="12" viewBox="0 0 18 12" fill="none">
-      {[0, 1, 2, 3].map((i) => (
+      {bars.map((b, i) => (
         <rect
           key={i}
-          x={i * 4.6}
-          y={9 - i * 2.6}
-          width="3"
-          height={3 + i * 2.6}
-          rx="0.8"
+          x={b.x}
+          y={12 - b.h}
+          width="3.5"
+          height={b.h}
+          rx="1.2"
           fill={color}
           opacity={i < level ? 1 : 0.3}
         />
@@ -51,49 +64,47 @@ function SignalBars({ level, color }: { level: number; color: string }) {
 }
 
 function WifiIcon({ color }: { color: string }) {
+  const c = 9.9; // 各弧带的公共圆心（底部圆点中心）
+  const sin = 0.669; // sin 42° — 弧带半张角
+  const cos = 0.743; // cos 42°
+  const band = (rIn: number, rOut: number) => {
+    const ix = rIn * sin, iy = c - rIn * cos;
+    const ox = rOut * sin, oy = c - rOut * cos;
+    return `M${(8 - ix).toFixed(2)} ${iy.toFixed(2)} A${rIn} ${rIn} 0 0 1 ${(8 + ix).toFixed(2)} ${iy.toFixed(2)} L${(8 + ox).toFixed(2)} ${oy.toFixed(2)} A${rOut} ${rOut} 0 0 0 ${(8 - ox).toFixed(2)} ${oy.toFixed(2)} Z`;
+  };
   return (
-    <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
-      <path
-        d="M1 4.2a10 10 0 0 1 14 0"
-        stroke={color}
-        strokeWidth="1.6"
-        strokeLinecap="round"
-      />
-      <path
-        d="M3.6 6.9a6.4 6.4 0 0 1 8.8 0"
-        stroke={color}
-        strokeWidth="1.6"
-        strokeLinecap="round"
-      />
-      <circle cx="8" cy="10" r="1.3" fill={color} />
+    <svg width="16" height="12" viewBox="0 0 16 12" fill={color}>
+      <path d={band(6.3, 8.6)} />
+      <path d={band(3.2, 5.5)} />
+      <circle cx="8" cy={c} r="1.4" />
     </svg>
   );
 }
 
 function Battery({ level, color }: { level: number; color: string }) {
   return (
-    <svg width="26" height="13" viewBox="0 0 26 13" fill="none">
+    <svg width="27" height="13" viewBox="0 0 27 13" fill="none">
       <rect
         x="0.5"
         y="0.5"
-        width="22"
+        width="23.5"
         height="12"
-        rx="3.5"
+        rx="3.8"
         stroke={color}
-        strokeOpacity="0.4"
+        strokeOpacity="0.35"
       />
       <rect
         x="2"
         y="2"
-        width={Math.max(2, (level / 100) * 19)}
+        width={Math.max(2, (level / 100) * 20.5)}
         height="9"
-        rx="2"
+        rx="1.8"
         fill={color}
       />
       <path
-        d="M24.2 4.4v4.2c1-.3 1.5-.9 1.5-2.1s-.5-1.8-1.5-2.1Z"
+        d="M25.5 4.4v4.2c1-.35 1.5-1.1 1.5-2.1s-.5-1.75-1.5-2.1Z"
         fill={color}
-        fillOpacity="0.5"
+        fillOpacity="0.4"
       />
     </svg>
   );
@@ -129,7 +140,7 @@ export default function PhoneFrame({
         paddingTop: 14,
         fontFamily:
           "-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif",
-        fontSize: 14,
+        fontSize: 15,
         fontWeight: 600,
         letterSpacing: "0.02em",
         color: barColor,
@@ -148,7 +159,7 @@ export default function PhoneFrame({
           background: "#000000",
         }}
       />
-      <div className="flex items-center gap-1.5">
+      <div className="flex items-center gap-[7px]">
         {/* iOS 状态栏从不显示运营商名（会被灵动岛遮住），仅 Android 样式显示 */}
         {isAndroid && statusBar.carrier ? (
           <span style={{ fontSize: 12, fontWeight: 500, marginRight: 2 }}>
