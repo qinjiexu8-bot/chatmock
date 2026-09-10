@@ -54,6 +54,10 @@ const FAQ = [
     a: "Yes — use the dedicated group chat generator. It supports multiple participants with the coloured sender names WhatsApp uses in groups, per-member names and timestamps, and the same export options as this page.",
   },
   {
+    q: "Is it legal to make a fake WhatsApp chat?",
+    a: "Creating a staged chat image for parody, teaching, design or storytelling is legal in most places and is exactly what this tool is for. Problems start when a fabricated conversation is presented as real — using one as evidence, to impersonate someone, or as part of fraud can be a crime in many jurisdictions. We keep the tool on the legitimate side: no bank, government or legal-notice templates, and a clear Acceptable Use Policy.",
+  },
+  {
     q: "Can I use the mockups commercially?",
     a: "Yes, for legitimate purposes: YouTube videos, client presentations, app store screenshots, course material, fiction and design work. You may not use them to deceive, defraud, harass, impersonate or fabricate evidence. See our Acceptable Use Policy for the full boundary.",
   },
@@ -259,6 +263,25 @@ export default function WhatsAppGeneratorPage() {
             <li>Status bar: clock, carrier name, battery percentage and signal strength</li>
             <li>Optional iPhone-style phone frame with the notch</li>
           </ul>
+
+          <h2>What a fake WhatsApp chat generator is — and what it isn&apos;t</h2>
+          <p>
+            People land on this page through different names: a fake WhatsApp chat generator,
+            a fake WhatsApp conversation maker, a WhatsApp chat screenshot creator. They all
+            describe the same tool — one that composes an image of a WhatsApp conversation
+            without a real account, a real contact or a real phone. That is exactly what the
+            editor above does: type the messages, set the ticks and timestamps, switch between
+            light and dark mode, and download a finished PNG in seconds.
+          </p>
+          <p>
+            The word <em>fake</em> in that search describes the image, not the intent. A
+            staged conversation is a prop — everyone watching the video or reading the slide
+            understands it was composed, the same way they know a stock photo is not your
+            office. What the word should never describe is an image presented as real
+            correspondence. That distinction — not the technology — decides whether using a
+            chat generator is harmless or harmful, and the section below shows what the
+            harmless side looks like in practice.
+          </p>
 
           <h2>What people use these mockups for</h2>
           <p>

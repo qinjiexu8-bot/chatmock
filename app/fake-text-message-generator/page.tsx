@@ -54,6 +54,10 @@ const FAQ = [
     a: "Yes. The delivery field accepts any text — Delivered, Read, Sending, or empty if you want no status line at all, which is how a conversation looks right after the contact replies.",
   },
   {
+    q: "Can you make fake text messages?",
+    a: "Yes — that is exactly what this page does. Enter a contact name, type the conversation bubble by bubble, choose blue iMessage styling, adjust the Delivered/Read line and export a PNG at up to 3x resolution. It runs entirely in your browser: nothing you type is uploaded, and the result is indistinguishable from a real screenshot in video edits, slide decks and mockups.",
+  },
+  {
     q: "Can I use the mockups commercially?",
     a: "Yes, for legitimate creative work: videos, presentations, course material, fiction and design. You may not use them to deceive, defraud, harass, impersonate anyone, or fabricate evidence. See the Acceptable Use Policy for the full boundary.",
   },
@@ -255,6 +259,23 @@ export default function TextMessageGeneratorPage() {
             <li>Status bar: clock, carrier, battery and signal</li>
             <li>Optional iPhone-style phone frame with the notch</li>
           </ul>
+
+          <h2>Fake text messages, done responsibly</h2>
+          <p>
+            Whether you searched for a fake text message generator, a fake iPhone message
+            creator or an iMessage screenshot maker, you are looking for the same thing: an
+            image of a conversation that never happened, composed by hand instead of captured
+            from a real phone. The answer to "can you make fake text messages?" is therefore
+            yes — type a contact and a few bubbles above, tweak the Delivered line, and
+            download the PNG. No account, no app, no upload.
+          </p>
+          <p>
+            One distinction keeps this useful instead of harmful: a fake text message is a
+            prop when its audience knows it is staged, and a forgery when it is presented as
+            real. Every use that works — films, classrooms, UX presentations, comedy sketches
+            — sits on the prop side of that line. The section below goes through what those
+            uses look like, and where the boundary sits.
+          </p>
 
           <h2>What people use these mockups for</h2>
           <p>
