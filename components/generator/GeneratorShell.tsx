@@ -212,6 +212,7 @@ export default function GeneratorShell({ platformId }: Props) {
               mode={conversation.mode}
               frame={frame}
               statusBarStyle={theme.statusBarStyle}
+              statusBarBg={theme.colors[conversation.mode].headerBg}
             >
               {platformId === "whatsapp" || platformId === "group-chat" ? (
                 <WhatsAppChat conversation={conversation} theme={theme} />

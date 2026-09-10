@@ -15,3 +15,4 @@ next-env.d.ts
 # 工作区数据与关键词采集产物，不进仓库
 .workbuddy/
 scripts/output/
+.playwright-cli/

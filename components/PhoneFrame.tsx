@@ -10,7 +10,25 @@ interface Props {
   frame?: boolean;
   /** 状态栏风格：ios=灵动岛，android=居中挖孔、时间靠左 */
   statusBarStyle?: "ios" | "android" | "none";
+  /** 状态栏背景色（一般传主题 header 背景）。不传则按明暗模式取色 */
+  statusBarBg?: string;
   children: React.ReactNode;
+}
+
+/** 相对亮度：>0.55 视为浅色背景，用深色文字 */
+function luminance(hex: string): number {
+  const m = hex.replace("#", "");
+  const full =
+    m.length === 3
+      ? m
+          .split("")
+          .map((ch) => ch + ch)
+          .join("")
+      : m;
+  const r = parseInt(full.slice(0, 2), 16) / 255;
+  const g = parseInt(full.slice(2, 4), 16) / 255;
+  const b = parseInt(full.slice(4, 6), 16) / 255;
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 }
 
 function SignalBars({ level, color }: { level: number; color: string }) {
@@ -87,11 +105,21 @@ export default function PhoneFrame({
   mode,
   frame = true,
   statusBarStyle = "ios",
+  statusBarBg,
   children,
 }: Props) {
-  const onDark = mode === "dark";
-  const barColor = onDark ? "#e9edef" : "#111b21";
   const isAndroid = statusBarStyle === "android";
+
+  // 状态栏文字色：优先按传入背景的亮度决定（WhatsApp 绿 header 要白字，
+  // Telegram/Messenger 白 header 要黑字），否则退回按模式取色
+  const barColor = statusBarBg
+    ? luminance(statusBarBg) > 0.55
+      ? "#111b21"
+      : "#f2f2f2"
+    : mode === "dark"
+      ? "#e9edef"
+      : "#111b21";
+  const barBackground = statusBarBg ?? (mode === "dark" ? "#000000" : "#ffffff");
 
   const statusBarEl = showStatusBar ? (
     <div
@@ -105,6 +133,7 @@ export default function PhoneFrame({
         fontWeight: 600,
         letterSpacing: "0.02em",
         color: barColor,
+        background: barBackground,
         flexShrink: 0,
       }}
     >
@@ -120,7 +149,8 @@ export default function PhoneFrame({
         }}
       />
       <div className="flex items-center gap-1.5">
-        {isAndroid ? null : statusBar.carrier ? (
+        {/* iOS 状态栏从不显示运营商名（会被灵动岛遮住），仅 Android 样式显示 */}
+        {isAndroid && statusBar.carrier ? (
           <span style={{ fontSize: 12, fontWeight: 500, marginRight: 2 }}>
             {statusBar.carrier}
           </span>
@@ -149,7 +179,8 @@ export default function PhoneFrame({
     >
       <div
         className="flex flex-col overflow-hidden"
-        style={{ borderRadius: 36, minHeight: 700 }}
+        // 固定高度：flex-1 的聊天区恰好填满，导出不会出现底部空洞
+        style={{ borderRadius: 36, height: 780 }}
       >
         {statusBarEl}
         <div className="flex-1 flex flex-col">{children}</div>
