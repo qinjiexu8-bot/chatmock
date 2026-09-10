@@ -1,6 +1,7 @@
 "use client";
 
 import type { Conversation, Message, PlatformTheme, ReceiptState } from "@/lib/types";
+import { doodleTile } from "@/lib/doodle";
 
 interface Props {
   conversation: Conversation;
@@ -87,6 +88,23 @@ function Avatar({
   );
 }
 
+void Avatar;
+
+/**
+ * WhatsApp 默认壁纸：浅色 = 米色底 + 白色涂鸦线稿（真机默认 doodle 壁纸）；
+ * 深色 = 纯 #0b141a（真机深色默认壁纸无明显涂鸦）。
+ */
+function wallpaper(mode: "light" | "dark"): React.CSSProperties {
+  if (mode === "dark") {
+    return { background: "#0b141a" };
+  }
+  return {
+    background: "#efeae2",
+    backgroundImage: doodleTile("#ffffff", 0.4),
+    backgroundSize: "280px 280px",
+  };
+}
+
 export default function WhatsAppChat({ conversation, theme }: Props) {
   const c = theme.colors[conversation.mode];
   const { bubble, features } = theme;
@@ -102,34 +120,34 @@ export default function WhatsAppChat({ conversation, theme }: Props) {
         fontFamily: bubble.fontFamily,
       }}
     >
-      {/* ---------------- Header ---------------- */}
+      {/* ---------------- Header（iOS 版：无绿头、无头像，标题居中） ---------------- */}
       <div
-        className="flex items-center gap-3 px-3"
+        className="relative flex items-center px-3"
         style={{
           background: c.headerBg,
-          height: 58,
+          height: 54,
           flexShrink: 0,
-          paddingTop: 4,
         }}
       >
         <svg width="11" height="19" viewBox="0 0 11 19" fill="none" style={{ flexShrink: 0 }}>
           <path
             d="M9.5 1.5 L1.5 9.5 L9.5 17.5"
             stroke={c.headerText}
-            strokeWidth="2"
+            strokeWidth="2.2"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
         </svg>
-        {features.avatar ? (
-          <Avatar src={conversation.avatar} name={conversation.title} size={40} />
-        ) : null}
-        <div className="flex-1 min-w-0">
+        {/* 绝对居中标题块（真机 iOS 导航模式） */}
+        <div
+          className="absolute left-1/2 -translate-x-1/2 text-center"
+          style={{ maxWidth: "55%", top: "50%", transform: "translate(-50%, -50%)" }}
+        >
           <div
             style={{
               color: c.headerText,
-              fontSize: 16,
-              fontWeight: 500,
+              fontSize: 16.5,
+              fontWeight: 600,
               lineHeight: 1.2,
               whiteSpace: "nowrap",
               overflow: "hidden",
@@ -138,11 +156,13 @@ export default function WhatsAppChat({ conversation, theme }: Props) {
           >
             {conversation.title}
           </div>
-          <div style={{ color: c.headerSubText, fontSize: 12.5, lineHeight: 1.3 }}>
-            {conversation.subtitle}
-          </div>
+          {conversation.subtitle ? (
+            <div style={{ color: c.headerSubText, fontSize: 12, lineHeight: 1.3 }}>
+              {conversation.subtitle}
+            </div>
+          ) : null}
         </div>
-        <div className="flex items-center gap-4" style={{ color: c.headerText }}>
+        <div className="ml-auto flex items-center gap-5" style={{ color: c.headerText }}>
           <svg width="20" height="16" viewBox="0 0 20 16" fill="none">
             <rect x="0.8" y="1.8" width="12" height="12.4" rx="2.6" stroke="currentColor" strokeWidth="1.6" />
             <path d="M13.6 6.6 L19 4.2 v7.6 l-5.4-2.4 z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
@@ -153,18 +173,13 @@ export default function WhatsAppChat({ conversation, theme }: Props) {
               fill="currentColor"
             />
           </svg>
-          <svg width="4" height="16" viewBox="0 0 4 16" fill="none">
-            <circle cx="2" cy="3" r="1.6" fill="currentColor" />
-            <circle cx="2" cy="8" r="1.6" fill="currentColor" />
-            <circle cx="2" cy="13" r="1.6" fill="currentColor" />
-          </svg>
         </div>
       </div>
 
       {/* ---------------- Chat area ---------------- */}
       <div
         className="flex-1 flex flex-col gap-[6px] px-3 py-3"
-        style={{ background: c.chatBg }}
+        style={wallpaper(conversation.mode)}
       >
         {features.dateSeparator && conversation.dateSeparator ? (
           <div className="flex justify-center mb-1">
@@ -297,59 +312,73 @@ export default function WhatsAppChat({ conversation, theme }: Props) {
         })}
       </div>
 
-      {/* ---------------- Footer（纯视觉，不可交互） ---------------- */}
+      {/* ---------------- Footer（iOS 版：左侧波形圆钮 + 胶囊输入框，无绿色麦克风） ---------------- */}
       <div
         className="flex items-center gap-3 px-3"
         style={{
           background: c.footerBg,
-          minHeight: 52,
+          minHeight: 56,
           flexShrink: 0,
-          paddingBottom: 14,
+          paddingBottom: 12,
           paddingTop: 8,
         }}
       >
-        <div
-          className="flex-1 flex items-center"
-          style={{
-            background: conversation.mode === "dark" ? "#2a3942" : "#ffffff",
-            borderRadius: 22,
-            padding: "8px 14px",
-            minHeight: 38,
-          }}
-        >
-          <span style={{ fontSize: 15, color: conversation.mode === "dark" ? "#8696a0" : "#8696a0" }}>
-            Message
-          </span>
-          <span
-            style={{
-              marginLeft: 6,
-              fontSize: 16,
-              color: conversation.mode === "dark" ? "#8696a0" : "#8696a0",
-            }}
-          >
-            ☺
-          </span>
-        </div>
+        {/* 语音备忘录圆钮 */}
         <div
           style={{
             width: 38,
             height: 38,
             borderRadius: "50%",
-            background: c.headerBg,
+            background: conversation.mode === "dark" ? "#2a3942" : "#ffffff",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             flexShrink: 0,
+            boxShadow: "0 1px 1.5px rgba(11,20,26,0.1)",
           }}
         >
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <path
-              d="M9 1.6c1.8 0 3.2 1.4 3.2 3.2v3.4c0 1.8-1.4 3.2-3.2 3.2s-3.2-1.4-3.2-3.2V4.8c0-1.8 1.4-3.2 3.2-3.2Z"
-              stroke="#fff"
-              strokeWidth="1.5"
-            />
-            <path d="M4.6 8.4a4.4 4.4 0 0 0 8.8 0M9 12.8v2.6" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" />
+          <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
+            {[
+              { x: 0.5, h: 5 },
+              { x: 4.5, h: 10 },
+              { x: 8.5, h: 14 },
+              { x: 12.5, h: 8 },
+              { x: 16.5, h: 4 },
+            ].map((b, i) => (
+              <rect
+                key={i}
+                x={b.x}
+                y={(14 - b.h) / 2}
+                width="2.2"
+                height={b.h}
+                rx="1.1"
+                fill={conversation.mode === "dark" ? "#8696a0" : "#54656f"}
+              />
+            ))}
           </svg>
+        </div>
+        {/* 输入胶囊：Message 占位 + 右端表情/加号（真机 iOS 结构） */}
+        <div
+          className="flex-1 flex items-center"
+          style={{
+            background: conversation.mode === "dark" ? "#2a3942" : "#ffffff",
+            borderRadius: 20,
+            padding: "8px 14px",
+            minHeight: 38,
+          }}
+        >
+          <span style={{ fontSize: 15.5, color: "#8696a0" }}>Message</span>
+          <span className="ml-auto flex items-center gap-3.5" style={{ color: conversation.mode === "dark" ? "#8696a0" : "#54656f" }}>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="8.4" stroke="currentColor" strokeWidth="1.5" />
+              <circle cx="7" cy="8.2" r="1.1" fill="currentColor" />
+              <circle cx="13" cy="8.2" r="1.1" fill="currentColor" />
+              <path d="M6.4 12 a4.4 4.4 0 0 0 7.2 0" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+            </svg>
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M9 2.5 v13 M2.5 9 h13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+            </svg>
+          </span>
         </div>
       </div>
     </div>

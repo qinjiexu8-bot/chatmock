@@ -21,9 +21,10 @@ export const whatsappTheme: PlatformTheme = {
   colors: {
     light: {
       chatBg: "#efeae2",
-      headerBg: "#008069",
-      headerText: "#ffffff",
-      headerSubText: "rgba(255,255,255,0.72)",
+      // iOS 版 WhatsApp：header 与壁纸同色（浅米色），非 Android 绿
+      headerBg: "#efeae2",
+      headerText: "#111b21",
+      headerSubText: "#667781",
       incomingBubble: "#ffffff",
       incomingText: "#111b21",
       outgoingBubble: "#d9fdd3",
@@ -32,7 +33,7 @@ export const whatsappTheme: PlatformTheme = {
       accent: "#53bdeb",
       pillBg: "#ffffff",
       pillText: "#667781",
-      footerBg: "#f0f2f5",
+      footerBg: "#efeae2",
     },
     dark: {
       chatBg: "#0b141a",
@@ -47,13 +48,13 @@ export const whatsappTheme: PlatformTheme = {
       accent: "#53bdeb",
       pillBg: "#182229",
       pillText: "#8696a0",
-      footerBg: "#111b21",
+      footerBg: "#0b141a",
     },
   },
   bubble: {
-    radius: 8,
+    radius: 12,
     maxWidthPct: 75,
-    fontSize: 15,
+    fontSize: 15.5,
     fontFamily: SYSTEM_FONT,
     tailOnFirst: true,
   },
@@ -74,7 +75,7 @@ export const whatsappTheme: PlatformTheme = {
  * iOS Messages（iMessage / SMS）
  *
  * 与 WhatsApp 的三个结构性差异，写错任何一个整张图就废：
- * 1. 气泡圆角 18px（WhatsApp 只有 8px）
+ * 1. 气泡圆角 18px（WhatsApp 只有 12px）
  * 2. 气泡内**没有**时间戳 —— 只有顶部一行 "iMessage / Today 9:41"
  * 3. 末条外发消息下方单独一行灰色 "Delivered"，而不是气泡里的勾
  */

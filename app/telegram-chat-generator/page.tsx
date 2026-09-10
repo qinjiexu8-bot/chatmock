@@ -219,8 +219,8 @@ export default function TelegramGeneratorPage() {
             not the same, and dark mode inverts completely to steel blue.{" "}
             <strong>Checkmarks have only two states</strong>: single for sent, double green
             for read — no delivered step. And <strong>the header is white in light mode</strong>{" "}
-            with dark text, unlike WhatsApp&apos;s green header; a green header on a Telegram
-            screenshot is an instant giveaway.
+            with dark text, same family as WhatsApp&apos;s beige iPhone header; a green header on a
+            Telegram screenshot is an instant giveaway.
           </p>
 
           <h2>Everything you can customise</h2>

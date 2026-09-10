@@ -160,8 +160,10 @@ export default function WhatsAppGeneratorPage() {
           <p>
             Most generators approximate the interface and hope nobody looks closely. WhatsApp
             users see this screen hundreds of times a day, so the tells are immediate: the
-            wrong green, the wrong bubble colour, a tick that is the wrong shade of blue. Here
-            are the values ChatMock uses, taken from the real app:
+            wrong header, the wrong bubble colour, a tick that is the wrong shade of blue. On
+            an iPhone the navigation bar is not green — it picks up the beige of the wallpaper,
+            which is the single most-cloned mistake in WhatsApp mockups. Here are the values
+            ChatMock uses, taken from the real app:
           </p>
           <table>
             <thead>
@@ -182,9 +184,9 @@ export default function WhatsAppGeneratorPage() {
                 </td>
               </tr>
               <tr>
-                <td>Header bar</td>
+                <td>Header bar (iPhone)</td>
                 <td>
-                  <code>#008069</code>
+                  <code>#efeae2</code>
                 </td>
                 <td>
                   <code>#202c33</code>

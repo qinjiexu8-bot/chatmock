@@ -51,9 +51,11 @@ export default function Post() {
 
           <h2>WhatsApp</h2>
           <p>
-            The most-mocked interface on the internet, and the one most often wrong. The
+            The most-mocked interface on the internet, and the one most often wrong. On an
+            iPhone the header is not green at all — it picks up the beige of the wallpaper
+            (#efeae2), while the Android build wears the teal-green most people picture. The
             outgoing bubble is a soft sage green — not the header green, and definitely not the
-            saturated green most clones use. Bubble radius is a modest 8px with a corner tail,
+            saturated green most clones use. Bubble radius is a modest 12px with a corner tail,
             not the 16–18px pill shape people remember.
           </p>
           <table>
@@ -75,9 +77,9 @@ export default function Post() {
                 </td>
               </tr>
               <tr>
-                <td>Header bar</td>
+                <td>Header bar (iPhone)</td>
                 <td>
-                  <code>#008069</code>
+                  <code>#efeae2</code>
                 </td>
                 <td>
                   <code>#202c33</code>

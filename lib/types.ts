@@ -170,7 +170,7 @@ export function createDefaultConversation(platformId: PlatformId): Conversation 
     ],
     statusBar: { ...defaultStatusBar },
     showStatusBar: true,
-    dateSeparator: "TODAY",
+    dateSeparator: "Today",
     deliveryText: "Delivered",
   };
 }
