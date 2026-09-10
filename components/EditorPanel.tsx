@@ -31,6 +31,7 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
 export default function EditorPanel({ conversation, setConversation, theme }: Props) {
   const avatarRef = useRef<HTMLInputElement>(null);
   const imageRefs = useRef<Record<string, HTMLInputElement | null>>({});
+  const participantAvatarRefs = useRef<Record<string, HTMLInputElement | null>>({});
 
   const patch = (p: Partial<Conversation>) => setConversation({ ...conversation, ...p });
 
@@ -56,6 +57,13 @@ export default function EditorPanel({ conversation, setConversation, theme }: Pr
     patch({
       participants: conversation.participants.map((p) =>
         p.id === id ? { ...p, name } : p
+      ),
+    });
+
+  const setParticipantAvatar = (id: string, avatar: string | null) =>
+    patch({
+      participants: conversation.participants.map((p) =>
+        p.id === id ? { ...p, avatar } : p
       ),
     });
 
@@ -200,11 +208,59 @@ export default function EditorPanel({ conversation, setConversation, theme }: Pr
           <div className="space-y-2">
             {conversation.participants.map((p) => (
               <div key={p.id} className="flex items-center gap-2">
-                <span
-                  className="w-4 h-4 rounded-full shrink-0"
-                  style={{ background: p.isSelf ? "#008069" : (p.color ?? "#53bdeb") }}
-                  title={p.isSelf ? "You" : "Sender colour"}
-                />
+                {theme.features.memberAvatars ? (
+                  <>
+                    <button
+                      type="button"
+                      title={p.avatar ? "Change avatar" : "Upload avatar"}
+                      onClick={() => participantAvatarRefs.current[p.id]?.click()}
+                      className="relative w-8 h-8 rounded-full shrink-0 overflow-hidden border border-black/15 hover:border-primary/60 transition"
+                      style={{ background: p.isSelf ? "#008069" : (p.color ?? "#53bdeb") }}
+                    >
+                      {p.avatar ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={p.avatar} alt="" className="w-full h-full object-cover" />
+                      ) : (
+                        <span className="w-full h-full flex items-center justify-center text-[12px] font-semibold text-white select-none">
+                          {(p.isSelf ? "You" : p.name).charAt(0).toUpperCase()}
+                        </span>
+                      )}
+                      {p.avatar ? (
+                        <span
+                          role="button"
+                          tabIndex={-1}
+                          aria-label="Remove avatar"
+                          title="Remove avatar"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setParticipantAvatar(p.id, null);
+                          }}
+                          className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-black/70 text-white text-[9px] leading-[13px] text-center hover:bg-red-600 transition"
+                        >
+                          ✕
+                        </span>
+                      ) : null}
+                    </button>
+                    <input
+                      ref={(el) => {
+                        participantAvatarRefs.current[p.id] = el;
+                      }}
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) => {
+                        readImage(e.target.files?.[0], (d) => setParticipantAvatar(p.id, d));
+                        e.target.value = "";
+                      }}
+                    />
+                  </>
+                ) : (
+                  <span
+                    className="w-4 h-4 rounded-full shrink-0"
+                    style={{ background: p.isSelf ? "#008069" : (p.color ?? "#53bdeb") }}
+                    title={p.isSelf ? "You" : "Sender colour"}
+                  />
+                )}
                 <input
                   value={p.isSelf ? "You" : p.name}
                   disabled={p.isSelf}

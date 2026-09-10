@@ -74,7 +74,7 @@ export default function DiscordGeneratorPage() {
       "Authentic row-based Discord layout (no bubbles)",
       "Channel header with # name and topic",
       "Coloured usernames (role colours) per member",
-      "40px avatars at the start of each message group",
+      "40px avatars at the start of each message group — upload a photo per member",
       "'Today at 9:32' timestamps next to usernames",
       "Light and dark mode (dark is Discord's default)",
       "PNG export at 1x, 2x and 3x",
@@ -241,7 +241,7 @@ export default function DiscordGeneratorPage() {
           <h2>Everything you can customise</h2>
           <ul>
             <li>Channel name (renders with the # prefix) and topic line</li>
-            <li>Unlimited members, each with a username and role colour</li>
+            <li>Unlimited members, each with a username, role colour and uploadable avatar</li>
             <li>Unlimited messages, reorderable, any sender</li>
             <li>Automatic message grouping with 40px avatars</li>
             <li>Image attachments, rendered Discord-style with rounded corners</li>

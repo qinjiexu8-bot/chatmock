@@ -129,6 +129,8 @@ export interface PlatformTheme {
     deliveryLine: boolean;
     /** 通话记录页：消息行渲染为通话条目，编辑器显示方向选择器 */
     callLog?: boolean;
+    /** 消息列表渲染逐成员头像（Discord 为组首 40px 头像）；WhatsApp 群聊等只显名字的平台为 false */
+    memberAvatars?: boolean;
   };
   statusBarStyle: "ios" | "android" | "none";
   supportedModes: ThemeMode[];

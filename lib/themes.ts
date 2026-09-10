@@ -279,6 +279,7 @@ export const discordTheme: PlatformTheme = {
     imageMessage: true,
     perMessageTimestamp: false,
     deliveryLine: false,
+    memberAvatars: true,
   },
   statusBarStyle: "ios",
   supportedModes: ["light", "dark"],

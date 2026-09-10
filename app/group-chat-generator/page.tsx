@@ -51,7 +51,7 @@ const FAQ = [
   },
   {
     q: "Can I use my own avatars for each member?",
-    a: "Per-member avatar upload is on the roadmap. The contact avatar field is available today, and members without photos render as neutral initial circles, exactly like the real app does for contacts without a profile photo.",
+    a: "You can set the group photo (the header avatar), but the message list deliberately has no member avatars — in real WhatsApp groups, messages show coloured sender names, not profile photos, and rendering avatars there would make the mockup look fake. If your scene needs per-member photos, the Discord chat generator supports uploading an avatar for every participant.",
   },
   {
     q: "Can I use the mockups commercially?",
