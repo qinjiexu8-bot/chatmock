@@ -173,7 +173,7 @@ export default function GeneratorShell({ platformId }: Props) {
   }, [frame, platformId]);
 
   return (
-    <div className="rounded-[var(--radius-panel)] border border-black/[0.08] overflow-hidden bg-white/80 shadow-[0_8px_30px_rgba(30,35,80,0.06)]">
+    <div className="rounded-[var(--radius-panel)] border border-black/[0.08] overflow-clip bg-white/80 shadow-[0_8px_30px_rgba(30,35,80,0.06)]">
       {/* ---------------- 顶部：平台切换条（工具页之间一键横跳） ---------------- */}
       <div className="border-b border-black/[0.08] bg-[#f8f9fd] px-3 py-2">
         <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none">
@@ -202,8 +202,11 @@ export default function GeneratorShell({ platformId }: Props) {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr]">
-        {/* ---------------- 左：编辑面板 ---------------- */}
-        <div className="border-b lg:border-b-0 lg:border-r border-black/[0.08] bg-[#f8f9fd]">
+        {/* ---------------- 左：编辑面板 ----------------
+            self-start：不让 grid 把本栏拉伸到预览列的高度——预览列更高时
+            栏底会挂出一大块空白灰底（滚动容器只有 78vh），看起来像面板
+            凭空多出一段够不到的内容。sticky：页面下滚看长截图时编辑器保持可见。 */}
+        <div className="border-b lg:border-b-0 lg:border-r border-black/[0.08] bg-[#f8f9fd] lg:self-start lg:sticky lg:top-4">
           <div className="max-h-[78vh] overflow-y-auto overscroll-contain p-5">
             <EditorPanel
               conversation={conversation}
