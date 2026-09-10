@@ -52,7 +52,7 @@ export default function Post() {
             ]}
           />
         </div>
-        <p className="text-[13px] text-black/40">
+        <p className="text-[13px] text-black/55">
           {post.date} · {post.readMinutes} min read
         </p>
         <h1 className="font-display mt-2 text-[32px] sm:text-[38px] font-semibold tracking-tight leading-[1.15] text-foreground">
