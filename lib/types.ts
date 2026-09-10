@@ -21,8 +21,7 @@ export type PlatformId =
   | "instagram-dm"
   | "group-chat"
   | "snapchat"
-  | "whatsapp-call"
-  | "tiktok-dm";
+  | "whatsapp-call";
 
 export interface Participant {
   id: string;
@@ -43,6 +42,8 @@ export interface Message {
   /** HH:mm */
   timestamp: string;
   receipt?: ReceiptState;
+  /** 仅通话记录页使用：该行的通话方向 */
+  call?: "outgoing" | "incoming" | "missed";
 }
 
 export interface StatusBar {
@@ -124,6 +125,8 @@ export interface PlatformTheme {
     perMessageTimestamp: boolean;
     /** 末条外发消息下方是否显示投递状态行（iMessage 的 Delivered） */
     deliveryLine: boolean;
+    /** 通话记录页：消息行渲染为通话条目，编辑器显示方向选择器 */
+    callLog?: boolean;
   };
   statusBarStyle: "ios" | "android" | "none";
   supportedModes: ThemeMode[];

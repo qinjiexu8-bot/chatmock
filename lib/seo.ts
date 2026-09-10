@@ -134,7 +134,7 @@ export const generatorPages: GeneratorPage[] = [
     description:
       "Create Android SMS and Google Messages mockups with custom contact names, timestamps and delivery status. Free, no signup, no watermark.",
     batch: "P2",
-    live: false,
+    live: true,
   },
   {
     platformId: "whatsapp-call",
@@ -145,18 +145,7 @@ export const generatorPages: GeneratorPage[] = [
     description:
       "Build realistic WhatsApp call log and incoming call screen mockups. Customise caller name, call type, duration and timestamp. Free, no signup.",
     batch: "P2",
-    live: false,
-  },
-  {
-    platformId: "tiktok-dm",
-    slug: "tiktok-dm-generator",
-    name: "TikTok DM",
-    h1: "Free TikTok DM Generator",
-    title: "Free TikTok DM Generator — No Signup | ChatMock",
-    description:
-      "Create realistic TikTok direct message mockups for videos, thumbnails and presentations. Free, no signup, high-resolution PNG export.",
-    batch: "P2",
-    live: false,
+    live: true,
   },
 ];
 

@@ -8,6 +8,8 @@ interface Props {
   mode: ThemeMode;
   /** 是否渲染手机外框。关闭时只输出聊天内容本身 */
   frame?: boolean;
+  /** 状态栏风格：ios=灵动岛，android=居中挖孔、时间靠左 */
+  statusBarStyle?: "ios" | "android" | "none";
   children: React.ReactNode;
 }
 
@@ -84,10 +86,12 @@ export default function PhoneFrame({
   showStatusBar,
   mode,
   frame = true,
+  statusBarStyle = "ios",
   children,
 }: Props) {
   const onDark = mode === "dark";
   const barColor = onDark ? "#e9edef" : "#111b21";
+  const isAndroid = statusBarStyle === "android";
 
   const statusBarEl = showStatusBar ? (
     <div
@@ -105,18 +109,18 @@ export default function PhoneFrame({
       }}
     >
       <span>{statusBar.time}</span>
-      {/* 灵动岛 */}
+      {/* 灵动岛（iOS）/ 挖孔（Android） */}
       <div
         className="absolute left-1/2 -translate-x-1/2 rounded-full"
         style={{
           top: 8,
-          width: 96,
-          height: 26,
+          width: isAndroid ? 18 : 96,
+          height: isAndroid ? 18 : 26,
           background: "#000000",
         }}
       />
       <div className="flex items-center gap-1.5">
-        {statusBar.carrier ? (
+        {isAndroid ? null : statusBar.carrier ? (
           <span style={{ fontSize: 12, fontWeight: 500, marginRight: 2 }}>
             {statusBar.carrier}
           </span>

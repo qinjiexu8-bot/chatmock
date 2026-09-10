@@ -10,6 +10,8 @@ import DiscordChat from "@/components/chats/DiscordChat";
 import TelegramChat from "@/components/chats/TelegramChat";
 import InstagramChat from "@/components/chats/InstagramChat";
 import SnapchatChat from "@/components/chats/SnapchatChat";
+import WhatsAppCallLog from "@/components/chats/WhatsAppCallLog";
+import AndroidSmsChat from "@/components/chats/AndroidSmsChat";
 import { exportNodeAsPng } from "@/lib/export";
 import { getTheme } from "@/lib/themes";
 import {
@@ -59,6 +61,27 @@ const PLATFORM_DEFAULTS: Partial<Record<PlatformId, Partial<Conversation>>> = {
     subtitle: "",
     deliveryText: "Delivered",
   },
+  "whatsapp-call": {
+    title: "Calls",
+    subtitle: "",
+    participants: [
+      { id: "self", name: "You", avatar: null, isSelf: true },
+      { id: "p_emma", name: "Emma", avatar: null, isSelf: false },
+      { id: "p_marcus", name: "Marcus", avatar: null, isSelf: false },
+      { id: "p_sofia", name: "Sofia", avatar: null, isSelf: false },
+    ],
+    messages: [
+      { id: "c1", senderId: "p_marcus", text: "12 min", timestamp: "9:32", call: "incoming" },
+      { id: "c2", senderId: "p_sofia", text: "3 min", timestamp: "8:15", call: "outgoing" },
+      { id: "c3", senderId: "p_emma", text: "", timestamp: "Yesterday", call: "missed" },
+      { id: "c4", senderId: "p_marcus", text: "27 min", timestamp: "Yesterday", call: "outgoing" },
+    ],
+  },
+  "android-sms": {
+    dateSeparator: "Today",
+    subtitle: "Mobile",
+    deliveryText: "Read",
+  },
   "group-chat": {
     title: "Weekend Trip",
     subtitle: "You, Alex, Sam, Jordan",
@@ -94,7 +117,8 @@ export default function GeneratorShell({ platformId }: Props) {
   const [conversation, setConversation] = useState<Conversation>(() =>
     defaultConversation(platformId)
   );
-  const [frame, setFrame] = useState(true);
+  // Android 页默认不带 iPhone 外框（UI 对不上），其余平台默认带
+  const [frame, setFrame] = useState(() => theme.statusBarStyle !== "android");
   const [scale, setScale] = useState(2);
   const [busy, setBusy] = useState(false);
   const exportRef = useRef<HTMLDivElement>(null);
@@ -187,6 +211,7 @@ export default function GeneratorShell({ platformId }: Props) {
               showStatusBar={conversation.showStatusBar}
               mode={conversation.mode}
               frame={frame}
+              statusBarStyle={theme.statusBarStyle}
             >
               {platformId === "whatsapp" || platformId === "group-chat" ? (
                 <WhatsAppChat conversation={conversation} theme={theme} />
@@ -202,6 +227,10 @@ export default function GeneratorShell({ platformId }: Props) {
                 <InstagramChat conversation={conversation} theme={theme} />
               ) : platformId === "snapchat" ? (
                 <SnapchatChat conversation={conversation} theme={theme} />
+              ) : platformId === "whatsapp-call" ? (
+                <WhatsAppCallLog conversation={conversation} theme={theme} />
+              ) : platformId === "android-sms" ? (
+                <AndroidSmsChat conversation={conversation} theme={theme} />
               ) : null}
             </PhoneFrame>
           </div>

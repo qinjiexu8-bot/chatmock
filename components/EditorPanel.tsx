@@ -85,11 +85,10 @@ export default function EditorPanel({ conversation, setConversation, theme }: Pr
   const addMessage = (senderId: string) =>
     patch({
       messages: [
-        ...conversation.messages,
         {
           id: newId("m"),
           senderId,
-          text: "New message",
+          text: theme.features.callLog ? "5 min" : "New message",
           timestamp: "9:41",
           receipt: "read",
         },
@@ -316,7 +315,22 @@ export default function EditorPanel({ conversation, setConversation, theme }: Pr
                       </option>
                     ))}
                   </select>
-                  {theme.features.perMessageTimestamp ? (
+                  {theme.features.callLog ? (
+                    <select
+                      value={m.call ?? "incoming"}
+                      onChange={(e) =>
+                        setMessage(m.id, {
+                          call: e.target.value as Message["call"],
+                        })
+                      }
+                      className="px-1.5 py-1 rounded-md border border-black/15 text-[11.5px] bg-white"
+                    >
+                      <option value="outgoing">Outgoing</option>
+                      <option value="incoming">Incoming</option>
+                      <option value="missed">Missed</option>
+                    </select>
+                  ) : null}
+                  {theme.features.perMessageTimestamp || theme.features.callLog ? (
                     <input
                       value={m.timestamp}
                       onChange={(e) => setMessage(m.id, { timestamp: e.target.value })}
@@ -350,6 +364,7 @@ export default function EditorPanel({ conversation, setConversation, theme }: Pr
                   value={m.text}
                   onChange={(e) => setMessage(m.id, { text: e.target.value })}
                   rows={2}
+                  placeholder={theme.features.callLog ? "Duration note (optional)" : undefined}
                   className="w-full px-2 py-1.5 rounded-lg border border-black/15 outline-none focus:border-black/40 resize-y"
                 />
 

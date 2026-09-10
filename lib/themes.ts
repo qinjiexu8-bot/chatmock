@@ -480,6 +480,95 @@ export const snapchatTheme: PlatformTheme = {
   supportedModes: ["light", "dark"],
 };
 
+/**
+ * WhatsApp 通话记录（Calls 标签页）
+ * 行式列表：头像 + 姓名 + 方向箭头/时间 + 绿色电话图标，底部五标签导航。
+ * 数据映射：senderId=通话对象，call=方向，timestamp=时间，text=可选时长备注。
+ */
+export const whatsappCallTheme: PlatformTheme = {
+  ...whatsappTheme,
+  id: "whatsapp-call",
+  name: "WhatsApp Call",
+  slug: "whatsapp-call-generator",
+  bubble: {
+    ...whatsappTheme.bubble,
+    radius: 8,
+    maxWidthPct: 100,
+  },
+  features: {
+    receipt: false,
+    avatar: true,
+    dateSeparator: false,
+    senderNames: false,
+    imageMessage: false,
+    perMessageTimestamp: false,
+    deliveryLine: false,
+    callLog: true,
+  },
+};
+
+/**
+ * Android SMS / Google Messages
+ * Material 风格：outgoing Google 蓝 #1a73e8 大圆角胶囊、incoming 浅灰，
+ * 时间戳在消息簇之间居中，末条外发下 "Read"。状态栏为 Android 样式（无刘海）。
+ */
+export const androidSmsTheme: PlatformTheme = {
+  id: "android-sms",
+  name: "Android SMS",
+  slug: "android-sms-generator",
+  trademark: { name: "Android and Google Messages", owner: "Google LLC" },
+  colors: {
+    light: {
+      chatBg: "#ffffff",
+      headerBg: "#ffffff",
+      headerText: "#202124",
+      headerSubText: "#5f6368",
+      incomingBubble: "#f1f3f4",
+      incomingText: "#202124",
+      outgoingBubble: "#1a73e8",
+      outgoingText: "#ffffff",
+      timestamp: "#5f6368",
+      accent: "#1a73e8",
+      pillBg: "#ffffff",
+      pillText: "#5f6368",
+      footerBg: "#ffffff",
+    },
+    dark: {
+      chatBg: "#1f1f1f",
+      headerBg: "#1f1f1f",
+      headerText: "#e8eaed",
+      headerSubText: "#9aa0a6",
+      incomingBubble: "#303134",
+      incomingText: "#e8eaed",
+      outgoingBubble: "#1a73e8",
+      outgoingText: "#ffffff",
+      timestamp: "#9aa0a6",
+      accent: "#8ab4f8",
+      pillBg: "#1f1f1f",
+      pillText: "#9aa0a6",
+      footerBg: "#1f1f1f",
+    },
+  },
+  bubble: {
+    radius: 20,
+    maxWidthPct: 75,
+    fontSize: 15,
+    fontFamily: SYSTEM_FONT,
+    tailOnFirst: false,
+  },
+  features: {
+    receipt: false,
+    avatar: true,
+    dateSeparator: true,
+    senderNames: false,
+    imageMessage: true,
+    perMessageTimestamp: false,
+    deliveryLine: true,
+  },
+  statusBarStyle: "android",
+  supportedModes: ["light", "dark"],
+};
+
 export const themes: Partial<Record<PlatformId, PlatformTheme>> = {
   whatsapp: whatsappTheme,
   "text-message": textMessageTheme,
@@ -489,6 +578,8 @@ export const themes: Partial<Record<PlatformId, PlatformTheme>> = {
   telegram: telegramTheme,
   "instagram-dm": instagramDmTheme,
   snapchat: snapchatTheme,
+  "whatsapp-call": whatsappCallTheme,
+  "android-sms": androidSmsTheme,
 };
 
 export function getTheme(id: PlatformId): PlatformTheme {
