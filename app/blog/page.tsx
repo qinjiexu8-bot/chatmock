@@ -43,6 +43,26 @@ export default function BlogIndexPage() {
           </p>
         </div>
 
+        <div className="prose-cm mt-8 max-w-2xl">
+          <p>
+            ChatMock exists because the details of a chat interface matter — the exact bubble
+            colour, the tick states, where the timestamp sits. This blog is where we write
+            those details down. Some posts are practical how-tos that pair with our{" "}
+            <Link href="/#generators">free generators</Link>; others are reference material we
+            wished existed when we were building the tools, like the exact colour values of
+            five messaging apps in one table.
+          </p>
+          <p>
+            We also write about the part of this space nobody else covers honestly: where
+            staged conversations are a legitimate creative device, and where they become a
+            deception tool. That line is why we publish an{" "}
+            <Link href="/acceptable-use">Acceptable Use Policy</Link> and why we refuse to
+            build certain templates entirely, even when the search traffic says we should.
+            Everything here is original, written in-house, and updated when the platforms
+            change their interfaces.
+          </p>
+        </div>
+
         <div className="mt-10 grid gap-5 sm:grid-cols-2">
           {blogPosts.map((p) => (
             <Link key={p.slug} href={`/blog/${p.slug}`} className="group block">

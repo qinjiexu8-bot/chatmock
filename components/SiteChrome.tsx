@@ -2,62 +2,68 @@ import Link from "next/link";
 import { livePages, site } from "@/lib/seo";
 
 export function SiteHeader({ current }: { current?: string }) {
+  const links = [
+    ...livePages.slice(0, 5).map((p) => ({ href: `/${p.slug}`, label: p.name })),
+    { href: "/blog", label: "Blog" },
+  ];
+
+  const navLinkClass = (slug: string) =>
+    `shrink-0 px-3 min-h-10 inline-flex items-center rounded-full transition ${
+      current === slug
+        ? "bg-primary/10 text-primary font-medium"
+        : "hover:bg-black/5 hover:text-black"
+    }`;
+
   return (
     <header className="sticky top-0 z-30 backdrop-blur bg-white/75 border-b border-black/[0.06]">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 grid grid-cols-[1fr_auto] lg:grid-cols-[1fr_auto_1fr] items-center gap-3">
-        {/* Logo：手写体，hover 微旋转（竞品同款细节） */}
-        <Link href="/" className="group inline-flex items-center gap-2 select-none">
-          <span className="font-script text-primary text-[1.3rem] lg:text-[1.45rem] leading-relaxed transition-transform duration-200 ease-out group-hover:-rotate-2 group-hover:scale-[1.03]">
-            {site.name}
-          </span>
-        </Link>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* 桌面：3 列网格；移动：logo + CTA */}
+        <div className="grid h-16 grid-cols-[1fr_auto] lg:grid-cols-[1fr_auto_1fr] items-center gap-3">
+          {/* Logo：手写体，hover 微旋转（竞品同款细节） */}
+          <Link href="/" className="group inline-flex items-center gap-2 select-none">
+            <span className="font-script text-primary text-[1.3rem] lg:text-[1.45rem] leading-relaxed transition-transform duration-200 ease-out group-hover:-rotate-2 group-hover:scale-[1.03]">
+              {site.name}
+            </span>
+          </Link>
 
-        {/* 中部导航 */}
-        <nav className="hidden lg:flex items-center gap-1 text-[13.5px] text-black/60">
-          {livePages.slice(0, 5).map((p) => (
+          {/* 中部导航（桌面） */}
+          <nav className="hidden lg:flex items-center gap-1 text-[13.5px] text-black/60">
+            {links.map((l) => (
+              <Link key={l.href} href={l.href} className={navLinkClass(l.href.slice(1))}>
+                {l.label}
+              </Link>
+            ))}
+          </nav>
+
+          {/* 右侧 CTA */}
+          <span className="hidden lg:flex justify-end">
             <Link
-              key={p.slug}
-              href={`/${p.slug}`}
-              className={`px-3 min-h-10 inline-flex items-center rounded-full transition ${
-                current === p.slug
-                  ? "bg-primary/10 text-primary font-medium"
-                  : "hover:bg-black/5 hover:text-black"
-              }`}
+              href={`/${livePages[0]?.slug ?? "whatsapp-chat-generator"}`}
+              className="inline-flex items-center h-10 px-4 rounded-full bg-primary text-primary-foreground text-[13px] font-medium hover:opacity-90 transition"
             >
-              {p.name}
+              Start creating →
+            </Link>
+          </span>
+
+          {/* 移动端右 CTA 简化 */}
+          <span className="lg:hidden justify-self-end">
+            <Link
+              href={`/${livePages[0]?.slug ?? "whatsapp-chat-generator"}`}
+              className="inline-flex items-center h-9 px-3.5 rounded-full bg-primary text-primary-foreground text-[12.5px] font-medium"
+            >
+              Start →
+            </Link>
+          </span>
+        </div>
+
+        {/* 移动端第二行：横向滚动导航 */}
+        <nav className="flex gap-1 overflow-x-auto pb-2 -mx-1 px-1 lg:hidden text-[13px] text-black/60 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+          {links.map((l) => (
+            <Link key={l.href} href={l.href} className={navLinkClass(l.href.slice(1))}>
+              {l.label}
             </Link>
           ))}
-          <Link
-            href="/blog"
-            className={`px-3 min-h-10 inline-flex items-center rounded-full transition ${
-              current === "blog"
-                ? "bg-primary/10 text-primary font-medium"
-                : "hover:bg-black/5 hover:text-black"
-            }`}
-          >
-            Blog
-          </Link>
         </nav>
-
-        {/* 右侧 CTA */}
-        <span className="hidden lg:flex justify-end">
-          <Link
-            href={`/${livePages[0]?.slug ?? "whatsapp-chat-generator"}`}
-            className="inline-flex items-center h-10 px-4 rounded-full bg-primary text-primary-foreground text-[13px] font-medium hover:opacity-90 transition"
-          >
-            Start creating →
-          </Link>
-        </span>
-
-        {/* 移动端右 CTA 简化 */}
-        <span className="lg:hidden justify-self-end">
-          <Link
-            href={`/${livePages[0]?.slug ?? "whatsapp-chat-generator"}`}
-            className="inline-flex items-center h-9 px-3.5 rounded-full bg-primary text-primary-foreground text-[12.5px] font-medium"
-          >
-            Start →
-          </Link>
-        </span>
       </div>
     </header>
   );
