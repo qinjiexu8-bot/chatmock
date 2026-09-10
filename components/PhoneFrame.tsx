@@ -33,9 +33,10 @@ function luminance(hex: string): number {
 
 /**
  * iOS 状态栏三件套，按 SF Symbols 真实几何绘制：
- * - cellularbars：4 根胶囊形信号条（rx ≈ 半宽，非小圆角），高度 4.5/7/9.5/12
- * - wifi：SF Symbols「wifi」官方字形路径（底部是圆角楔块而非圆点，
- *   两道端头斜切、四角圆润的实心弧带，比例 1.22:1）
+ * - cellularbars：4 根全圆角胶囊信号条（rx = 半宽），高度 4/6.5/9/11.5，
+ *   间隙 1.5（真机观感：细条、清透、胶囊头），非激活 30% 透明
+ * - wifi：SF Symbols「wifi」官方字形路径，叠加 4.5 描边加粗弧带——
+ *   状态栏字形比图标库里的 wifi 更厚重，纯填充会显得弧细且空
  * - android wifi：Pixel 状态栏实心扇形楔块（Material network_wifi 外弧），
  *   与 iOS 弧带式完全不同，不能共用
  * - battery：圆角描边外壳（35% 透明度）+ 内部胶囊电量 + 右侧逗号形正极
@@ -43,21 +44,21 @@ function luminance(hex: string): number {
 
 function SignalBars({ level, color }: { level: number; color: string }) {
   const bars = [
-    { x: 0, h: 4.5 },
-    { x: 4.8, h: 7 },
-    { x: 9.6, h: 9.5 },
-    { x: 14.4, h: 12 },
+    { x: 0, h: 4 },
+    { x: 4.5, h: 6.5 },
+    { x: 9, h: 9 },
+    { x: 13.5, h: 11.5 },
   ];
   return (
-    <svg width="18" height="12" viewBox="0 0 18 12" fill="none">
+    <svg width="16.5" height="12" viewBox="0 0 16.5 12" fill="none">
       {bars.map((b, i) => (
         <rect
           key={i}
           x={b.x}
           y={12 - b.h}
-          width="3.5"
+          width="3"
           height={b.h}
-          rx="1.2"
+          rx="1.5"
           fill={color}
           opacity={i < level ? 1 : 0.3}
         />
@@ -138,13 +139,15 @@ const SF_WIFI_PATH = `
 function WifiIcon({ color }: { color: string }) {
   return (
     <svg width="15.5" height="12.7" viewBox="0 0 73.82 60.54" fill="none">
-      {/* 源文件为 scale(1,-1) 翻转存储，这里等价还原 y 轴 */}
+      {/* 源文件为 scale(1,-1) 翻转存储，这里等价还原 y 轴。
+          stroke 4.5 用于加粗弧带：状态栏 wifi 字形比图标库字形厚重得多，
+          纯填充渲染会弧带过细、整体发扁（A/B 实测结论，见 scripts/output/wifi-ab.png） */}
       <g transform="translate(0,60.54) scale(1,-1)">
         <path
           d={SF_WIFI_PATH}
           fill={color}
           stroke={color}
-          strokeWidth="2.4"
+          strokeWidth="4.5"
           strokeLinejoin="round"
         />
       </g>
