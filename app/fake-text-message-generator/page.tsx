@@ -293,6 +293,11 @@ export default function TextMessageGeneratorPage() {
             <Link href="/#generators">generator index</Link> for the full list.
           </p>
 
+          <p>
+            For a deeper walkthrough of the details above, read the full{" "}
+            <Link href="/blog/fake-text-message-on-iphone-and-android">iPhone &amp; Android text message guide</Link> on the blog.
+          </p>
+
           <h2>Frequently asked questions</h2>
           {FAQ.map((f) => (
             <div key={f.q}>

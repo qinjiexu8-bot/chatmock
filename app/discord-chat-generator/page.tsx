@@ -286,6 +286,11 @@ export default function DiscordGeneratorPage() {
             live. See the <Link href="/#generators">generator index</Link> for the full list.
           </p>
 
+          <p>
+            For a deeper walkthrough of the details above, read the full{" "}
+            <Link href="/blog/discord-message-mockup-guide">Discord message screenshot guide</Link> on the blog.
+          </p>
+
           <h2>Frequently asked questions</h2>
           {FAQ.map((f) => (
             <div key={f.q}>

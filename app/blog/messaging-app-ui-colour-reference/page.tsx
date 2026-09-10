@@ -369,6 +369,28 @@ export default function Post() {
           </p>
         </article>
 
+        <div className="mt-12 border-t border-black/10 pt-6">
+          <h2 className="text-[16px] font-semibold tracking-tight text-foreground">
+            Related guides
+          </h2>
+          <ul className="mt-3 space-y-2 text-[14.5px]">
+            {[
+              "how-to-make-a-fake-whatsapp-chat",
+              "fake-text-message-on-iphone-and-android",
+              "telegram-chat-screenshot-guide"
+            ].map((rslug) => {
+              const rel = getPost(rslug)!;
+              return (
+                <li key={rslug}>
+                  <Link href={`/blog/${rslug}`} className="text-primary hover:underline underline-offset-2">
+                    {rel.title}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+
         <p className="mt-10 text-[14px]">
           <Link href="/blog" className="text-primary underline underline-offset-2">
             ← Back to the blog
