@@ -89,8 +89,8 @@ export default function HomePage() {
             </h2>
             <p className="mt-2 text-[15.5px] text-black/60 max-w-2xl">
               We build one platform at a time and get the details right — exact bubble
-              colours, read receipts, timestamps and dark mode. Pages marked{" "}
-              <em>coming soon</em> are next in the queue.
+              colours, read receipts, timestamps and dark mode. All ten generators below
+              are live today, and more platforms are on the way.
             </p>
 
             <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

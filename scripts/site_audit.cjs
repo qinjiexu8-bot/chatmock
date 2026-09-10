@@ -16,6 +16,7 @@ const ROUTES = [
   "/blog/why-we-refuse-fake-bank-alerts",
   "/blog/messaging-app-ui-colour-reference",
   "/acceptable-use", "/privacy", "/about",
+  "/examples",
 ];
 
 (async () => {
