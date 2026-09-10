@@ -32,22 +32,6 @@ const PLATFORM_DEFAULTS: Partial<Record<PlatformId, Partial<Conversation>>> = {
     subtitle: "Active now",
     deliveryText: "Seen",
   },
-  discord: {
-    title: "general",
-    subtitle: "Welcome to the server",
-    dateSeparator: "Today",
-    participants: [
-      { id: "self", name: "You", avatar: null, isSelf: true, color: "#5865f2" },
-      { id: "p_alex", name: "alex_plays", avatar: null, isSelf: false, color: "#eb459e" },
-      { id: "p_sam", name: "samstream", avatar: null, isSelf: false, color: "#57f287" },
-    ],
-    messages: [
-      { id: "d1", senderId: "p_alex", text: "Stream starts at 8, do not be late.", timestamp: "7:52" },
-      { id: "d2", senderId: "p_sam", text: "Setting up my mic right now.", timestamp: "7:54" },
-      { id: "d3", senderId: "self", text: "I will join from the laptop.", timestamp: "7:56" },
-      { id: "d4", senderId: "p_alex", text: "Ping me when you are in.", timestamp: "7:57" },
-    ],
-  },
   telegram: {
     dateSeparator: "Yesterday",
   },
@@ -81,6 +65,22 @@ const PLATFORM_DEFAULTS: Partial<Record<PlatformId, Partial<Conversation>>> = {
     dateSeparator: "Today",
     subtitle: "Mobile",
     deliveryText: "Read",
+  },
+  discord: {
+    title: "general",
+    subtitle: "Welcome to the server",
+    dateSeparator: "Today",
+    participants: [
+      { id: "self", name: "You", avatar: null, isSelf: true, color: "#5865f2" },
+      { id: "p_alex", name: "alex_plays", avatar: null, isSelf: false, color: "#eb459e" },
+      { id: "p_sam", name: "samstream", avatar: null, isSelf: false, color: "#57f287" },
+    ],
+    messages: [
+      { id: "d1", senderId: "p_alex", text: "Stream starts at 8, do not be late.", timestamp: "7:52" },
+      { id: "d2", senderId: "p_sam", text: "Setting up my mic right now.", timestamp: "7:54" },
+      { id: "d3", senderId: "self", text: "I will join from the laptop.", timestamp: "7:56" },
+      { id: "d4", senderId: "p_alex", text: "Ping me when you are in.", timestamp: "7:57" },
+    ],
   },
   "group-chat": {
     title: "Weekend Trip",
@@ -145,9 +145,9 @@ export default function GeneratorShell({ platformId }: Props) {
   }, [platformId]);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-0 border border-black/10 rounded-2xl overflow-hidden bg-white">
+    <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-0 rounded-[var(--radius-panel)] border border-black/[0.08] overflow-hidden bg-white/80 shadow-[0_8px_30px_rgba(30,35,80,0.06)]">
       {/* ---------------- 左：编辑面板 ---------------- */}
-      <div className="border-b lg:border-b-0 lg:border-r border-black/10 bg-[#fbfcfc]">
+      <div className="border-b lg:border-b-0 lg:border-r border-black/[0.08] bg-[#f8f9fd]">
         <div className="max-h-[78vh] overflow-y-auto p-5">
           <EditorPanel
             conversation={conversation}
@@ -158,22 +158,22 @@ export default function GeneratorShell({ platformId }: Props) {
       </div>
 
       {/* ---------------- 右：预览 + 导出 ---------------- */}
-      <div className="flex flex-col">
-        <div className="flex flex-wrap items-center gap-2 px-5 py-3 border-b border-black/10 bg-white">
+      <div className="flex flex-col bg-white/60">
+        <div className="flex flex-wrap items-center gap-2 px-5 py-3 border-b border-black/[0.08] bg-white/70">
           <button
             onClick={download}
             disabled={busy}
-            className="px-4 py-2 rounded-lg bg-[#008069] text-white text-[13.5px] font-medium hover:bg-[#006b58] disabled:opacity-60 transition"
+            className="px-4 py-2 rounded-full bg-primary text-primary-foreground text-[13.5px] font-medium hover:opacity-90 disabled:opacity-60 transition"
           >
             {busy ? "Exporting…" : "Download PNG"}
           </button>
 
-          <div className="flex items-center gap-1 p-0.5 rounded-lg bg-black/5">
+          <div className="flex items-center gap-1 p-0.5 rounded-full bg-black/5">
             {SCALES.map((s) => (
               <button
                 key={s.value}
                 onClick={() => setScale(s.value)}
-                className={`px-2.5 py-1.5 rounded-md text-[12.5px] transition ${
+                className={`px-2.5 py-1.5 rounded-full text-[12.5px] transition ${
                   scale === s.value
                     ? "bg-white shadow-sm font-medium"
                     : "text-black/55 hover:text-black/80"
@@ -198,13 +198,13 @@ export default function GeneratorShell({ platformId }: Props) {
 
           <button
             onClick={reset}
-            className="px-3 py-2 rounded-lg border border-black/15 text-[12.5px] text-black/60 hover:border-black/30"
+            className="px-3 py-2 rounded-full border border-black/12 text-[12.5px] text-black/60 hover:border-black/30"
           >
             Reset
           </button>
         </div>
 
-        <div className="flex-1 flex items-start justify-center p-6 sm:p-10 bg-[radial-gradient(circle_at_1px_1px,#e6eaea_1px,transparent_0)] [background-size:18px_18px]">
+        <div className="flex-1 flex items-start justify-center p-6 sm:p-10">
           <div ref={exportRef} data-export-root>
             <PhoneFrame
               statusBar={conversation.statusBar}
@@ -214,12 +214,14 @@ export default function GeneratorShell({ platformId }: Props) {
               statusBarStyle={theme.statusBarStyle}
               statusBarBg={theme.colors[conversation.mode].headerBg}
             >
-              {platformId === "whatsapp" || platformId === "group-chat" ? (
+              {platformId === "whatsapp" ? (
                 <WhatsAppChat conversation={conversation} theme={theme} />
               ) : platformId === "text-message" ? (
                 <TextMessageChat conversation={conversation} theme={theme} />
               ) : platformId === "messenger" ? (
                 <MessengerChat conversation={conversation} theme={theme} />
+              ) : platformId === "group-chat" ? (
+                <WhatsAppChat conversation={conversation} theme={theme} />
               ) : platformId === "discord" ? (
                 <DiscordChat conversation={conversation} theme={theme} />
               ) : platformId === "telegram" ? (

@@ -1,10 +1,32 @@
 @import "tailwindcss";
 
+/*
+ * 设计令牌 —— 对齐 thefake.design 的设计体系
+ * 主色：蓝紫靛蓝 oklch(56.9% .227 270.9)
+ * 背景：near-white 蓝灰 + 品牌色微染 mesh（color-mix 92/8）
+ * 圆角：基础 1rem，卡片/面板更大
+ */
+
 @theme {
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
-  --color-brand: #008069;
-  --color-brand-dark: #005c4b;
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+  --font-display: var(--font-space-grotesk), var(--font-inter), -apple-system,
+    sans-serif;
+  --font-script: var(--font-pacifico), cursive;
+
+  /* 主色（蓝紫靛蓝，竞品同款 oklch） */
+  --color-primary: oklch(56.9% 0.227 270.9);
+  --color-primary-foreground: oklch(98.5% 0.006 260);
+
+  /* 背景 / 前景 */
+  --color-page: oklch(98.82% 0.0032 258.4);
+  --color-foreground: oklch(25.21% 0.0204 259.1);
+  --color-muted: oklch(96.28% 0.0073 255.6);
+  --color-muted-foreground: oklch(49.5% 0.0188 260);
+  --color-accent-soft: oklch(95.8% 0.024 265);
+
+  --radius-card: clamp(1rem, 1.5vw, 1.35rem);
+  --radius-panel: clamp(1.25rem, 2vw, 1.75rem);
 }
 
 html {
@@ -13,9 +35,26 @@ html {
 
 body {
   font-family: var(--font-sans);
-  color: #111b21;
-  background: #ffffff;
+  /* 品牌色微染背景：竞品 bg-mesh-light 的同款 color-mix */
+  background: color-mix(in oklab, oklch(98.82% 0.0032 258.4) 92%,
+      oklch(56.9% 0.227 270.9) 8%);
+  color: oklch(25.21% 0.0204 259.1);
   -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* 渐变细线分隔（竞品 header/footer 的标志性细节） */
+.hairline {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    color-mix(in oklab, oklch(25.21% 0.0204 259.1) 20%, transparent),
+    transparent
+  );
 }
 
 /* 导出时 modern-screenshot 会克隆节点，避免焦点轮廓被截进去 */
@@ -24,24 +63,26 @@ body {
 }
 
 .prose-cm h2 {
+  font-family: var(--font-display);
   font-size: 22px;
   font-weight: 600;
   letter-spacing: -0.01em;
   margin: 40px 0 12px;
-  color: #0f1c17;
+  color: oklch(25.21% 0.0204 259.1);
 }
 
 .prose-cm h3 {
+  font-family: var(--font-display);
   font-size: 17px;
   font-weight: 600;
   margin: 26px 0 8px;
-  color: #0f1c17;
+  color: oklch(25.21% 0.0204 259.1);
 }
 
 .prose-cm p {
   font-size: 15.5px;
   line-height: 1.75;
-  color: #3b4a45;
+  color: oklch(45% 0.0188 260);
   margin: 0 0 14px;
 }
 
@@ -54,17 +95,17 @@ body {
 .prose-cm li {
   font-size: 15.5px;
   line-height: 1.75;
-  color: #3b4a45;
+  color: oklch(45% 0.0188 260);
   margin-bottom: 6px;
 }
 
 .prose-cm strong {
-  color: #0f1c17;
+  color: oklch(25.21% 0.0204 259.1);
   font-weight: 600;
 }
 
 .prose-cm a {
-  color: #00695c;
+  color: var(--color-primary);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
@@ -74,25 +115,27 @@ body {
   border-collapse: collapse;
   margin: 8px 0 18px;
   font-size: 14.5px;
+  background: rgb(255 255 255 / 70%);
 }
 
 .prose-cm th,
 .prose-cm td {
-  border: 1px solid #e3e8e6;
+  border: 1px solid color-mix(in oklab, oklch(25.21% 0.0204 259.1) 10%, transparent);
   padding: 8px 10px;
   text-align: left;
   vertical-align: top;
 }
 
 .prose-cm th {
-  background: #f4f7f6;
+  background: var(--color-accent-soft);
   font-weight: 600;
-  color: #0f1c17;
+  color: oklch(25.21% 0.0204 259.1);
 }
 
 .prose-cm code {
-  background: #f4f7f6;
-  border: 1px solid #e3e8e6;
+  background: var(--color-accent-soft);
+  border: 1px solid
+    color-mix(in oklab, oklch(25.21% 0.0204 259.1) 10%, transparent);
   border-radius: 4px;
   padding: 1px 5px;
   font-size: 13.5px;

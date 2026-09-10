@@ -104,7 +104,7 @@ export default function WhatsAppGeneratorPage() {
       <main className="mx-auto max-w-6xl px-5 pt-10">
         {/* ---------------- H1 + 导语 ---------------- */}
         <div className="max-w-3xl">
-          <h1 className="text-[34px] sm:text-[42px] font-semibold tracking-tight leading-[1.1] text-[#0f1c17]">
+          <h1 className="font-display text-[34px] sm:text-[42px] font-semibold tracking-tight leading-[1.1] text-foreground">
             Free WhatsApp Chat Generator
           </h1>
           <p className="mt-4 text-[17px] leading-relaxed text-black/65">

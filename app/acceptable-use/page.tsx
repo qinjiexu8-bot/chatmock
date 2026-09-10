@@ -14,7 +14,7 @@ export default function AcceptableUsePage() {
     <>
       <SiteHeader />
       <main className="mx-auto max-w-3xl px-5 pt-12">
-        <h1 className="text-[32px] font-semibold tracking-tight text-[#0f1c17]">
+        <h1 className="font-display text-[32px] font-semibold tracking-tight text-foreground">
           Acceptable Use Policy
         </h1>
         <p className="mt-2 text-[14px] text-black/50">Last updated: September 2026</p>

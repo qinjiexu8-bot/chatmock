@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { abs, livePages } from "@/lib/seo";
+import { blogPosts } from "@/lib/blog";
 
 /**
  * 只收录 live: true 的页面。
@@ -16,6 +17,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "weekly" as const,
       priority: 0.9,
+    })),
+    { url: abs("/blog"), lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    ...blogPosts.map((p) => ({
+      url: abs(`/blog/${p.slug}`),
+      lastModified: new Date(p.date),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
     })),
     {
       url: abs("/acceptable-use"),
