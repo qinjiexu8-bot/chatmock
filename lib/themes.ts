@@ -153,10 +153,76 @@ export const groupChatTheme: PlatformTheme = {
   },
 };
 
+/**
+ * Facebook Messenger
+ *
+ * 与前两种平台的结构性差异：
+ * 1. 气泡无尾巴，胶囊感大圆角 18px；连续消息组朝发送者一侧收窄为 6px
+ * 2. incoming 气泡头像挂在整个"组"的末条外侧，而不是 header 里
+ * 3. 已读状态是末条外发消息下方的 "Seen" 小字，不是气泡内勾
+ */
+export const messengerTheme: PlatformTheme = {
+  id: "messenger",
+  name: "Messenger",
+  slug: "messenger-chat-generator",
+  trademark: { name: "Messenger", owner: "Meta Platforms, Inc." },
+  colors: {
+    light: {
+      chatBg: "#ffffff",
+      headerBg: "#ffffff",
+      headerText: "#050505",
+      headerSubText: "#65676b",
+      incomingBubble: "#e4e6eb",
+      incomingText: "#050505",
+      outgoingBubble: "#0084ff",
+      outgoingText: "#ffffff",
+      timestamp: "#65676b",
+      accent: "#0084ff",
+      pillBg: "transparent",
+      pillText: "#65676b",
+      footerBg: "#ffffff",
+    },
+    dark: {
+      chatBg: "#000000",
+      headerBg: "#000000",
+      headerText: "#e4e6eb",
+      headerSubText: "#b0b3b8",
+      incomingBubble: "#303031",
+      incomingText: "#e4e6eb",
+      outgoingBubble: "#0084ff",
+      outgoingText: "#ffffff",
+      timestamp: "#b0b3b8",
+      accent: "#0084ff",
+      pillBg: "transparent",
+      pillText: "#b0b3b8",
+      footerBg: "#000000",
+    },
+  },
+  bubble: {
+    radius: 18,
+    maxWidthPct: 70,
+    fontSize: 15,
+    fontFamily: SYSTEM_FONT,
+    tailOnFirst: false,
+  },
+  features: {
+    receipt: false,
+    avatar: true,
+    dateSeparator: true,
+    senderNames: false,
+    imageMessage: true,
+    perMessageTimestamp: false,
+    deliveryLine: true,
+  },
+  statusBarStyle: "ios",
+  supportedModes: ["light", "dark"],
+};
+
 export const themes: Partial<Record<PlatformId, PlatformTheme>> = {
   whatsapp: whatsappTheme,
   "text-message": textMessageTheme,
   "group-chat": groupChatTheme,
+  messenger: messengerTheme,
 };
 
 export function getTheme(id: PlatformId): PlatformTheme {

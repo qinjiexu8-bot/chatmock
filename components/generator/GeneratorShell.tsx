@@ -5,6 +5,7 @@ import EditorPanel from "@/components/EditorPanel";
 import PhoneFrame from "@/components/PhoneFrame";
 import TextMessageChat from "@/components/chats/TextMessageChat";
 import WhatsAppChat from "@/components/chats/WhatsAppChat";
+import MessengerChat from "@/components/chats/MessengerChat";
 import { exportNodeAsPng } from "@/lib/export";
 import { getTheme } from "@/lib/themes";
 import {
@@ -20,6 +21,11 @@ interface Props {
 /** 各平台的默认会话差异（WhatsApp 用 TODAY，iOS 用真实时间格式，群聊自带成员） */
 const PLATFORM_DEFAULTS: Partial<Record<PlatformId, Partial<Conversation>>> = {
   "text-message": { dateSeparator: "Today 9:41", deliveryText: "Delivered" },
+  messenger: {
+    dateSeparator: "Today 9:41",
+    subtitle: "Active now",
+    deliveryText: "Seen",
+  },
   "group-chat": {
     title: "Weekend Trip",
     subtitle: "You, Alex, Sam, Jordan",
@@ -153,6 +159,8 @@ export default function GeneratorShell({ platformId }: Props) {
                 <WhatsAppChat conversation={conversation} theme={theme} />
               ) : platformId === "text-message" ? (
                 <TextMessageChat conversation={conversation} theme={theme} />
+              ) : platformId === "messenger" ? (
+                <MessengerChat conversation={conversation} theme={theme} />
               ) : null}
             </PhoneFrame>
           </div>

@@ -227,10 +227,12 @@ export default function GroupChatGeneratorPage() {
           <p>
             Need a one-to-one conversation instead? The{" "}
             <Link href="/whatsapp-chat-generator">WhatsApp chat generator</Link> handles
-            single chats with blue ticks and dark mode, and the{" "}
+            single chats with blue ticks and dark mode, the{" "}
             <Link href="/fake-text-message-generator">iPhone text message generator</Link>{" "}
-            covers iMessage-style threads. Messenger is next — see the{" "}
-            <Link href="/#generators">generator index</Link> for what is live.
+            covers iMessage-style threads, and the{" "}
+            <Link href="/messenger-chat-generator">Messenger chat generator</Link> handles
+            Facebook conversations. See the{" "}
+            <Link href="/#generators">generator index</Link> for the full list.
           </p>
 
           <h2>Frequently asked questions</h2>

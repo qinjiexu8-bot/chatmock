@@ -277,10 +277,11 @@ export default function TextMessageGeneratorPage() {
           <p>
             Looking for a different platform? The{" "}
             <Link href="/whatsapp-chat-generator">WhatsApp chat generator</Link> is live,
-            including dark mode, blue ticks and image messages — and so is the{" "}
+            including dark mode, blue ticks and image messages — and so are the{" "}
             <Link href="/group-chat-generator">group chat generator</Link> with coloured
-            sender names and multiple participants. Messenger is next; see the{" "}
-            <Link href="/#generators">generator index</Link> for what is live.
+            sender names and the{" "}
+            <Link href="/messenger-chat-generator">Messenger chat generator</Link>. See the{" "}
+            <Link href="/#generators">generator index</Link> for the full list.
           </p>
 
           <h2>Frequently asked questions</h2>

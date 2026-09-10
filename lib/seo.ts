@@ -57,7 +57,7 @@ export const generatorPages: GeneratorPage[] = [
     description:
       "Build realistic Facebook Messenger conversation mockups. Customise names, avatars, seen receipts and dark mode, then download a high-resolution PNG for free.",
     batch: "P0",
-    live: false,
+    live: true,
   },
   {
     platformId: "group-chat",

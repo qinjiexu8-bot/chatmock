@@ -279,11 +279,11 @@ export default function WhatsAppGeneratorPage() {
           <h2>Other generators</h2>
           <p>
             ChatMock is expanding one platform at a time, because a mockup is only convincing
-            when the small details are right. The{" "}
-            <Link href="/fake-text-message-generator">iPhone text message generator</Link>{" "}
-            and the <Link href="/group-chat-generator">group chat generator</Link> are live.
-            Messenger is next in line — you will find it on the{" "}
-            <Link href="/#generators">generator index</Link> as soon as it ships.
+            when the small details are right. Also live: the{" "}
+            <Link href="/fake-text-message-generator">iPhone text message generator</Link>,{" "}
+            the <Link href="/group-chat-generator">group chat generator</Link> and the{" "}
+            <Link href="/messenger-chat-generator">Messenger chat generator</Link>. See the{" "}
+            <Link href="/#generators">generator index</Link> for the full list.
           </p>
 
           <h2>Frequently asked questions</h2>
