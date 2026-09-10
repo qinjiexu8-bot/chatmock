@@ -55,6 +55,30 @@ export const blogPosts: BlogPostMeta[] = [
     date: "2026-09-10",
     readMinutes: 9,
   },
+  {
+    slug: "discord-message-mockup-guide",
+    title: "How to Make a Discord Message Screenshot (Dark Mode Done Right)",
+    description:
+      "Discord mockups fail when they are drawn like WhatsApp bubbles. Row layout, 40px avatars, role colours and the details that make a Discord screenshot read as real.",
+    date: "2026-09-10",
+    readMinutes: 6,
+  },
+  {
+    slug: "telegram-chat-screenshot-guide",
+    title: "How to Make a Telegram Chat Screenshot That Looks iOS-Real",
+    description:
+      "Telegram's checkmarks, wallpaper and floating header follow different rules from WhatsApp. A guide to Telegram chat mockups on iPhone, light and night mode.",
+    date: "2026-09-10",
+    readMinutes: 6,
+  },
+  {
+    slug: "instagram-dm-screenshot-guide",
+    title: "How to Make an Instagram DM Screenshot for Memes and Reels",
+    description:
+      "The layout rules behind a convincing Instagram DM mockup: gradient rings, rounded grey-and-purple bubbles, Seen status and the details meme pages get wrong.",
+    date: "2026-09-10",
+    readMinutes: 6,
+  },
 ];
 
 export function getPost(slug: string): BlogPostMeta | undefined {
