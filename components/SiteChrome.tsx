@@ -7,6 +7,8 @@ import { livePages, site } from "@/lib/seo";
 export function SiteHeader({ current }: { current?: string }) {
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
+  const [moreOpen, setMoreOpen] = useState(false);
+  const moreActive = livePages.slice(4).some((p) => p.slug === current);
 
   const navLinkClass = (slug: string) =>
     `shrink-0 px-3 min-h-10 inline-flex items-center rounded-full transition ${
@@ -40,6 +42,49 @@ export function SiteHeader({ current }: { current?: string }) {
                 {p.name}
               </Link>
             ))}
+            {/* 其余生成器收纳进 More 下拉，任何页面都能直达全部工具 */}
+            <div className="relative group">
+              <button
+                type="button"
+                aria-haspopup="true"
+                aria-expanded={moreOpen}
+                onClick={() => setMoreOpen((v) => !v)}
+                className={`shrink-0 px-3 min-h-10 inline-flex items-center gap-1 rounded-full transition ${
+                  moreActive
+                    ? "bg-primary/10 text-primary font-medium"
+                    : "hover:bg-black/5 hover:text-black"
+                }`}
+              >
+                More
+                <svg
+                  width="10"
+                  height="6"
+                  viewBox="0 0 10 6"
+                  fill="none"
+                  aria-hidden="true"
+                  className={`transition-transform ${moreOpen ? "rotate-180" : ""}`}
+                >
+                  <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+              {moreOpen ? (
+                <>
+                  <div className="fixed inset-0 z-10" onClick={() => setMoreOpen(false)} aria-hidden="true" />
+                  <div className="absolute left-0 top-full z-20 mt-1 w-56 rounded-2xl border border-black/[0.08] bg-white shadow-[0_12px_32px_rgba(30,35,80,0.14)] p-1.5 menu-pop">
+                    {livePages.slice(4).map((p) => (
+                      <Link
+                        key={p.slug}
+                        href={`/${p.slug}`}
+                        onClick={() => setMoreOpen(false)}
+                        className={menuLinkClass(p.slug)}
+                      >
+                        {p.name}
+                      </Link>
+                    ))}
+                  </div>
+                </>
+              ) : null}
+            </div>
             <Link href="/examples" className={navLinkClass("examples")}>
               Examples
             </Link>

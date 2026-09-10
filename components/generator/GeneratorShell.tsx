@@ -15,6 +15,7 @@ import WhatsAppCallLog from "@/components/chats/WhatsAppCallLog";
 import AndroidSmsChat from "@/components/chats/AndroidSmsChat";
 import { exportNodeAsPng } from "@/lib/export";
 import { getTheme } from "@/lib/themes";
+import { livePages } from "@/lib/seo";
 import {
   createDefaultConversation,
   type Conversation,
@@ -171,17 +172,44 @@ export default function GeneratorShell({ platformId }: Props) {
   }, [frame, platformId]);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-0 rounded-[var(--radius-panel)] border border-black/[0.08] overflow-hidden bg-white/80 shadow-[0_8px_30px_rgba(30,35,80,0.06)]">
-      {/* ---------------- 左：编辑面板 ---------------- */}
-      <div className="border-b lg:border-b-0 lg:border-r border-black/[0.08] bg-[#f8f9fd]">
-        <div className="max-h-[78vh] overflow-y-auto p-5">
-          <EditorPanel
-            conversation={conversation}
-            setConversation={setConversation}
-            theme={theme}
-          />
+    <div className="rounded-[var(--radius-panel)] border border-black/[0.08] overflow-hidden bg-white/80 shadow-[0_8px_30px_rgba(30,35,80,0.06)]">
+      {/* ---------------- 顶部：平台切换条（工具页之间一键横跳） ---------------- */}
+      <div className="border-b border-black/[0.08] bg-[#f8f9fd] px-3 py-2">
+        <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none">
+          <span className="shrink-0 pr-1 text-[11px] font-medium uppercase tracking-wider text-black/35">
+            Switch
+          </span>
+          {livePages.map((p) => {
+            const active = p.platformId === platformId;
+            return (
+              <Link
+                key={p.slug}
+                href={`/${p.slug}`}
+                aria-current={active ? "page" : undefined}
+                className={`shrink-0 px-3 h-8 inline-flex items-center rounded-full text-[12.5px] whitespace-nowrap transition ${
+                  active
+                    ? "bg-primary text-primary-foreground font-medium"
+                    : "text-black/60 hover:bg-black/5 hover:text-black"
+                }`}
+              >
+                {p.name}
+              </Link>
+            );
+          })}
         </div>
       </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr]">
+        {/* ---------------- 左：编辑面板 ---------------- */}
+        <div className="border-b lg:border-b-0 lg:border-r border-black/[0.08] bg-[#f8f9fd]">
+          <div className="max-h-[78vh] overflow-y-auto p-5">
+            <EditorPanel
+              conversation={conversation}
+              setConversation={setConversation}
+              theme={theme}
+            />
+          </div>
+        </div>
 
       {/* ---------------- 右：预览 + 导出 ---------------- */}
       <div className="flex flex-col bg-white/60">
@@ -293,6 +321,7 @@ export default function GeneratorShell({ platformId }: Props) {
         >
           See {theme.name} screenshot examples →
         </Link>
+      </div>
       </div>
     </div>
   );
