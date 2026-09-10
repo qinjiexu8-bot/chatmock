@@ -15,7 +15,8 @@
   --font-script: var(--font-pacifico), cursive;
 
   /* 主色（蓝紫靛蓝，竞品同款 oklch） */
-  --color-primary: oklch(56.9% 0.227 270.9);
+  /* 加深到 4.5:1 以上：text-primary 小字标签 / prose 链接 / footer logo 均过 WCAG AA */
+  --color-primary: oklch(52% 0.215 271);
   --color-primary-foreground: oklch(98.5% 0.006 260);
 
   /* 背景 / 前景 */

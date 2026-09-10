@@ -10,7 +10,7 @@ export default function Breadcrumb({
   items: { name: string; href?: string }[];
 }) {
   return (
-    <nav aria-label="Breadcrumb" className="text-[12.5px] text-black/45">
+    <nav aria-label="Breadcrumb" className="text-[12.5px] text-black/60">
       <ol className="flex items-center gap-1.5">
         {items.map((item, i) => (
           <li key={item.name} className="flex items-center gap-1.5">

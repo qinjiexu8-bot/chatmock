@@ -72,7 +72,7 @@ export function SiteHeader({ current }: { current?: string }) {
                 <>
                   <div className="fixed inset-0 z-10" onClick={() => setMoreOpen(false)} aria-hidden="true" />
                   <div className="absolute left-0 top-full z-20 mt-1 w-64 rounded-2xl border border-black/[0.08] bg-white shadow-[0_12px_32px_rgba(30,35,80,0.14)] p-2 menu-pop">
-                    <p className="px-2 pb-1.5 pt-0.5 text-[10.5px] font-medium uppercase tracking-wider text-black/35">
+                    <p className="px-2 pb-1.5 pt-0.5 text-[10.5px] font-medium uppercase tracking-wider text-black/55">
                       More generators
                     </p>
                     {livePages.slice(4).map((p) => (
@@ -228,7 +228,7 @@ export function SiteFooter({ trademark }: { trademark?: { name: string; owner: s
           .
         </p>
 
-        <p className="mt-3 text-black/40">
+        <p className="mt-3 text-black/55">
           © {new Date().getFullYear()} {site.name}. All content is processed locally in your
           browser.
         </p>

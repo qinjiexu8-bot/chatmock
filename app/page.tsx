@@ -73,7 +73,7 @@ export default function HomePage() {
               </Link>
             </div>
 
-            <div className="mt-6 flex flex-wrap justify-center gap-x-5 gap-y-1.5 text-[13.5px] text-black/50">
+            <div className="mt-6 flex flex-wrap justify-center gap-x-5 gap-y-1.5 text-[13.5px] text-black/60">
               <span>✓ No account required</span>
               <span>✓ No watermark, ever</span>
               <span>✓ Nothing leaves your device</span>

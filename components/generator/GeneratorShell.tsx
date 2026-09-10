@@ -186,7 +186,7 @@ export default function GeneratorShell({ platformId }: Props) {
       {/* ---------------- 顶部：平台切换条（工具页之间一键横跳） ---------------- */}
       <div className="border-b border-black/[0.08] bg-[#f8f9fd] px-3 py-2">
         <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none">
-          <span className="shrink-0 pr-1 text-[11px] font-medium uppercase tracking-wider text-black/35">
+          <span className="shrink-0 pr-1 text-[11px] font-medium uppercase tracking-wider text-black/55">
             Switch
           </span>
           {livePages.map((p) => {
@@ -324,7 +324,7 @@ export default function GeneratorShell({ platformId }: Props) {
           </div>
         </div>
 
-        <p className="px-5 pb-4 text-[11.5px] text-black/40 text-center">
+        <p className="px-5 pb-4 text-[11.5px] text-black/55 text-center">
           Everything runs in your browser. Nothing you type is uploaded to a server.
         </p>
       </div>
