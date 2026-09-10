@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { livePages, site } from "@/lib/seo";
+import { PlatformIcon } from "@/components/PlatformIcon";
 
 export function SiteHeader({ current }: { current?: string }) {
   const [open, setOpen] = useState(false);
@@ -18,7 +19,7 @@ export function SiteHeader({ current }: { current?: string }) {
     }`;
 
   const menuLinkClass = (slug: string) =>
-    `inline-flex items-center px-3.5 py-2.5 rounded-xl text-[14px] transition ${
+    `inline-flex w-full items-center gap-2.5 px-3 py-2 rounded-xl text-[13.5px] transition ${
       current === slug
         ? "bg-primary/10 text-primary font-medium"
         : "text-black/75 hover:bg-black/5"
@@ -70,7 +71,10 @@ export function SiteHeader({ current }: { current?: string }) {
               {moreOpen ? (
                 <>
                   <div className="fixed inset-0 z-10" onClick={() => setMoreOpen(false)} aria-hidden="true" />
-                  <div className="absolute left-0 top-full z-20 mt-1 w-56 rounded-2xl border border-black/[0.08] bg-white shadow-[0_12px_32px_rgba(30,35,80,0.14)] p-1.5 menu-pop">
+                  <div className="absolute left-0 top-full z-20 mt-1 w-64 rounded-2xl border border-black/[0.08] bg-white shadow-[0_12px_32px_rgba(30,35,80,0.14)] p-2 menu-pop">
+                    <p className="px-2 pb-1.5 pt-0.5 text-[10.5px] font-medium uppercase tracking-wider text-black/35">
+                      More generators
+                    </p>
                     {livePages.slice(4).map((p) => (
                       <Link
                         key={p.slug}
@@ -78,6 +82,7 @@ export function SiteHeader({ current }: { current?: string }) {
                         onClick={() => setMoreOpen(false)}
                         className={menuLinkClass(p.slug)}
                       >
+                        <PlatformIcon platformId={p.platformId} />
                         {p.name}
                       </Link>
                     ))}
@@ -143,6 +148,7 @@ export function SiteHeader({ current }: { current?: string }) {
           <div className="mt-2 grid grid-cols-2 gap-1.5">
             {livePages.map((p) => (
               <Link key={p.slug} href={`/${p.slug}`} onClick={close} className={menuLinkClass(p.slug)}>
+                <PlatformIcon platformId={p.platformId} />
                 {p.name}
               </Link>
             ))}

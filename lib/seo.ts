@@ -150,3 +150,9 @@ export const generatorPages: GeneratorPage[] = [
 ];
 
 export const livePages = generatorPages.filter((p) => p.live);
+
+/** slug → 展示名（面包屑等场景用），未知 slug 原样返回。 */
+export function pageName(slug: string): string {
+  const p = generatorPages.find((x) => x.slug === slug);
+  return p ? p.name : slug;
+}

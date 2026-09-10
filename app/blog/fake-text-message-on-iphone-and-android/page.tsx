@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Breadcrumb from "@/components/Breadcrumb";
 import { JsonLd, SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { abs } from "@/lib/seo";
 import { getPost } from "@/lib/blog";
@@ -11,6 +12,17 @@ export const metadata: Metadata = {
   title: post.title,
   description: post.description,
   alternates: { canonical: `/blog/${SLUG}` },
+  openGraph: {
+    type: "article",
+    url: abs(`/blog/${SLUG}`),
+    title: post.title,
+    description: post.description,
+    images: [abs(`/og/blog/${SLUG}`)],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: [abs(`/og/blog/${SLUG}`)],
+  },
 };
 
 export default function Post() {
@@ -31,6 +43,15 @@ export default function Post() {
       <JsonLd data={article} />
 
       <main className="mx-auto max-w-3xl px-5 pt-12">
+        <div className="mb-3">
+          <Breadcrumb
+            items={[
+              { name: "Home", href: "/" },
+              { name: "Blog", href: "/blog" },
+              { name: post.title },
+            ]}
+          />
+        </div>
         <p className="text-[13px] text-black/40">
           {post.date} · {post.readMinutes} min read
         </p>

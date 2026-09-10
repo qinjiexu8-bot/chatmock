@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import EditorPanel from "@/components/EditorPanel";
+import { PlatformIcon } from "@/components/PlatformIcon";
 import PhoneFrame from "@/components/PhoneFrame";
 import TextMessageChat from "@/components/chats/TextMessageChat";
 import WhatsAppChat from "@/components/chats/WhatsAppChat";
@@ -186,12 +187,13 @@ export default function GeneratorShell({ platformId }: Props) {
                 key={p.slug}
                 href={`/${p.slug}`}
                 aria-current={active ? "page" : undefined}
-                className={`shrink-0 px-3 h-8 inline-flex items-center rounded-full text-[12.5px] whitespace-nowrap transition ${
+                className={`shrink-0 px-3 h-8 inline-flex items-center gap-1.5 rounded-full text-[12.5px] whitespace-nowrap transition ${
                   active
                     ? "bg-primary text-primary-foreground font-medium"
                     : "text-black/60 hover:bg-black/5 hover:text-black"
                 }`}
               >
+                <PlatformIcon platformId={p.platformId} />
                 {p.name}
               </Link>
             );

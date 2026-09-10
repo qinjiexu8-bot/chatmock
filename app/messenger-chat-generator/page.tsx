@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import GeneratorShell from "@/components/generator/GeneratorShell";
+import Breadcrumb from "@/components/Breadcrumb";
 import { JsonLd, SiteFooter, SiteHeader } from "@/components/SiteChrome";
-import { abs, site } from "@/lib/seo";
+import { abs, site, pageName } from "@/lib/seo";
 import { messengerTheme } from "@/lib/themes";
 
 const SLUG = "messenger-chat-generator";
@@ -105,6 +106,10 @@ export default function MessengerGeneratorPage() {
       <JsonLd data={[webApp, faq, breadcrumb]} />
 
       <main className="mx-auto max-w-6xl px-5 pt-10">
+        {/* 面包屑（与 JSON-LD BreadcrumbList 对应） */}
+        <div className="mb-4">
+          <Breadcrumb items={[{ name: "Home", href: "/" }, { name: pageName("messenger-chat-generator") }]} />
+        </div>
         <div className="max-w-3xl">
           <h1 className="font-display text-[34px] sm:text-[42px] font-semibold tracking-tight leading-[1.1] text-foreground">
             Free Messenger Chat Generator
