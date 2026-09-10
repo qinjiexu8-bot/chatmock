@@ -27,6 +27,13 @@ interface Props {
   platformId: PlatformId;
 }
 
+/** GA4 gtag（components/GA4 接线后存在；未接线时为 undefined，调用处用 ?. 静默跳过） */
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+
 /** 各平台的默认会话差异（WhatsApp 用 TODAY，iOS 用真实时间格式，群聊自带成员） */
 const PLATFORM_DEFAULTS: Partial<Record<PlatformId, Partial<Conversation>>> = {
   "text-message": { dateSeparator: "Today 9:41", deliveryText: "Delivered" },
@@ -137,6 +144,8 @@ export default function GeneratorShell({ platformId }: Props) {
         scale,
         filename: `chatmock-${theme.slug}-${safeName}.png`,
       });
+      // GA4 转化事件（访问→导出，手册 6.3 验收指标）；GA4 未接线时静默跳过
+      window.gtag?.("event", "export_png", { platform: theme.slug, scale });
     } catch (e) {
       console.error(e);
       alert("Export failed. Please try again, or switch to 1x scale.");
