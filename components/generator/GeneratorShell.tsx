@@ -204,7 +204,7 @@ export default function GeneratorShell({ platformId }: Props) {
       <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr]">
         {/* ---------------- 左：编辑面板 ---------------- */}
         <div className="border-b lg:border-b-0 lg:border-r border-black/[0.08] bg-[#f8f9fd]">
-          <div className="max-h-[78vh] overflow-y-auto p-5">
+          <div className="max-h-[78vh] overflow-y-auto overscroll-contain p-5">
             <EditorPanel
               conversation={conversation}
               setConversation={setConversation}

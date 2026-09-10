@@ -93,6 +93,8 @@ export default function EditorPanel({ conversation, setConversation, theme }: Pr
   const addMessage = (senderId: string) =>
     patch({
       messages: [
+        // 必须展开既有消息：漏掉 spread 会把整个会话替换成一条新消息（静默清空用户数据）
+        ...conversation.messages,
         {
           id: newId("m"),
           senderId,
