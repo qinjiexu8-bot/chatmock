@@ -3,7 +3,8 @@ import { livePages, site } from "@/lib/seo";
 
 export function SiteHeader({ current }: { current?: string }) {
   const links = [
-    ...livePages.slice(0, 5).map((p) => ({ href: `/${p.slug}`, label: p.name })),
+    ...livePages.slice(0, 4).map((p) => ({ href: `/${p.slug}`, label: p.name })),
+    { href: "/examples", label: "Examples" },
     { href: "/blog", label: "Blog" },
   ];
 
@@ -78,6 +79,9 @@ export function SiteFooter({ trademark }: { trademark?: { name: string; owner: s
           <div className="flex flex-wrap gap-x-6 gap-y-2">
             <Link href="/" className="hover:text-black">
               Home
+            </Link>
+            <Link href="/examples" className="hover:text-black">
+              Examples
             </Link>
             <Link href="/blog" className="hover:text-black">
               Blog

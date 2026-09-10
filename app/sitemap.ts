@@ -18,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly" as const,
       priority: 0.9,
     })),
+    { url: abs("/examples"), lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: abs("/blog"), lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     ...blogPosts.map((p) => ({
       url: abs(`/blog/${p.slug}`),
