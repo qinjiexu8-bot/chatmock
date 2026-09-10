@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import EditorPanel from "@/components/EditorPanel";
 import PhoneFrame from "@/components/PhoneFrame";
 import TextMessageChat from "@/components/chats/TextMessageChat";
@@ -146,6 +146,29 @@ export default function GeneratorShell({ platformId }: Props) {
     setConversation(defaultConversation(platformId));
   }, [platformId]);
 
+  // 预览自适应：小屏容器 < 预览宽（390 无框 / 带框更宽）时按比例缩放显示。
+  // transform 只加在包裹层上，导出节点 [data-export-root] 本身尺寸不变，导出不受影响。
+  const previewBoxRef = useRef<HTMLDivElement>(null);
+  const [fitScale, setFitScale] = useState(1);
+  const [chatSize, setChatSize] = useState({ w: 390, h: 780 });
+
+  useEffect(() => {
+    const box = previewBoxRef.current;
+    const node = exportRef.current;
+    if (!box || !node) return;
+    const measure = () => {
+      const w = node.offsetWidth || 390;
+      const h = node.offsetHeight || 780;
+      setChatSize({ w, h });
+      setFitScale(Math.min(1, box.clientWidth / w));
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(box);
+    ro.observe(node);
+    return () => ro.disconnect();
+  }, [frame, platformId]);
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-0 rounded-[var(--radius-panel)] border border-black/[0.08] overflow-hidden bg-white/80 shadow-[0_8px_30px_rgba(30,35,80,0.06)]">
       {/* ---------------- 左：编辑面板 ---------------- */}
@@ -206,8 +229,22 @@ export default function GeneratorShell({ platformId }: Props) {
           </button>
         </div>
 
-        <div className="flex-1 flex items-start justify-center p-6 sm:p-10">
-          <div ref={exportRef} data-export-root>
+        <div
+          ref={previewBoxRef}
+          className="flex-1 flex items-start justify-center overflow-hidden p-4 sm:p-10"
+        >
+          <div
+            className="relative"
+            style={{ width: chatSize.w * fitScale, height: chatSize.h * fitScale }}
+          >
+            <div
+              style={{
+                width: chatSize.w,
+                transform: `scale(${fitScale})`,
+                transformOrigin: "top left",
+              }}
+            >
+              <div ref={exportRef} data-export-root>
             <PhoneFrame
               statusBar={conversation.statusBar}
               showStatusBar={conversation.showStatusBar}
@@ -238,6 +275,8 @@ export default function GeneratorShell({ platformId }: Props) {
                 <AndroidSmsChat conversation={conversation} theme={theme} />
               ) : null}
             </PhoneFrame>
+          </div>
+            </div>
           </div>
         </div>
 
