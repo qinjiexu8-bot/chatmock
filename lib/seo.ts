@@ -90,7 +90,7 @@ export const generatorPages: GeneratorPage[] = [
     description:
       "Design realistic Instagram direct message mockups with dark mode, avatars and seen status. Free to use, no signup, high-resolution PNG export.",
     batch: "P1",
-    live: false,
+    live: true,
   },
   {
     platformId: "discord",

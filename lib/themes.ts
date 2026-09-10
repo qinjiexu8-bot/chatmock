@@ -348,6 +348,72 @@ export const telegramTheme: PlatformTheme = {
   supportedModes: ["light", "dark"],
 };
 
+/**
+ * Instagram DM
+ *
+ * 第七种结构：
+ * 1. 外发气泡是官方渐变紫（#a033ff → #e24aa2），incoming 是中性灰胶囊
+ * 2. 无尾巴、无组内收角，每条都是全圆胶囊；组末 incoming 外侧挂小头像
+ * 3. Seen = 最后一条外发消息下方右对齐的「对方小头像 + Seen」
+ * 4. header 没有状态行（IG DM 不显示 online），时间只在组上方居中
+ */
+export const instagramDmTheme: PlatformTheme = {
+  id: "instagram-dm",
+  name: "Instagram DM",
+  slug: "instagram-dm-generator",
+  trademark: { name: "Instagram", owner: "Meta Platforms, Inc." },
+  colors: {
+    light: {
+      chatBg: "#ffffff",
+      headerBg: "#ffffff",
+      headerText: "#000000",
+      headerSubText: "#8e8e93",
+      incomingBubble: "#efefef",
+      incomingText: "#000000",
+      outgoingBubble: "linear-gradient(97deg, #a033ff 0%, #e24aa2 100%)",
+      outgoingText: "#ffffff",
+      timestamp: "#8e8e93",
+      accent: "#3797f0",
+      pillBg: "#ffffff",
+      pillText: "#8e8e93",
+      footerBg: "#ffffff",
+    },
+    dark: {
+      chatBg: "#000000",
+      headerBg: "#000000",
+      headerText: "#ffffff",
+      headerSubText: "#8e8e93",
+      incomingBubble: "#262626",
+      incomingText: "#ffffff",
+      outgoingBubble: "linear-gradient(97deg, #a033ff 0%, #e24aa2 100%)",
+      outgoingText: "#ffffff",
+      timestamp: "#8e8e93",
+      accent: "#3797f0",
+      pillBg: "#000000",
+      pillText: "#8e8e93",
+      footerBg: "#000000",
+    },
+  },
+  bubble: {
+    radius: 18,
+    maxWidthPct: 72,
+    fontSize: 15,
+    fontFamily: SYSTEM_FONT,
+    tailOnFirst: false,
+  },
+  features: {
+    receipt: false,
+    avatar: true,
+    dateSeparator: true,
+    senderNames: false,
+    imageMessage: true,
+    perMessageTimestamp: false,
+    deliveryLine: true,
+  },
+  statusBarStyle: "ios",
+  supportedModes: ["light", "dark"],
+};
+
 export const themes: Partial<Record<PlatformId, PlatformTheme>> = {
   whatsapp: whatsappTheme,
   "text-message": textMessageTheme,
@@ -355,6 +421,7 @@ export const themes: Partial<Record<PlatformId, PlatformTheme>> = {
   messenger: messengerTheme,
   discord: discordTheme,
   telegram: telegramTheme,
+  "instagram-dm": instagramDmTheme,
 };
 
 export function getTheme(id: PlatformId): PlatformTheme {
