@@ -17,9 +17,26 @@ interface Props {
   platformId: PlatformId;
 }
 
-/** 各平台的默认会话差异（WhatsApp 用 TODAY，iOS 用真实时间格式） */
+/** 各平台的默认会话差异（WhatsApp 用 TODAY，iOS 用真实时间格式，群聊自带成员） */
 const PLATFORM_DEFAULTS: Partial<Record<PlatformId, Partial<Conversation>>> = {
   "text-message": { dateSeparator: "Today 9:41", deliveryText: "Delivered" },
+  "group-chat": {
+    title: "Weekend Trip",
+    subtitle: "You, Alex, Sam, Jordan",
+    participants: [
+      { id: "self", name: "You", avatar: null, isSelf: true },
+      { id: "p_alex", name: "Alex", avatar: null, isSelf: false, color: "#e542a3" },
+      { id: "p_sam", name: "Sam", avatar: null, isSelf: false, color: "#02a698" },
+      { id: "p_jordan", name: "Jordan", avatar: null, isSelf: false, color: "#dc691a" },
+    ],
+    messages: [
+      { id: "g1", senderId: "p_alex", text: "Guys, the cabin is booked for Saturday.", timestamp: "9:32" },
+      { id: "g2", senderId: "p_sam", text: "Perfect. Who is driving?", timestamp: "9:33" },
+      { id: "g3", senderId: "self", text: "I can take three people + gear.", timestamp: "9:34", receipt: "read" },
+      { id: "g4", senderId: "p_jordan", text: "Claiming a seat right now.", timestamp: "9:35" },
+      { id: "g5", senderId: "p_alex", text: "Parking is free after 6pm, by the way.", timestamp: "9:36" },
+    ],
+  },
 };
 
 function defaultConversation(platformId: PlatformId): Conversation {
@@ -132,7 +149,7 @@ export default function GeneratorShell({ platformId }: Props) {
               mode={conversation.mode}
               frame={frame}
             >
-              {platformId === "whatsapp" ? (
+              {platformId === "whatsapp" || platformId === "group-chat" ? (
                 <WhatsAppChat conversation={conversation} theme={theme} />
               ) : platformId === "text-message" ? (
                 <TextMessageChat conversation={conversation} theme={theme} />

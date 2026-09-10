@@ -68,7 +68,7 @@ export const generatorPages: GeneratorPage[] = [
     description:
       "Generate group chat mockups with multiple participants, coloured sender names and per-member avatars. Free, no signup, export PNG in one click.",
     batch: "P0",
-    live: false,
+    live: true,
   },
   {
     platformId: "text-message",

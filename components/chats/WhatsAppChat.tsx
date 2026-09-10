@@ -227,9 +227,16 @@ export default function WhatsAppChat({ conversation, theme }: Props) {
                     whiteSpace: "pre-wrap",
                   }}
                 >
-                  {features.senderNames && !isSelf && sender?.color ? (
-                    <div style={{ color: sender.color, fontSize: 13, fontWeight: 500, marginBottom: 2 }}>
-                      {sender.name}
+                  {features.senderNames && !isSelf ? (
+                    <div
+                      style={{
+                        color: sender?.color ?? c.accent,
+                        fontSize: 13,
+                        fontWeight: 500,
+                        marginBottom: 2,
+                      }}
+                    >
+                      {sender?.name ?? ""}
                     </div>
                   ) : null}
 

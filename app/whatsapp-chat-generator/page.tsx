@@ -280,9 +280,9 @@ export default function WhatsAppGeneratorPage() {
           <p>
             ChatMock is expanding one platform at a time, because a mockup is only convincing
             when the small details are right. The{" "}
-            <Link href="/fake-text-message-generator">iPhone text message generator</Link> is
-            now live. Messenger and group chats (with coloured sender names) are next in
-            line — you will find each of them on the{" "}
+            <Link href="/fake-text-message-generator">iPhone text message generator</Link>{" "}
+            and the <Link href="/group-chat-generator">group chat generator</Link> are live.
+            Messenger is next in line — you will find it on the{" "}
             <Link href="/#generators">generator index</Link> as soon as it ships.
           </p>
 

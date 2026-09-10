@@ -135,9 +135,28 @@ export const textMessageTheme: PlatformTheme = {
   supportedModes: ["light", "dark"],
 };
 
+/**
+ * 群聊（WhatsApp 群聊 UI 体系）
+ *
+ * 与单聊共用色值和气泡几何，差异只有两点：
+ * 1. incoming 消息显示发送者名字，颜色取自固定色板（真机行为）
+ * 2. header 副标题是成员列表（"You, Alex, Sam"）而不是 online 状态
+ */
+export const groupChatTheme: PlatformTheme = {
+  ...whatsappTheme,
+  id: "group-chat",
+  name: "Group Chat",
+  slug: "group-chat-generator",
+  features: {
+    ...whatsappTheme.features,
+    senderNames: true,
+  },
+};
+
 export const themes: Partial<Record<PlatformId, PlatformTheme>> = {
   whatsapp: whatsappTheme,
   "text-message": textMessageTheme,
+  "group-chat": groupChatTheme,
 };
 
 export function getTheme(id: PlatformId): PlatformTheme {

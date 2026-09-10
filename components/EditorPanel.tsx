@@ -44,10 +44,43 @@ export default function EditorPanel({ conversation, setConversation, theme }: Pr
   const selfId = conversation.participants.find((p) => p.isSelf)?.id ?? "self";
   const otherId = conversation.participants.find((p) => !p.isSelf)?.id ?? "other";
 
+  /** WhatsApp 群聊真机发送者名色板 */
+  const NAME_PALETTE = ["#e542a3", "#02a698", "#dc691a", "#7f66ff", "#53bdeb"];
+
   const setMessage = (id: string, p: Partial<Message>) =>
     patch({
       messages: conversation.messages.map((m) => (m.id === id ? { ...m, ...p } : m)),
     });
+
+  const updateParticipant = (id: string, name: string) =>
+    patch({
+      participants: conversation.participants.map((p) =>
+        p.id === id ? { ...p, name } : p
+      ),
+    });
+
+  const addParticipant = () => {
+    const used = conversation.participants.length;
+    patch({
+      participants: [
+        ...conversation.participants,
+        {
+          id: newId("p"),
+          name: `Member ${used}`,
+          avatar: null,
+          isSelf: false,
+          color: NAME_PALETTE[used % NAME_PALETTE.length],
+        },
+      ],
+    });
+  };
+
+  const removeParticipant = (id: string) => {
+    if (id === selfId) return;
+    patch({
+      participants: conversation.participants.filter((p) => p.id !== id),
+    });
+  };
 
   const addMessage = (senderId: string) =>
     patch({
@@ -163,6 +196,44 @@ export default function EditorPanel({ conversation, setConversation, theme }: Pr
         </Row>
       </Section>
 
+      {theme.features.senderNames ? (
+        <Section title={`Participants (${conversation.participants.length})`}>
+          <div className="space-y-2">
+            {conversation.participants.map((p) => (
+              <div key={p.id} className="flex items-center gap-2">
+                <span
+                  className="w-4 h-4 rounded-full shrink-0"
+                  style={{ background: p.isSelf ? "#008069" : (p.color ?? "#53bdeb") }}
+                  title={p.isSelf ? "You" : "Sender colour"}
+                />
+                <input
+                  value={p.isSelf ? "You" : p.name}
+                  disabled={p.isSelf}
+                  onChange={(e) => updateParticipant(p.id, e.target.value)}
+                  className={`flex-1 px-2.5 py-1.5 rounded-lg border border-black/15 outline-none focus:border-black/40 ${
+                    p.isSelf ? "bg-black/5 text-black/45" : ""
+                  }`}
+                />
+                {!p.isSelf ? (
+                  <button
+                    onClick={() => removeParticipant(p.id)}
+                    className="px-1.5 py-0.5 rounded border border-black/12 text-black/50 hover:border-red-300 hover:text-red-600 shrink-0"
+                  >
+                    ✕
+                  </button>
+                ) : null}
+              </div>
+            ))}
+          </div>
+          <button
+            onClick={addParticipant}
+            className="mt-2.5 w-full px-3 py-2 rounded-lg border border-dashed border-black/20 text-black/60 hover:border-black/40"
+          >
+            + Add participant
+          </button>
+        </Section>
+      ) : null}
+
       <Section title="Status bar detail">
         <Row label="Time">
           <input
@@ -230,16 +301,21 @@ export default function EditorPanel({ conversation, setConversation, theme }: Pr
                 className="p-2.5 rounded-xl border border-black/12 bg-black/[0.015]"
               >
                 <div className="flex items-center gap-1.5 mb-2">
-                  <button
-                    onClick={() => setMessage(m.id, { senderId: isSelf ? otherId : selfId })}
-                    className={`px-2 py-1 rounded-md text-[11.5px] border ${
-                      isSelf
-                        ? "border-black/25 bg-black/5 font-medium"
-                        : "border-black/15 text-black/60"
-                    }`}
+                  <select
+                    value={m.senderId}
+                    onChange={(e) => setMessage(m.id, { senderId: e.target.value })}
+                    className="px-1.5 py-1 rounded-md border border-black/15 text-[11.5px] bg-white max-w-[120px]"
                   >
-                    {isSelf ? "Me" : conversation.title || "Them"}
-                  </button>
+                    {conversation.participants.map((p) => (
+                      <option key={p.id} value={p.id}>
+                        {p.isSelf
+                          ? "Me"
+                          : theme.features.senderNames
+                            ? p.name
+                            : conversation.title || "Them"}
+                      </option>
+                    ))}
+                  </select>
                   {theme.features.perMessageTimestamp ? (
                     <input
                       value={m.timestamp}
