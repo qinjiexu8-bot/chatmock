@@ -1,6 +1,8 @@
 /* Full-site audit: status codes, meta uniqueness, word counts, console errors. */
 const { chromium } = require("playwright-core");
 
+const BASE = process.env.BASE || "http://localhost:3000";
+
 const ROUTES = [
   "/",
   "/whatsapp-chat-generator", "/messenger-chat-generator", "/group-chat-generator",
@@ -36,7 +38,7 @@ const ROUTES = [
 
   const results = [];
   for (const r of ROUTES) {
-    const resp = await page.goto("http://localhost:3000" + r, { waitUntil: "networkidle", timeout: 30000 });
+    const resp = await page.goto(BASE + r, { waitUntil: "networkidle", timeout: 30000 });
     const data = await page.evaluate(() => {
       const title = document.title;
       const desc = document.querySelector('meta[name="description"]')?.content || "";
