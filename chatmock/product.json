@@ -1,0 +1,92 @@
+{
+  "key": "chatmock",
+  "name": "ChatMock",
+  "title": "ChatMock — Chat Mockup Generator",
+  "url": "https://chatmock.net/",
+  "category": "Design & Social Media Tool",
+  "subCategory": "Mockup generator",
+  "tagline": "Free chat mockup generator — no signup, no watermark",
+  "headline": "Create realistic WhatsApp, iMessage, Instagram DM and Discord chat mockups in your browser. Free, no signup, no watermark — and nothing you type ever leaves your device.",
+  "shortDescription": "Create realistic chat screenshots for WhatsApp, iMessage, Instagram DM, Telegram, Discord and more — free, no signup, no watermark, 100% in your browser.",
+  "mediumDescription": "ChatMock builds realistic chat mockups for 10 messaging platforms. Edit the contact name, status, avatar, timestamps, blue ticks and bubble style, then export a high-resolution PNG at 1x, 2x or 3x. Everything renders in your browser, so nothing is uploaded and the page keeps working offline.",
+  "longDescription": "ChatMock is a browser-based chat mockup generator for 10 messaging platforms: WhatsApp, WhatsApp Call, iMessage, Messenger, Group Chat, Instagram DM, Snapchat, Telegram, Discord and Android SMS. You control the contact name, status line, avatar, date, status-bar time, message text, blue ticks and timestamps, and can switch between light and dark mode before exporting a PNG at 1x, 2x or 3x. The mockups are built to survive a close look — correct bubble radius, correct green and blue, correct timestamp placement, correct dark-mode behaviour — so they hold up in video overlays, ad creative, social posts and presentations. Rendering happens entirely client-side: nothing is transmitted to a server and the tool keeps working after you disconnect from the internet. The core generator is free with no account and no watermark.",
+  "keyFeatures": [
+    "10 messaging platforms — WhatsApp, WhatsApp Call, iMessage, Messenger, Group Chat, Instagram DM, Snapchat, Telegram, Discord, Android SMS",
+    "100% client-side rendering: nothing is uploaded and the tool works offline",
+    "No watermark and no account — the core generator is free with unlimited exports",
+    "PNG export at 1x, 2x and 3x for crisp screenshots in video and print",
+    "Editable contact name, status, avatar, date, status-bar time and message timestamps",
+    "Authentic light and dark mode for every platform",
+    "Optional phone frame for device-accurate presentation",
+    "Realistic details: bubble radius, tail behaviour, blue ticks, read receipts and width caps"
+  ],
+  "useCases": [
+    "Social media creators building story and reel content",
+    "Marketing and ad agencies producing ad creative without a real thread",
+    "Video editors and filmmakers adding on-screen messaging scenes",
+    "Storytellers and screenwriters visualising a conversation",
+    "Product and UX designers mocking up messaging UI flows",
+    "Anyone who needs a messaging screenshot without staging a real chat"
+  ],
+  "pricing": {
+    "model": "Free",
+    "note": "Free to use, no account required, no watermark, no export limit. No paid tier required for any core feature.",
+    "plans": [
+      { "name": "Free", "price": "$0", "note": "All 10 platforms, all export scales, light and dark mode, no watermark" }
+    ]
+  },
+  "tags": [
+    "chat mockup",
+    "chat mockup generator",
+    "fake chat generator",
+    "whatsapp mockup",
+    "imessage mockup",
+    "instagram dm mockup",
+    "mockup generator",
+    "social media design",
+    "content creation",
+    "privacy-first"
+  ],
+  "submitProfile": {
+    "productName": "ChatMock",
+    "website": "https://chatmock.net/",
+    "category": "Design & Social Media Tool",
+    "pricing": "Free",
+    "email": "thomaszx85531@gmail.com",
+    "twitter": "",
+    "launchDate": "",
+    "noSignupRequired": true,
+    "platforms": 10,
+    "registrationRequired": false
+  },
+  "formAnswerBank": {
+    "shortPitch": "Realistic chat mockups for 10 messaging apps, free and in your browser.",
+    "whyDifferent": "Most mockup tools either watermark the output or make you upload your text to a server. ChatMock does neither: the generator is free and unlimited, and every message is rendered locally in the browser, so nothing is transmitted and the page keeps working offline.",
+    "whoItsFor": "Creators, marketers, video editors and designers who need a messaging screenshot that looks authentic and is safe to publish.",
+    "allowedTopics": "Stylised, clearly fictional conversations for content, ads and storytelling. We explicitly refuse fake bank alerts, payment confirmations and other deception-focused mockups.",
+    "trademarkNote": "WhatsApp, Messenger, Instagram, Discord, Telegram, Snapchat, TikTok and Apple are trademarks of their respective owners. ChatMock is an independent project and is not affiliated with, endorsed by or sponsored by any of them.",
+    "privacyNote": "Rendering is client-side. No message text is ever sent to a server and no account is required."
+  },
+  "verifiedAt": "2026-09-11",
+  "sourceUrl": "https://chatmock.net/",
+  "assets": {
+    "logo400": "ChatMock-logo-400.png",
+    "logo512": "ChatMock-logo-512.png",
+    "banner": "ChatMock-banner-1200x630.png",
+    "bannerWhatsapp": "ChatMock-banner-whatsapp-1200x630.png",
+    "screenshotHome": "ChatMock-home-1600x900.jpg",
+    "screenshotEditor": "ChatMock-editor-whatsapp-1600x900.jpg",
+    "screenshotExamples": "ChatMock-examples-1600x900.jpg",
+    "remoteLogo": "https://chatmock.net/apple-icon.png",
+    "remoteBanner": "https://chatmock.net/opengraph-image",
+    "remoteOgGenerator": "https://chatmock.net/og/whatsapp-chat-generator"
+  },
+  "linkTargets": {
+    "primary": "https://chatmock.net/",
+    "preferredDeepLinks": [
+      "https://chatmock.net/whatsapp-chat-generator",
+      "https://chatmock.net/fake-text-message-generator",
+      "https://chatmock.net/instagram-dm-generator"
+    ]
+  }
+}
