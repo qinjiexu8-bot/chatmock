@@ -64,7 +64,7 @@ const battery = `<svg width="27" height="13" viewBox="0 0 27 13" fill="none"><re
 
 const barRow = (svg, scale = 1) =>
   `<div style="display:flex;align-items:center;gap:${7 * scale}px;background:#fff;padding:${4 * scale}px ${10 * scale}px;border-radius:${8 * scale}px;width:max-content">
-     <span style="font:500 ${12 * scale}px Roboto,sans-serif;color:#111b21">Carrier</span>
+     <span style="font:500 ${12 * scale}px Roboto,sans-serif;color:#111b21"></span>
      <span style="display:inline-flex;transform:scale(${scale});transform-origin:left center">${signal()}</span>
      <span style="display:inline-flex;margin-left:${(16.5 * (scale - 1))}px;transform:scale(${scale});transform-origin:left center">${svg}</span>
      <span style="display:inline-flex;margin-left:${(27 * (scale - 1))}px;transform:scale(${scale});transform-origin:left center">${battery}</span>

@@ -240,7 +240,7 @@ export default function SnapchatGeneratorPage() {
             <li>Delivered label text — or remove it entirely</li>
             <li>Image attachments with captions</li>
             <li>Date marker at the top of the thread</li>
-            <li>Status bar: clock, carrier, battery and signal</li>
+            <li>Status bar: clock, battery and signal</li>
             <li>Optional iPhone-style phone frame</li>
           </ul>
 

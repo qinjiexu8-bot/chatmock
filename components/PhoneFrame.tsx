@@ -209,13 +209,15 @@ export default function PhoneFrame({
       }}
     >
       <span>{statusBar.time}</span>
-      {/* 灵动岛（iOS）/ 挖孔（Android）——只在设备 mockup 里画。
+      {/* 灵动岛（iOS）/ 挖孔（Android）——只在设备 mockup 里画，且不进导出。
           真机截图永远是一张完整矩形：刘海、灵动岛、挖孔都是屏幕上的硬件开孔，
           不会被截进图里（灵动岛只在有 Live Activity 运行时才会入镜）。
-          所以默认输出＝截图模式，不画；勾了 phone frame 才是"设备展示图"，
-          有机身就该有开孔，此时画出。 */}
+          勾了 phone frame 时它是"设备展示图"，站点预览里有机身就该有开孔；
+          但 data-export-hide 会让 lib/export.ts 在截图时把它滤掉——
+          导出的永远是干净矩形。 */}
       {frame ? (
         <div
+          data-export-hide
           className="absolute left-1/2 -translate-x-1/2 rounded-full"
           style={{
             top: 8,
@@ -226,12 +228,8 @@ export default function PhoneFrame({
         />
       ) : null}
       <div className="flex items-center gap-[7px]">
-        {/* 真机 iOS 在 app 内不显示运营商名，仅 Android 样式显示 */}
-        {isAndroid && statusBar.carrier ? (
-          <span style={{ fontSize: 12, fontWeight: 500, marginRight: 2 }}>
-            {statusBar.carrier}
-          </span>
-        ) : null}
+        {/* 真机在 app 内都不显示运营商名：iOS 从不显示，Android 只在锁屏显示
+            （全面屏状态栏空间有限，系统优先给信号和时间）。所以这里不画。 */}
         <SignalBars level={statusBar.signal} color={barColor} />
         {statusBar.wifi ? (
           isAndroid ? (

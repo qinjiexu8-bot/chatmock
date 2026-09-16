@@ -301,15 +301,6 @@ export default function EditorPanel({ conversation, setConversation, theme }: Pr
             className="w-full px-2.5 py-1.5 rounded-lg border border-black/15 outline-none focus:border-black/40"
           />
         </Row>
-        <Row label="Carrier">
-          <input
-            value={conversation.statusBar.carrier}
-            onChange={(e) =>
-              patch({ statusBar: { ...conversation.statusBar, carrier: e.target.value } })
-            }
-            className="w-full px-2.5 py-1.5 rounded-lg border border-black/15 outline-none focus:border-black/40"
-          />
-        </Row>
         <Row label="Battery">
           <span className="flex items-center gap-2">
             <input

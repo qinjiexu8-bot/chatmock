@@ -80,7 +80,7 @@ export default function WhatsAppGeneratorPage() {
       "Blue tick read receipts (sent / delivered / read)",
       "Per-message timestamps and date separator",
       "Image attachments inside bubbles",
-      "Status bar time, carrier, battery and signal",
+      "Status bar time, battery level and signal strength",
       "PNG export at 1x, 2x and 3x",
     ],
     publisher: { "@type": "Organization", name: site.orgName, url: site.url },
@@ -260,7 +260,7 @@ export default function WhatsAppGeneratorPage() {
             <li>Read receipts: sent, delivered or read</li>
             <li>Image attachments with captions</li>
             <li>Date separator text (TODAY, YESTERDAY, or any label you need)</li>
-            <li>Status bar: clock, carrier name, battery percentage and signal strength</li>
+            <li>Status bar: clock, battery percentage and signal strength</li>
             <li>Optional iPhone-style phone frame with the Dynamic Island</li>
           </ul>
 

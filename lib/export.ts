@@ -25,6 +25,10 @@ export async function exportNodeAsPng(
   const blob = await domToBlob(node, {
     scale,
     backgroundColor: null,
+    // 站点预览里属于"设备展示"的元素（灵动岛 / 挖孔）不进导出——
+    // 真机截图是完整矩形，硬件开孔不会被截进图里
+    filter: (el) =>
+      !(el instanceof Element && el.hasAttribute("data-export-hide")),
   });
 
   if (!blob) throw new Error("Export failed: empty blob");

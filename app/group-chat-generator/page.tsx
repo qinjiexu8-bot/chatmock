@@ -200,7 +200,7 @@ export default function GroupChatGeneratorPage() {
             <li>Read receipts per outgoing message: sent, delivered or read</li>
             <li>Image attachments with captions</li>
             <li>Date separator text</li>
-            <li>Status bar: clock, carrier, battery and signal</li>
+            <li>Status bar: clock, battery and signal</li>
             <li>Light and dark mode</li>
             <li>Optional iPhone-style phone frame</li>
           </ul>

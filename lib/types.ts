@@ -53,7 +53,6 @@ export interface StatusBar {
   battery: number; // 0-100
   wifi: boolean;
   signal: number; // 0-4
-  carrier: string;
 }
 
 export interface Conversation {
@@ -143,7 +142,6 @@ export const defaultStatusBar: StatusBar = {
   battery: 82,
   wifi: true,
   signal: 4,
-  carrier: "Carrier",
 };
 
 export function createDefaultConversation(platformId: PlatformId): Conversation {

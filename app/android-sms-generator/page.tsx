@@ -234,7 +234,7 @@ export default function AndroidSmsGeneratorPage() {
             <li>Read label text — or remove it entirely</li>
             <li>Image attachments with captions</li>
             <li>Date marker at the top of the thread</li>
-            <li>Status bar: clock, carrier, battery and signal (Android layout)</li>
+            <li>Status bar: clock, battery and signal (Android layout)</li>
             <li>Optional phone frame (off by default on this page)</li>
           </ul>
 

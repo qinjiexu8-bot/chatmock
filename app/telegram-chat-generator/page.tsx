@@ -240,7 +240,7 @@ export default function TelegramGeneratorPage() {
             <li>Checkmarks: single (sent) or double green (read)</li>
             <li>Image attachments with captions</li>
             <li>Day divider pill text (Yesterday, July 28, anything)</li>
-            <li>Status bar: clock, carrier, battery and signal</li>
+            <li>Status bar: clock, battery and signal</li>
             <li>Optional iPhone-style phone frame</li>
           </ul>
 

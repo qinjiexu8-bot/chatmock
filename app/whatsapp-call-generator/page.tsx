@@ -226,7 +226,7 @@ export default function WhatsAppCallGeneratorPage() {
             <li>Direction per call: outgoing, incoming or missed — plus a Video toggle for camera-call entries</li>
             <li>Time per call, plus optional duration notes</li>
             <li>Light or dark mode</li>
-            <li>Status bar: clock, carrier, battery and signal</li>
+            <li>Status bar: clock, battery and signal</li>
             <li>Optional phone frame</li>
           </ul>
 

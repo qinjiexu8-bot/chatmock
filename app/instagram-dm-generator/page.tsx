@@ -235,7 +235,7 @@ export default function InstagramDmGeneratorPage() {
             <li>Seen label text — or remove it entirely</li>
             <li>Image attachments with captions</li>
             <li>Group time marker text</li>
-            <li>Status bar: clock, carrier, battery and signal</li>
+            <li>Status bar: clock, battery and signal</li>
             <li>Optional iPhone-style phone frame</li>
           </ul>
 

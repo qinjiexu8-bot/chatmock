@@ -335,7 +335,7 @@ export const examples: ExampleItem[] = [
     topic: "everyday",
     title: "Delivery update thread",
     description:
-      "Google Messages with the Material-blue outgoing bubble, carrier status bar and a Read marker — the everyday utility scene.",
+      "Google Messages with the Material-blue outgoing bubble, clean status bar and a Read marker — the everyday utility scene.",
     conversation: conv("android-sms", {
       title: "Courier",
       subtitle: "Mobile",

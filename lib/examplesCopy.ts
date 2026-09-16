@@ -110,7 +110,7 @@ export const examplePageCopy: Record<string, ExamplePageCopy> = {
       },
       {
         q: "Can I change the time in the status bar?",
-        a: "Yes — the status bar detail section lets you set the time, carrier and battery level, or hide the status bar entirely for a cleaner crop.",
+        a: "Yes — the status bar detail section lets you set the time, battery level and signal strength, or hide the status bar entirely for a cleaner crop.",
       },
       {
         q: "What resolution should I export?",

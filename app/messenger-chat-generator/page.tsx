@@ -240,7 +240,7 @@ export default function MessengerGeneratorPage() {
             <li>Seen status text under the last outgoing message</li>
             <li>Image attachments with captions</li>
             <li>Date line at the top of the thread</li>
-            <li>Status bar: clock, carrier, battery and signal</li>
+            <li>Status bar: clock, battery and signal</li>
             <li>Optional iPhone-style phone frame</li>
           </ul>
 
