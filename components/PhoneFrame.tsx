@@ -37,8 +37,8 @@ function luminance(hex: string): number {
  *   间隙 1.5（真机观感：细条、清透、胶囊头），非激活 30% 透明
  * - wifi：实心扇形切三片（楔形底 + 两条厚弧带，径向平切端），几何按真机截图实测，
  *   详见 WifiIcon 注释与 scripts/output/real-device-wifi2.png
- * - android wifi：Pixel 状态栏实心扇形楔块（Material network_wifi 外弧），
- *   与 iOS 弧带式完全不同，不能共用
+ * - android wifi：Pixel 状态栏三段式扇形（内楔块 + 中弧带 + 外弧带，
+ *   均匀 0.08R 缝隙、径向平切端），与 iOS 弧带式不共用，详见 AndroidWifiIcon
  * - battery：圆角描边外壳（35% 透明度）+ 内部胶囊电量 + 右侧逗号形正极
  */
 
@@ -99,12 +99,39 @@ function WifiIcon({ color }: { color: string }) {
   );
 }
 
-/** Android（Pixel 状态栏）wifi：实心扇形楔块，Material network_wifi 外弧 */
+/**
+ * Android（Pixel 状态栏）wifi：三段式扇形，与 iOS 的弧带式结构相近但几何不同
+ * —— 扇形顶点更钝（半角 42.5°，iOS 47°）、端部平切、间隙均匀。
+ *
+ * 为什么不是实心扇形：旧版直接照搬 Material `signal_wifi_4_bar` 的实心扇
+ * （`M24 4.98C…L12 17Z`），在 16.9px 的 1x 尺寸下会糊成一坨实心三角，
+ * 与旁边 4 根分段信号条的视觉密度完全不一致。真机状态栏用的是三段式：
+ * 内楔块 + 中弧带 + 外弧带，两道 0.08R 的均匀缝隙让它在小尺寸下仍能读出
+ * "wifi" 而不是"实心块"。A/B 记录：scripts/output/wifi-ab5.png
+ * （生成脚本 scripts/qa/wifi-ab.cjs，可重跑）
+ *
+ * 几何（viewBox 0 0 24 17.75，顶点 (12, 17.75)，R = 17.75，半角 42.5°）：
+ * - 内楔块 0 → 0.51R   （顶点实心，顶部为弧）
+ * - 中弧带 0.59R → 0.71R
+ * - 外弧带 0.79R → 1.00R
+ * - 两处缝隙均为 0.08R，端部径向平切（非 round cap）
+ */
 function AndroidWifiIcon({ color }: { color: string }) {
   return (
     <svg width="16.9" height="12.5" viewBox="0 0 24 17.75" fill="none">
+      {/* 内楔块 */}
       <path
-        d="M24 4.98C20.93 1.9 16.69 0 12 0C7.31 0 3.07 1.9 0 4.98L12 17L24 4.98Z"
+        d="M12 17.75 L5.884 11.0758 A9.0525 9.0525 0 0 1 18.116 11.0758 Z"
+        fill={color}
+      />
+      {/* 中弧带 */}
+      <path
+        d="M3.4856 8.4573 A12.6025 12.6025 0 0 1 20.5144 8.4573 L19.0751 10.0291 A10.4725 10.4725 0 0 0 4.9249 10.0291 Z"
+        fill={color}
+      />
+      {/* 外弧带 */}
+      <path
+        d="M0.0083 4.6633 A17.75 17.75 0 0 1 23.9917 4.6633 L21.4735 7.4112 A14.0225 14.0225 0 0 0 2.5265 7.4112 Z"
         fill={color}
       />
     </svg>

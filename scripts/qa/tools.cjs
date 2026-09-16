@@ -3,8 +3,41 @@
 // 用法: NODE_PATH=... node scripts/qa/tools.cjs [--only slug]
 const { chromium } = require("playwright-core");
 const fs = require("fs");
+const zlib = require("zlib");
 
+// 测试用图片：以前写死在 /tmp，被系统清理后 8 个平台的「图片消息」断言会集体
+// 抛 ENOENT 误报成 EXCEPTION。改为缺失时自动生成（64x64 纯色 PNG，180B）。
 const IMAGE = "/tmp/qa-image.png";
+function ensureFixture() {
+  if (fs.existsSync(IMAGE)) return;
+  const w = 64, h = 64;
+  const raw = Buffer.concat(
+    Array.from({ length: h }, () => Buffer.concat([Buffer.from([0]), Buffer.alloc(w * 3, 0x4b)])),
+  );
+  const chunk = (type, data) => {
+    const body = Buffer.concat([Buffer.from(type), data]);
+    const len = Buffer.alloc(4);
+    len.writeUInt32BE(data.length);
+    const crc = Buffer.alloc(4);
+    crc.writeUInt32BE(zlib.crc32(body) >>> 0);
+    return Buffer.concat([len, body, crc]);
+  };
+  const ihdr = Buffer.alloc(13);
+  ihdr.writeUInt32BE(w, 0);
+  ihdr.writeUInt32BE(h, 4);
+  ihdr[8] = 8; ihdr[9] = 2; // 8-bit, truecolor
+  fs.writeFileSync(
+    IMAGE,
+    Buffer.concat([
+      Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]),
+      chunk("IHDR", ihdr),
+      chunk("IDAT", zlib.deflateSync(raw)),
+      chunk("IEND", Buffer.alloc(0)),
+    ]),
+  );
+}
+ensureFixture();
+
 const VIEW = { width: 1440, height: 900 };
 
 // 每平台的功能开关（与 lib/themes.ts 对齐）
