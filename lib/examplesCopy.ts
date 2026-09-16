@@ -224,10 +224,10 @@ export const examplePageCopy: Record<string, ExamplePageCopy> = {
   },
   "android-sms": {
     intro:
-      "Android messages have their own grammar: Google's Material blue, a punch-hole status bar, and a Read marker under RCS. Both examples were rendered by our Android SMS generator, which draws the Android status bar — time on the left, no notch — unlike the iPhone pages.",
+      "Android messages have their own grammar: Google's Material blue, a clean status bar, and a Read marker under RCS. Both examples were rendered by our Android SMS generator, which draws the Android status bar the way a real screenshot does — clock on the left, icons on the right, no camera cutout — unlike the iPhone pages.",
     designNotes: [
       "Material Design bubbles with the large 20px radius and Google blue",
-      "Android status bar with centred punch-hole camera and time on the left",
+      "Android status bar: clock on the left, signal and battery on the right",
       "Read marker under the last outgoing message, editable like RCS",
       "Carrier label and subtitle line for a believable contacts entry",
     ],
@@ -240,7 +240,7 @@ export const examplePageCopy: Record<string, ExamplePageCopy> = {
       },
       {
         q: "Why is the status bar different from the iPhone pages?",
-        a: "Because the phone is different: Android shows the time on the left with a centred punch-hole camera, and our Android pages draw that layout.",
+        a: "Because the phone is different: Android puts the clock on the left with the signal and battery cluster on the right, and our Android pages draw that layout — with no camera cutout, since a real screenshot never captures the hardware hole.",
       },
       {
         q: "Can I change the Read label?",

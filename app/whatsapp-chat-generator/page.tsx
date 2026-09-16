@@ -261,7 +261,7 @@ export default function WhatsAppGeneratorPage() {
             <li>Image attachments with captions</li>
             <li>Date separator text (TODAY, YESTERDAY, or any label you need)</li>
             <li>Status bar: clock, carrier name, battery percentage and signal strength</li>
-            <li>Optional iPhone-style phone frame with the notch</li>
+            <li>Optional iPhone-style phone frame with the Dynamic Island</li>
           </ul>
 
           <h2>What a fake WhatsApp chat generator is — and what it isn&apos;t</h2>

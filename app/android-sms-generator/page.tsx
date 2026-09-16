@@ -39,7 +39,7 @@ const FAQ = [
   },
   {
     q: "Why does the phone frame look different from the iPhone pages?",
-    a: "Because it is. This page renders an Android-style status bar — a centred punch-hole camera, time on the left, no notch — and the phone frame is off by default, since an Android interface inside an iPhone shell would look wrong. You can still enable the frame if you prefer.",
+    a: "Because it is. This page renders an Android-style status bar — clock on the left, signal and battery on the right — and the phone frame is off by default, since an Android interface inside an iPhone shell would look wrong. You can still enable the frame if you prefer.",
   },
   {
     q: "What does the Read label mean?",
@@ -74,7 +74,7 @@ export default function AndroidSmsGeneratorPage() {
       "Google Messages Material Design bubbles",
       "Outgoing blue #1a73e8, incoming grey, large 20px radius",
       "RCS Read confirmation under the last outgoing message",
-      "Android status bar with punch-hole camera (no notch)",
+      "Android status bar: clock left, icons right, no camera cutout",
       "Light and dark mode",
       "PNG export at 1x, 2x and 3x",
     ],
@@ -117,7 +117,7 @@ export default function AndroidSmsGeneratorPage() {
           <p className="mt-4 text-[17px] leading-relaxed text-black/65">
             Build a realistic Google Messages conversation mockup in your browser and
             download a high-resolution PNG — no signup, no watermark, no upload. Material
-            blue bubbles, RCS Read receipts, an Android status bar with punch-hole camera,
+            blue bubbles, RCS Read receipts, an Android status bar with the clock on the left,
             and export at 1x, 2x or 3x.
           </p>
           <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1.5 text-[13.5px] text-black/55">
@@ -212,7 +212,7 @@ export default function AndroidSmsGeneratorPage() {
               <tr>
                 <td>Status bar</td>
                 <td colSpan={2}>
-                  Android style: centred punch-hole camera, time on the left, no notch
+                  Android style: clock on the left, signal and battery on the right, no camera cutout
                 </td>
               </tr>
             </tbody>
@@ -222,8 +222,7 @@ export default function AndroidSmsGeneratorPage() {
             <strong>Material Design capsules</strong> — larger radius than iMessage, with the
             last message in a run squaring off slightly on the sender&apos;s side. The{" "}
             <strong>Read confirmation is text, not a tick</strong>: no blue double-checks
-            anywhere. And the <strong>status bar has no notch</strong> — a punch-hole camera
-            centred at the top, with the clock on the left. Any of these details borrowed
+            anywhere. And the <strong>status bar is a clean rectangle</strong> — clock on the left, signal and battery on the right, and no camera cutout, because a real screenshot never captures the hardware hole. Any of these details borrowed
             from an iPhone screenshot breaks the illusion immediately.
           </p>
 

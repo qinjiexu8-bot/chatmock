@@ -257,7 +257,7 @@ export default function TextMessageGeneratorPage() {
             <li>Image attachments with captions</li>
             <li>Date line at the top of the thread</li>
             <li>Status bar: clock, carrier, battery and signal</li>
-            <li>Optional iPhone-style phone frame with the notch</li>
+            <li>Optional iPhone-style phone frame with the Dynamic Island</li>
           </ul>
 
           <h2>Fake text messages, done responsibly</h2>

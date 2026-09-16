@@ -6,9 +6,12 @@ interface Props {
   statusBar: StatusBar;
   showStatusBar: boolean;
   mode: ThemeMode;
-  /** 是否渲染手机外框。关闭时只输出聊天内容本身 */
+  /** 是否渲染手机外框。关闭时输出＝真机截图形态（完整矩形、无开孔） */
   frame?: boolean;
-  /** 状态栏风格：ios=灵动岛，android=居中挖孔、时间靠左 */
+  /**
+   * 状态栏风格：ios=时间靠左、右侧图标组；android=时间靠左、运营商名、右侧图标组。
+   * 注意：灵动岛/挖孔是硬件开孔，真机截图里不存在，只在 frame（设备 mockup）下画。
+   */
   statusBarStyle?: "ios" | "android" | "none";
   /** 状态栏背景色（一般传主题 header 背景）。不传则按明暗模式取色 */
   statusBarBg?: string;
@@ -206,18 +209,24 @@ export default function PhoneFrame({
       }}
     >
       <span>{statusBar.time}</span>
-      {/* 灵动岛（iOS）/ 挖孔（Android） */}
-      <div
-        className="absolute left-1/2 -translate-x-1/2 rounded-full"
-        style={{
-          top: 8,
-          width: isAndroid ? 18 : 96,
-          height: isAndroid ? 18 : 26,
-          background: "#000000",
-        }}
-      />
+      {/* 灵动岛（iOS）/ 挖孔（Android）——只在设备 mockup 里画。
+          真机截图永远是一张完整矩形：刘海、灵动岛、挖孔都是屏幕上的硬件开孔，
+          不会被截进图里（灵动岛只在有 Live Activity 运行时才会入镜）。
+          所以默认输出＝截图模式，不画；勾了 phone frame 才是"设备展示图"，
+          有机身就该有开孔，此时画出。 */}
+      {frame ? (
+        <div
+          className="absolute left-1/2 -translate-x-1/2 rounded-full"
+          style={{
+            top: 8,
+            width: isAndroid ? 18 : 96,
+            height: isAndroid ? 18 : 26,
+            background: "#000000",
+          }}
+        />
+      ) : null}
       <div className="flex items-center gap-[7px]">
-        {/* iOS 状态栏从不显示运营商名（会被灵动岛遮住），仅 Android 样式显示 */}
+        {/* 真机 iOS 在 app 内不显示运营商名，仅 Android 样式显示 */}
         {isAndroid && statusBar.carrier ? (
           <span style={{ fontSize: 12, fontWeight: 500, marginRight: 2 }}>
             {statusBar.carrier}
