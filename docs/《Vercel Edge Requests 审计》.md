@@ -105,13 +105,33 @@ SEO 爬虫（Ahrefs / Semrush）会实打实消耗请求，且它们不跑 JS、
 挂在 root layout，脚本由 **客户端 useEffect 动态注入**（`document.createElement`），
 因此：
 
-- **预渲染 HTML 里完全没有 insights 脚本** ⇒ 首屏与静态导出的请求数零变化
-- 每 PV 净增约 **2 条**边缘请求：`GET /_vercel/insights/script.js`（defer，不阻塞）
-  + 一次 view 事件上报（`navigator.sendBeacon` → `/_vercel/insights/view`）
-- 若脚本被浏览器缓存，硬导航复用缓存 ⇒ 接近 1 条/PV；SPA 内点击导航只增 1 条上报
-- 换算：按本报告口径（PV ≈ 请求数 ÷ 15~25，接入后分母变 17~27），
-  即 analytics 约占总量 **7~12%** —— 与方案 B/C 的收益同量级，
-  属于"换真实 PV 数据"的必要开销；要压请求数优先动预取，不要动这里。
+- **预渲染 HTML 里完全没有 analytics 痕迹** ⇒ 首屏与静态导出的请求数零变化
+- 每 PV 净增 **1 条**边缘请求：POST `/<hash>/view`（view 信标）
+- collector 脚本本身：`GET /<hash>/script.js`，响应头 `cache-control: public,
+  max-age=2678400`（31 天），**只有全新会话才拉一次**；SPA 内点击导航不重复拉
+- 换算：接入后 PV ≈ 请求数 ÷ 16~26，analytics 约占总量 **5~7%**
+  —— 属于"换真实 PV 数据"的必要开销；要压请求数优先动预取，不要动这里。
+
+### 线上实测（2026-09-25，chatmock.net 已部署）
+
+| 观测项 | 结果 |
+|---|---|
+| 注入脚本路径 | `/800fee2565e07c22/script.js`（**不是** `/_vercel/insights/script.js`） |
+| 上报端点 | `/800fee2565e07c22/{view,event,session}` |
+| 脚本响应 | 200，`defer`，`max-age=2678400` |
+| 首屏 pageview | POST `/800fee2565e07c22/view` → 200 |
+| SPA 内点击导航 | 再发一次 `/view` → 200（路由切换也计数） |
+| 预渲染 HTML | 无任何 analytics 痕迹 |
+
+> 路径与端点由平台在构建期下发的 `NEXT_PUBLIC_VERCEL_OBSERVABILITY_*` 决定
+> （SDK 默认值才是 `/_vercel/insights/*`）。**不要把这些路径写死进代码或 QA 断言**，
+> 一律读注入标签的 `dataset`（`viewEndpoint` / `eventEndpoint` / `sessionEndpoint`）。
+
+> ⚠️ **验收陷阱**：collector 脚本（observability v0.1.3）开头就是
+> `if (navigator.webdriver || UA.includes("Headless")) return;` —— 无头/自动化浏览器被官方
+> 主动排除。用 headless Playwright 直接量会得到"脚本 200 但不执行、零信标"的**假阴性**。
+> 正确做法：`--disable-blink-features=AutomationControlled` + 覆盖掉 UA 里的 `Headless`，
+> 已固化进 `scripts/qa/analytics.cjs`（`BASE=https://chatmock.net` 可对线上跑）。
 
 > 注：Hobby 套餐 Web Analytics 有月度事件额度，超限会**暂停数据摄取**（后台横幅
 > "Limit reached / Data ingestion is paused until …"）。这只影响数据入库，不影响站点本身。
