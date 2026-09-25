@@ -67,9 +67,17 @@ function reportOrSkip(name, pass, detail, localSkipNote) {
     if (isBeacon(r.url()) || isCollector(r.url()))
       trk.push({ req: r, url: r.url(), method: r.method(), type: r.resourceType() });
   });
-  page.on("response", (r) => {
+  page.on("response", async (r) => {
     const hit = trk.find((x) => x.req === r.request());
-    if (hit) hit.status = r.status();
+    if (!hit) return;
+    hit.status = r.status();
+    // 读响应体：平台对信标的回执是 "OK"。200+OK ⇒ 接线没问题；
+    // 后台仍空则要往"额度/摄取暂停"方向查，而不是往代码方向查。
+    try {
+      hit.body = (await r.text()).slice(0, 40);
+    } catch {
+      hit.body = "";
+    }
   });
   page.on("pageerror", (e) => errors.push(String(e).slice(0, 160)));
   page.on("console", (m) => {
@@ -163,7 +171,7 @@ function reportOrSkip(name, pass, detail, localSkipNote) {
         ? beacons
             .map(
               (b) =>
-                `${b.method} ${b.status === undefined ? "（响应未在观测窗口内返回/keepalive）" : b.status} ${b.url}`,
+                `${b.method} ${b.status === undefined ? "（响应未在观测窗口内返回/keepalive）" : b.status}${b.body ? " body=" + b.body : ""} ${b.url}`,
             )
             .join(" | ")
         : "未发出 view 信标（线上若无信标说明后台未开启 Analytics）",

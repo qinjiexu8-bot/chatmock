@@ -134,6 +134,30 @@ SEO 爬虫（Ahrefs / Semrush）会实打实消耗请求，且它们不跑 JS、
 > 已固化进 `scripts/qa/analytics.cjs`（`BASE=https://chatmock.net` 可对线上跑）。
 
 > 注：Hobby 套餐 Web Analytics 有月度事件额度，超限会**暂停数据摄取**（后台可能出现
-> "Limit reached / Data ingestion is paused" 类横幅，并显示暂停至某日）。这只影响数据入库，
+> "Limit reached / Data ingestion is paused" 类横幅）。这只影响数据入库，
 > 不影响站点本身；端点仍返回 200，暂停期结束后数据是否补齐由平台决定（不保证回填）。
+
+### 额度机制与"后台还是 Get Started"的判定（2026-09-25 核实）
+
+官方口径（vercel.com/docs/analytics/limits-and-pricing + /docs/plans/hobby）：
+
+| 事实 | 内容 |
+|---|---|
+| Hobby 额度 | **50,000 events / 月**，且**同一账号下所有项目共享**（不是按项目各算） |
+| 什么算 event | 一次自动 pageview 或一次自定义事件；Speed Insights 的 Web Vitals 另计 |
+| 超限行为 | 先有 **3 天宽限期**，之后**停止收集** |
+| 恢复方式 | Hobby **不能加购事件**；需等（官方口径 7 天后恢复收集）或升级 Pro（按 $0.03/1K 事件计费） |
+| 判定链 | 后台显示 "Get Started" + "0 online" + 横幅 paused ⇒ **额度/摄取问题，不是接线问题** |
+
+**如何区分"没接上"与"被暂停"（两条硬证据）**：
+
+```bash
+# 1) 信标有没有发出、平台有没有收 —— 期望 200 + body=OK
+BASE=https://chatmock.net node scripts/qa/analytics.cjs
+#    输出 beacon accepted: POST 200 body=OK /<hash>/view  ⇒ 接线正常
+# 2) 账号侧额度：Vercel → Settings → Usage → Observability，看 Events 用量与是哪个项目在烧
+```
+
+结论口径：**信标 200+OK 但后台零数据 ⇒ 锅在账号额度，不在代码。** 此时不要改代码，
+要么等恢复，要么换一个不受该额度约束的统计口径（GA4 免费无事件额度）。
 
