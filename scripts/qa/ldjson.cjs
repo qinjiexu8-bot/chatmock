@@ -3,10 +3,23 @@ const { chromium } = require("playwright-core");
 const fs = require("fs");
 
 (async () => {
-  const routes = fs
-    .readFileSync("/tmp/routes.txt", "utf8")
-    .split("\n")
-    .filter(Boolean);
+  // 路由清单：优先 /tmp/routes.txt（site_audit 导出），缺失时从 app/ 目录自解析，
+  // 避免依赖 /tmp 临时文件（系统会清空）
+  let routes;
+  if (fs.existsSync("/tmp/routes.txt")) {
+    routes = fs.readFileSync("/tmp/routes.txt", "utf8").split("\n").filter(Boolean);
+  } else {
+    const walk = (dir) =>
+      fs.readdirSync(dir, { withFileTypes: true }).flatMap((d) => {
+        const full = `${dir}/${d.name}`;
+        if (d.isDirectory()) return /^[\[(]/.test(d.name) ? [] : walk(full);
+        return d.name === "page.tsx" && !full.includes("(") ? [full] : [];
+      });
+    routes = walk("app")
+      .map((f) => f.replace(/^app/, "").replace(/\/page\.tsx$/, "") || "/")
+      .sort();
+    console.log(`(/tmp/routes.txt 缺失，已从 app/ 自解析 ${routes.length} 条路由)`);
+  }
   const browser = await chromium.launch({
     executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
   });

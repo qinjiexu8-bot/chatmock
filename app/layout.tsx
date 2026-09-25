@@ -3,6 +3,7 @@ import { Inter, Space_Grotesk, Pacifico } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/seo";
 import { GA4 } from "@/components/GA4";
+import { VercelAnalytics } from "@/components/VercelAnalytics";
 
 // 与 thefake.design 同款字体体系：
 // - Space Grotesk：营销页无衬线主字体（其 --font-page-sans 首选）
@@ -79,6 +80,7 @@ export default function RootLayout({
       <body>
         {children}
         <GA4 />
+        <VercelAnalytics />
       </body>
     </html>
   );

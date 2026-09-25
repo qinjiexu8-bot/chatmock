@@ -70,9 +70,13 @@ async function testPlatform(browser, p) {
   const ctx = await browser.newContext({ viewport: VIEW, acceptDownloads: true });
   const page = await ctx.newPage();
   const errors = [];
+  const badUrls = [];
   page.on("pageerror", (e) => errors.push(String(e).slice(0, 120)));
   page.on("console", (m) => {
     if (m.type() === "error") errors.push(m.text().slice(0, 120));
+  });
+  page.on("response", (r) => {
+    if (r.status() >= 400) badUrls.push(r.url());
   });
 
   const tag = p.slug;
@@ -170,7 +174,12 @@ async function testPlatform(browser, p) {
     report(`${tag} reset`, afterReset === before, `${afterAdd} -> ${afterReset} (expect ${before})`);
 
     // 12) console 零报错
-    report(`${tag} console`, errors.length === 0, errors.length ? errors.join(" | ") : "clean");
+    // 例外：/_vercel/insights/script.js 只在 Vercel 平台上存在，本地必 404
+    //（console 文本不带 URL，靠 response 4xx 列表反查：若所有 4xx 都是 insights，则该 404 不计入）
+    const onlyInsights404 =
+      badUrls.length > 0 && badUrls.every((u) => u.includes("/_vercel/insights"));
+    const real = errors.filter((e) => !(/404/.test(e) && onlyInsights404));
+    report(`${tag} console`, real.length === 0, real.length ? real.join(" | ") : "clean");
   } catch (e) {
     report(`${tag} EXCEPTION`, false, String(e).slice(0, 200));
   } finally {
