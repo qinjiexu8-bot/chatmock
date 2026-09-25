@@ -133,6 +133,7 @@ SEO 爬虫（Ahrefs / Semrush）会实打实消耗请求，且它们不跑 JS、
 > 正确做法：`--disable-blink-features=AutomationControlled` + 覆盖掉 UA 里的 `Headless`，
 > 已固化进 `scripts/qa/analytics.cjs`（`BASE=https://chatmock.net` 可对线上跑）。
 
-> 注：Hobby 套餐 Web Analytics 有月度事件额度，超限会**暂停数据摄取**（后台横幅
-> "Limit reached / Data ingestion is paused until …"）。这只影响数据入库，不影响站点本身。
+> 注：Hobby 套餐 Web Analytics 有月度事件额度，超限会**暂停数据摄取**（后台可能出现
+> "Limit reached / Data ingestion is paused" 类横幅，并显示暂停至某日）。这只影响数据入库，
+> 不影响站点本身；端点仍返回 200，暂停期结束后数据是否补齐由平台决定（不保证回填）。
 
