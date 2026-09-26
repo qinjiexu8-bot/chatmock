@@ -350,6 +350,38 @@ impuestos, hospital, médico, receta, boleto, cartorio, receita
 
 **被拒后的处理**：不要立刻重申。*low value content* 拒信说明内容量或深度不够，需实质性补充（不是微调措辞），30 天后再申。
 
+### 4.8 站点验证与代码植入（2026-09-26 已执行）
+
+AdSense 后台"网站需要审核"页给的是**三种验证方式**，当前用了前两种（ads.txt 为主，代码段同时植入）：
+
+| 项 | 落地 | 位置 |
+|---|---|---|
+| **ads.txt 代码段** | `google.com, pub-1642154997659311, DIRECT, f08c47fec0942fa0` | `public/ads.txt`（静态文件，直接映射到站点根 `/ads.txt`） |
+| **AdSense 代码段**（原生 script） | `<script async crossorigin src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1642154997659311">` | `components/AdSense.tsx` → 挂在 `app/layout.tsx`，**全部 35 个预渲染页面的 `<head>` 里都有** |
+
+**两个关键实现约束（踩过）**：
+
+1. **不能用 `next/script` 的 `beforeInteractive`**：App Router 静态预渲染下它只输出
+   `<link rel="preload" as="script">`，真实 `<script>` 由运行时客户端注入 —— 原始 HTML 里抓不到，
+   AdSense 的代码段验证会失败。必须渲染**原生 `<script async src>`**，React 19 会自动提升进 `<head>`。
+2. **`public/ads.txt` 优于路由**：本仓库 `robots.ts` / `sitemap.ts` 走 MetadataRoute，但 ads.txt 是
+   Google 按纯文本直接抓取的，静态文件最稳（实测 `200 text/plain; charset=UTF-8`，58 字节含结尾换行）。
+   `www.chatmock.net` 307 跳 `chatmock.net`，无需给 www 单独放一份。
+
+**审核期纪律**：站点**不投放任何广告位**（预渲染 HTML 里 `<ins class="adsbygoogle">` = 0）。
+脚本自己会注入一个 `adsbygoogle-noablate` 探针 `<ins>`（`display:none` / 0×0 / `data-ad-status="unfilled"`），
+那是反广告拦截检测，不是广告位，也无视觉占位。广告位等过审后再按 4.5 上。
+
+**验收脚本**：`BASE=https://chatmock.net node scripts/qa/adsense.cjs`（9 断言，本地/线上通用）。
+
+**成本（实测）**：AdSense 带来 **4 条第三方请求 / 约 224 kB**（pagead2 + doubleclick），
+全部走 Google 域名，**不计入 Vercel edge requests**，但会明显增加页面重量与 Lighthouse 压力。
+
+**⚠️ 合规前置（过审即触发）**：现托管在 Vercel **Hobby**，其 fair use 明确限定
+**非商业 personal use**，且逐字列了 "inclusion of advertisements, including … Google AdSense"。
+也就是说**一旦真的开始展示广告，Hobby 即不合规**，风险是账号被 pause（会连带同账号其它项目）。
+过审前必须二选一：升级 Pro（$20/月，含 14 天试用）或迁到允许商业用途的托管。
+
 ---
 
 ## 第 5 章 内容规格（对抗 low value content）

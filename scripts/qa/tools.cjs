@@ -81,7 +81,10 @@ async function testPlatform(browser, p) {
 
   const tag = p.slug;
   try {
-    await page.goto(`http://localhost:3000/${p.slug}`, { waitUntil: "networkidle" });
+    // 注意：不要用 networkidle —— 站上挂着 AdSense 后（pagead2/doubleclick 会持续轮询），
+    // networkidle 基本永远不满足，表现为随机某页 goto 超时。用 load + 等 UI 就绪即可。
+    await page.goto(`http://localhost:3000/${p.slug}`, { waitUntil: "load" });
+    await page.getByRole("button", { name: "+ Me" }).first().waitFor({ state: "visible" });
 
     const panel = page.locator('div[class*="max-h-[78vh]"]');
     const taCount = () => page.locator("textarea").count();

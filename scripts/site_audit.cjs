@@ -31,6 +31,10 @@ const ROUTES = [
   const browser = await chromium.launch({ headless: true, args: ["--disable-gpu", "--no-sandbox"] });
   const page = await browser.newPage();
   const consoleErrors = [];
+  const badUrls = [];
+  page.on("response", (r) => {
+    if (r.status() >= 400) badUrls.push(r.url());
+  });
   page.on("console", (m) => {
     if (m.type() === "error" && !m.text().includes("favicon")) consoleErrors.push(m.text().slice(0, 120));
   });
@@ -38,7 +42,8 @@ const ROUTES = [
 
   const results = [];
   for (const r of ROUTES) {
-    const resp = await page.goto(BASE + r, { waitUntil: "networkidle", timeout: 30000 });
+    // 不用 networkidle：AdSense 脚本（pagead2/doubleclick）会持续轮询，networkidle 不保证满足
+    const resp = await page.goto(BASE + r, { waitUntil: "load", timeout: 30000 });
     const data = await page.evaluate(() => {
       const title = document.title;
       const desc = document.querySelector('meta[name="description"]')?.content || "";
@@ -66,9 +71,21 @@ const ROUTES = [
     const flag = r.words < 300 ? " <-- THIN" : "";
     console.log(`${r.route} | ${r.status} | ${r.words} | ${r.h2s} | ${canonOk}${flag}`);
   }
+  // 本地唯一的 4xx 来源是 Vercel Analytics 的 collector（该端点只存在于平台），
+  // 对应 console 里的 "Failed to load resource 404" 属预期，不计入错误
+  const onlyLocalCollector404 =
+    badUrls.length > 0 && badUrls.every((u) => u.includes("/_vercel/insights"));
+  const realErrors = consoleErrors.filter((e) => !(/404/.test(e) && onlyLocalCollector404));
   console.log("\nDUP_TITLES:", JSON.stringify(dupTitles));
   console.log("DUP_DESCS:", JSON.stringify(dupDescs.map(([t]) => t.slice(0, 60))));
-  console.log("CONSOLE_ERRORS:", consoleErrors.length ? consoleErrors.slice(0, 10) : "none");
+  console.log("CONSOLE_ERRORS:", realErrors.length ? realErrors.slice(0, 10) : "none");
+  if (badUrls.length)
+    console.log(
+      "HTTP_4xx:",
+      onlyLocalCollector404
+        ? `${badUrls.length} 条，全部为本地不存在的 /_vercel/insights（预期）`
+        : JSON.stringify([...new Set(badUrls)].slice(0, 10)),
+    );
 
   await browser.close();
 })().catch((e) => { console.error("AUDIT_FAILED:", e.message); process.exit(1); });

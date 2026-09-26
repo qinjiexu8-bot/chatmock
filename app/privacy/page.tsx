@@ -48,12 +48,16 @@ export default function PrivacyPage() {
 
           <h2>Cookies and advertising</h2>
           <p>
-            We use no cookies for tracking or personalisation. If advertising is introduced
-            later, third-party vendors including Google may use cookies to serve ads based on
-            prior visits to this or other websites. Google&apos;s use of advertising cookies
-            can be controlled at <strong>google.com/settings/ads</strong>, and you can opt out
-            of third-party cookies more broadly at <strong>aboutads.info</strong>. This page
-            will be updated before any advertising is enabled.
+            We set no cookies of our own for tracking or personalisation. This site currently
+            loads the Google AdSense code so that Google can verify and review the site for
+            advertising; <strong>no ads are displayed yet</strong>. While that code is present,
+            Google may set cookies or read device identifiers for ad serving, measurement and
+            fraud prevention. If advertising is enabled, third-party vendors including Google
+            may use cookies to serve ads based on prior visits to this or other websites.
+            Google&apos;s use of advertising cookies can be controlled at{" "}
+            <strong>google.com/settings/ads</strong>, and you can opt out of third-party cookies
+            more broadly at <strong>aboutads.info</strong>. This page will be updated again when
+            ads go live.
           </p>
 
           <h2>Local storage</h2>
