@@ -164,6 +164,14 @@ function fmt(s) {
     const pf = warmRecords.filter((r) => r.bucket === "prefetch(rsc)");
     console.log(`  复访期 RSC 预取 ${pf.length} 条（真走网络 ${pf.filter((r) => r.net).length} 条）:`);
     for (const r of pf) console.log(`      ${r.url.replace(BASE, "")}`);
+
+    // VERBOSE=1：把复访里**真走网络**的每一条都打出来。
+    // 用于确认"剩下的固定开销到底是啥"——别靠猜（favicon？insights 脚本？路由 chunk？）
+    if (process.env.VERBOSE) {
+      const net = warmRecords.filter((r) => r.net);
+      console.log(`  复访真走网络明细（${net.length} 条）:`);
+      for (const r of net) console.log(`      [${r.bucket}] ${r.url.replace(BASE, "")}`);
+    }
     console.log("");
 
     await ctx.close();

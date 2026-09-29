@@ -12,6 +12,23 @@ Vercel 的 Edge Requests 统计 **cached + uncached 都计数**——CDN 命中�
 
 换算公式：`月请求数 ÷ 单页请求数 ≈ 月页面浏览数`。单页请求数实测见第 2 节（热缓存 15~25，冷访 41）。
 
+### 0.1 怎么确认"部署已生效"——别用 chunk 指纹（踩过）
+
+试过的错法：拿本地构建产物 `.next/server/app/*.html` 引用的
+`/_next/static/chunks/*.js` 文件名集合，与线上 HTML 比对，集合相同即认为已切版。
+
+**不成立。** `main-app-<hash>` 之类在不同构建环境（本地 `next build` vs Vercel）下哈希本来就不同——
+平台构建期会注入 `NEXT_PUBLIC_VERCEL_OBSERVABILITY_*` 等变量，产物内容变了、哈希自然变。
+结果是**线上永远"差 4 个 chunk"**，会把已经完成部署的站点误判成"未切版"（实测白等 4 分钟）。
+另外 `buildId` 在 App Router 的 HTML 里也不出现，没有可用的构建标记。
+
+可用判据（按可靠性排序）：
+
+1. **功能性实测**——直接跑本审计的测量脚本，看数字是否按预期变化
+   （`BASE=https://chatmock.net node scripts/qa/edge-requests.cjs /whatsapp-chat-generator`，
+   预取应从 6 掉到 0）。数字即证据，也是最终要验的东西。
+2. **新增文案 / 路径特征串**——在 HTML 里 `curl | grep` 得到即为已上线（最简单，但只适用于有文案改动的提交）。
+
 ## 1. 先排掉几个常见放大源（本项目全部不成立）
 
 | 检查项 | 结果 |
@@ -131,13 +148,43 @@ prefetch(router, href, as, { locale, priority: true, bypassPrefetchedCheck: true
 
 回归：`tools.cjs` 74/74、`site_audit` console 干净、`adsense.cjs` 9/9、`analytics.cjs` 8/8。
 
-## 4.1 剩余空间：还要不要关 header 主导航（待拍板）
+## 4.1 C 档：关掉"页面 chrome"的预取（2026-09-29 第二批，commit a2b319b）
 
-关掉后，每页预取会从 6 条 → 0~1 条，复访有望再降约 **40~50%**（即 8 → 4~5 条）。
-代价：键盘 Tab+Enter、右键新标签、中键点击这三条路径失去预取
-（hover 与 touchstart 仍会预取，鼠标/触屏用户的体感不变）。
+**规则（以后动 prefetch 照这个判）：chrome 关，正文 CTA 留。**
 
-尚未做，等拍板。
+上一轮（B 档）只关了页内互链捷径。复访剩的 8 条里仍有 6 条是 **header**——打印实测
+URL 确认：4 个生成器 + `/examples` + `/blog`（非首页还含 logo `/`），加上面包屑的 `/`。
+它们**全部落在初始视口内**，是每个 PV 必发的固定开销。
+
+| 位置 | 处理 | 理由 |
+|---|---|---|
+| 桌面 header：logo、4 个生成器导航、Examples、Blog、Start creating CTA | **关** | 每个 PV 必在视口内；hover/touch 仍会预取 |
+| `Breadcrumb` 组件（18 个页面共用） | **关** | 同上，属页面 chrome |
+| 汉堡菜单、More 下拉 | 留 | 只在用户显式点开后才进 DOM，明确意图且打开即点 |
+| 首页 hero 两个 CTA（Open the generator / Browse examples） | 留 | 正文主转化入口，每页仅 2 条 |
+
+### 实测收益（线上，同口径）
+
+| 页面 | 冷缓存首访 | 同会话复访 | RSC 预取 |
+|---|---|---|---|
+| 首页 | 39 → 29 → **22** | 14 → 8 → **4** | 11 → 6 → **2** |
+| 生成器页 | 40 → 30 → **18** | 14 → 8 → **2** | 11 → 6 → **0** |
+| /examples | — | — → **2** | — → **0** |
+
+（三段数字依次为：原始基线 → A+B 后 → C 档后。复访累计 **-71% ~ -86%**。）
+
+### 复访的"地板"已经探到
+
+打明细确认，生成器页复访那 2 条是真底线，都不是静态资源：
+
+```
+[document] /whatsapp-chat-generator      ← 文档本身
+[other]    /800fee2565e07c22/view        ← Vercel Analytics 信标（POST）
+```
+
+即 **每 PV 至少 1 条 document + 1 条 analytics 信标**。首页多的 2 条是 hero CTA 的预取，
+要靠关掉正文 CTA 才能再降——但这已经属于"牺牲转化入口"的取舍，不建议。
+`VERBOSE=1` 可随时打出复访明细复核（别靠猜是什么在占额度）。
 
 ## 4.2 考虑过但否决的做法
 
