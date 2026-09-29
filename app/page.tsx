@@ -124,6 +124,9 @@ export default function HomePage() {
                   <Link
                     key={p.slug}
                     href={`/${p.slug}`}
+                    // 首页卡片网格同理：视口内 10 张卡会一次性触发多条 _rsc 预取。
+                    // 关掉后 hover / touchstart 仍会预取，点击体验不变。
+                    prefetch={false}
                     className="block p-5 rounded-[var(--radius-card)] border border-black/[0.08] bg-white/80 hover:border-primary/40 hover:shadow-[0_6px_24px_rgba(30,35,80,0.08)] transition"
                   >
                     {inner}

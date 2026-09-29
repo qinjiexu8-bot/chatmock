@@ -197,6 +197,13 @@ export default function GeneratorShell({ platformId }: Props) {
               <Link
                 key={p.slug}
                 href={`/${p.slug}`}
+                // 关掉「进视口即预取」：这条切换条在每个生成器页的首屏里，
+                // 10 个链接会让每次 PV 都额外发若干条 _rsc 请求（实测 5 条/页，
+                // 且 RSC 载荷 max-age=0，复访也重问，等于结构性放大）。
+                // hover / touchstart 触发的预取**不受此影响**（见 next/dist/client/link.js
+                // 的 onMouseEnter / onTouchStart，两者都不检查 prefetchEnabled），
+                // 所以真实点击前仍有预加载，只是不再"无人问津时也预取"。
+                prefetch={false}
                 aria-current={active ? "page" : undefined}
                 className={`shrink-0 px-3 h-8 inline-flex items-center gap-1.5 rounded-full text-[12.5px] whitespace-nowrap transition ${
                   active
