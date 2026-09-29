@@ -384,6 +384,62 @@ AdSense 后台"网站需要审核"页给的是**三种验证方式**，当前用
 
 ---
 
+### 4.9 ⚠️ 广告位上线前的两个前置条件（2026-09-29 补）
+
+**这一节是"过审后别急着开广告位"的原因。两条都清掉再上广告。**
+
+#### ① CMP 同意管理平台 —— 缺了会让收入腰斩
+
+Google 政策：向 **EEA（欧洲经济区）/ 英国 / 瑞士** 用户投放 AdSense 广告，发布商**必须**
+使用**经 Google 认证、且已接入 IAB TCF（Transparency and Consent Framework）的 CMP**。
+
+| 时间点 | 事件 |
+|---|---|
+| 2024-01-16 | 对 EEA / 英国 用户强制要求认证 CMP |
+| 2024-07-31 | 扩大到瑞士 |
+| **2026-02-28** | **TCF v2.3 强制（已过）**——TC 字串里必须有 `disclosedVendors` 段；缺了视为无效（Google 报错码 1.4） |
+
+**后果不是封号，是静默降级**：没有有效 TC 字串的流量只能拿到**非个性化 / Limited Ads**，
+行业估计程序化收入**可能腰斩**。这是最容易被忽略、又直接扣钱的一条。
+
+**与 Consent Mode v2 是两件事，别混**：
+
+| | 归属 | 作用 |
+|---|---|---|
+| 认证 CMP（本节） | **发布商侧，强制** | 产出 TC 字串，决定拿不拿得到个性化广告 |
+| Consent Mode v2 | 广告主侧机制 | 按同意信号调整自家 Google 标签的度量行为 |
+
+**本站现状（2026-09-29 实测）**：线上 HTML **没有任何 consent / fundingchoices 痕迹**
+⇒ 广告一上线就是降级状态。
+
+**解法（免费）**：AdSense 后台 →「隐私权和消息」→ 开启 **GDPR 消息**
+（即 Google 自带的那套 CMP，已在认证名单内）。
+
+文案层面的硬性要求，别用通用模板糊：
+
+- 第一层（用户不用展开就能看到的那层）**必须明确提到"个性化广告"**——
+  只写"第三方 cookie"不够
+- 接受与拒绝**同等显著**（不能把拒绝藏进二级页面）
+- 链到 Google 的业务数据责任页面，并在 TCF 界面里给出供应商列表或完整列表入口
+- 同意必须在**任何广告相关 cookie 写入之前**取得
+
+#### ② 托管套餐合规
+
+同 4.8 末尾那条：Vercel Hobby 禁商业用途且逐字列出 AdSense。广告展示即触发，
+需先升 Pro 或迁站。
+
+#### 上线前自检（两条都做完了再开广告位）
+
+```bash
+# 1) 站点侧：确认无广告位、脚本在位（不覆盖 CMP 检查，CMP 要看后台）
+BASE=https://chatmock.net node scripts/qa/adsense.cjs
+
+# 2) 人工确认：AdSense 后台「隐私权和消息」里 GDPR 消息已发布；
+#    浏览器无痕访问站点，应弹出同意横幅，且第一层文案含"个性化广告"
+```
+
+---
+
 ## 第 5 章 内容规格（对抗 low value content）
 
 这是过审的唯一硬门槛，不能省。
@@ -489,3 +545,19 @@ scripts/analyze_keywords.py      关键词分析（平台热度 / 意图热度 /
 scripts/output/keywords_raw.json      2260 条原始记录
 scripts/output/keywords_report.csv    1615 个去重词（含热度 / 最佳位次 / 市场）
 ```
+
+### 运维与验收脚本（都在 `scripts/`，`BASE=` 可指向线上）
+
+```
+indexnow.cjs                  IndexNow 推送（默认从线上 sitemap 现取清单 + 自检 key 文件）
+site_audit.cjs                34 路由站点审计（title/desc 重复、console、HTTP 4xx）
+qa/tools.cjs                  74 断言：10 平台真实导出 + 像素级校验
+qa/adsense.cjs                9 断言：ads.txt 逐字符 / 脚本在 head / 无广告位
+qa/analytics.cjs              8 断言：Vercel Analytics 接线与信标
+qa/ldjson.cjs                 全站 JSON-LD 校验
+qa/edge-requests.cjs          edge requests 分类计数（冷缓存 / 复访 / RSC 预取）
+```
+
+> 用 `edge-requests.cjs` 量请求数时，**判据必须用 Resource Timing 的 `transferSize > 0`**。
+> `page.on("request")` 会把缓存命中算进来，CDP 的 `fromDiskCache` 在近年 Chromium 上
+> 不可靠——两个坑都踩过，详见 `docs/《Vercel Edge Requests 审计》.md` 第 2 节与脚本头注释。

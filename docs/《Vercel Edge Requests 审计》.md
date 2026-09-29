@@ -34,23 +34,33 @@ Vercel 的 Edge Requests 统计 **cached + uncached 都计数**——CDN 命中�
 
 实测每一次页面浏览都至少为 `/icon.svg` 多花 1 条请求。
 
-## 2. 单页请求构成（线上真实测量，Playwright + Resource Timing）
+## 2. 单页请求构成（线上真实测量）
 
-判据用 `transferSize > 0`（真走网络），不能用 `page.on("response")`——它对缓存命中同样派发。
+> ⚠️ **口径已在 2026-09-29 修正**，本节数字是修正后重测的。修正内容见下。
+> 复现命令：`BASE=https://chatmock.net node scripts/qa/edge-requests.cjs`
 
-| 页面 | 冷缓存首访 | 热缓存复访（真走网络） | 其中 RSC 预取 | 其余 |
+### 判据：必须用 Resource Timing 的 `transferSize > 0`
+
+踩过两个坑，都写进脚本头注释了：
+
+| 判据 | 结论 |
+|---|---|
+| `page.on("request")` / CDP `requestWillBeSent` | ❌ 对**缓存命中**同样派发，会把 immutable 的 `/_next/static/*` 缓存命中算进来，总数虚高 |
+| CDP `response.fromDiskCache` | ❌ 近年 Chromium 上不可靠——实测复访时 immutable 的 css/font/js 仍报 `false`，判据全假 |
+| **Resource Timing `transferSize > 0`** | ✅ 采用。304 条件请求也计入（它真走了边缘，只是转移体小） |
+
+脚本因此两条腿走路：CDP 事件**枚举 + 分类**，Resource Timing **判定是否真走网络**。
+
+### 修正后的构成（2026-09-29 部署前基线）
+
+| 页面 | 冷缓存首访 | 同会话复访 | 其中 RSC 预取 | 复访里被缓存省掉的 |
 |---|---|---|---|---|
-| 首页 | 41 | 12 | 11 | document + `/icon.svg` |
-| 生成器页 | — | 18（移动 16） | 14（移动 9） | `/icon.svg` + 路由 chunk |
-| /examples | — | 25（移动 14） | 20（移动 10） | `/icon.svg` + 4 个路由 chunk |
-| 博客文 | — | 17（移动 15） | 12（移动 9） | `/icon.svg` + 路由 chunk |
+| 首页 | 39 | 14 | 11 | js 21→0、css 1→0、font 3→0 |
+| 生成器页 | 40 | 14 | 11 | js 21→0、css 1→0、font 3→0 |
 
-首页冷访 41 条构成：`JS 22 + 字体 3 + CSS 1 + document 1 + 预取 14`。
-JS/CSS/字体首访之后永久缓存（immutable），**热缓存下几乎不再产生请求**。
+## 3. 预取为什么是复访的主要成因
 
-### 预取为什么是主要成因
-
-`next/link` 在链接进入视口时抓取完整 RSC 载荷，每个站内链接 = 1 次请求。
+`next/link` 在链接进入视口时抓取完整 RSC 载荷，每个站内唯一链接 = 1 次请求。
 预取载荷的响应头是：
 
 ```
@@ -60,28 +70,81 @@ x-nextjs-stale-time: 300
 ```
 
 `must-revalidate` ⇒ **每次新开页面都把所有视口内链接重新问一遍**（客户端 router cache
-只在同一次会话 5 分钟内复用）。所以热缓存下每条预取仍是实打实的 1 次边缘请求。
+只在同一次会话 5 分钟内复用）。所以：
 
-首页滚动前 36 条 → 滚动后 42 条：多出的 6 条就是滚入视口才触发的预取。
+- JS / CSS / 字体首访后被 `immutable` 永久缓存，复访**归零**
+- 唯独预取**一条都省不掉**：复访 14 条里 11 条是预取（**79%**）
 
-## 3. 关预取的净收益（必须按 URL 去重算）
+**这才是热缓存复访请求降不下来的唯一原因。**
 
-`<Link>` 的个数 ≠ 预取请求数，Next 按 href 去重。四个代表页的 footer 链接集都是
-`{/, /about, /acceptable-use, /blog, /examples, /privacy}`，其中只有 **`/about`、`/privacy`**
-不被页面其它区域覆盖——**关掉 footer 预取每页只净减 2 条**（不是 6 条）。
+### 一个被推翻的判断（留作教训）
 
-各页站内唯一链接数：首页 22、生成器页 24、/examples 32、博客文 18。
+原方案写的是"关 footer 低意图链接、净减 2 条"。**实测收益为 0**：footer 位于页面底部，
+不进初始视口，IntersectionObserver 根本不触发——它本来就没被预取。
+真正的来源是**视口内的链接**：`SiteHeader` 的 6 条主导航 + 生成器页顶部的 Switch 切换条
++ 首页的生成器卡片网格。**判断预取点时，一切以实测的预取 URL 列表为准，不要凭"链接在页面上"推断。**
 
-## 4. 可选方案（按收益/代价排序，待拍板后实施）
+## 4. 已实施：A + B（2026-09-29，commit 745a400）
 
-| 方案 | 每 PV 减少 | 代价 | 备注 |
+| 档 | 做法 | 说明 |
+|---|---|---|
+| **A** | 新增 `vercel.json` 给无哈希静态资源补缓存头 | `/favicon.ico` 用 `max-age=604800, stale-while-revalidate=86400`（HTML 里是**无哈希**引用，留改名逃生口）；`/icon.svg`、`/apple-icon.png` 由 Next 生成**内容哈希** URL（实测两者哈希不同，确认是内容哈希）⇒ `max-age=31536000, immutable`；顺带给 `/robots.txt`、`/ads.txt`（1 天）、`/sitemap.xml`（1 小时）补短缓存，消掉爬虫回源 |
+| **B** | `prefetch={false}` 加在**实测确认的两处**：`GeneratorShell` 的 Switch 切换条、首页的生成器卡片网格 | 关掉的只是"进视口即预取" |
+
+### `prefetch={false}` 的确切语义（读 next@15.5.25 `dist/client/link.js` 源码确认）
+
+```js
+// 视口预取：会被 prefetch={false} 关掉
+if (!isVisible || !prefetchEnabled) return;
+
+// hover 预取：onMouseEnter 里无条件调用，**不看 prefetchEnabled**
+prefetch(router, href, as, { locale, priority: true, bypassPrefetchedCheck: true });
+
+// touchstart 预取：同样无条件，移动端点击前仍预加载
+```
+
+⇒ 关掉的只是"无人问津时也预取"，**hover / 点击前仍有预加载，点击体感不变**。
+这也是本方案敢下手的依据；原方案里"D 档每次点击多 100~300ms"的判断**过重，已作废**。
+
+### 实测收益（同口径、同环境，线上前后对比）
+
+| 页面 | 冷缓存首访 | 同会话复访 | RSC 预取 |
 |---|---|---|---|
-| **A. 给图标加缓存头**（`vercel.json`，`/icon.svg`、`/favicon.ico`、`/apple-icon.png` 用 `public, max-age=604800`） | 1~3 | 无 | 这三个无内容哈希，**不能**用 `immutable` |
-| **B. 关低意图链接预取**（footer 的 `/about`、`/privacy`，以及 /examples 的交叉链接） | 2~4（约 15%） | 无感 | 高意图的主导航与生成器卡片保留 |
-| **C. 再关次级交叉链接**（生成器页"其他平台"、博客页相关阅读） | 累计 6~10（约 40%） | 点击后多等一跳 | 平台切换在本站算中等意图，需权衡 |
-| **D. 全站 `prefetch={false}`** | 约 80% | 每次点击多 100~300ms | 静态站首屏很快，但导航即时性明显变差 |
+| 首页 | 39 → **29**（-26%） | 14 → **8**（-43%） | 11 → 6 |
+| 生成器页 | 40 → **30**（-25%） | 14 → **8**（-43%） | 11 → 6 |
+| **合计（两页）** | 79 → **59（-25%）** | 28 → **16（-43%）** | 22 → 12 |
 
-推荐组合：**A + B**（零 UX 代价）；若额度仍紧张再考虑 C。
+**一个额外收获**：冷缓存少的 10 条里有 5 条不是预取本身，而是**路由 JS chunk**——
+预取被关后，客户端不再为那些路由预加载对应的 chunk（js 21→16）。
+所以"关预取"的收益比预取条数本身更大。
+
+### 线上验证（2026-09-29）
+
+```
+/favicon.ico       public, max-age=604800, stale-while-revalidate=86400
+/icon.svg          public, max-age=31536000, immutable
+/apple-icon.png    public, max-age=31536000, immutable
+/robots.txt        public, max-age=86400
+/ads.txt           public, max-age=86400
+/sitemap.xml       public, max-age=3600
+```
+
+回归：`tools.cjs` 74/74、`site_audit` console 干净、`adsense.cjs` 9/9、`analytics.cjs` 8/8。
+
+## 4.1 剩余空间：还要不要关 header 主导航（待拍板）
+
+关掉后，每页预取会从 6 条 → 0~1 条，复访有望再降约 **40~50%**（即 8 → 4~5 条）。
+代价：键盘 Tab+Enter、右键新标签、中键点击这三条路径失去预取
+（hover 与 touchstart 仍会预取，鼠标/触屏用户的体感不变）。
+
+尚未做，等拍板。
+
+## 4.2 考虑过但否决的做法
+
+**给 `?_rsc=` 响应加长缓存**：预取载荷是 `max-age=0, must-revalidate`，若能改成
+`immutable` 就等于预取全部走浏览器缓存，收益比关预取更大且零 UX 代价。
+**否决原因**：RSC 载荷必须与页面端当前构建的 JS 严格一致，一旦 `_rsc` 参数值跨部署
+不变化，就会把上一次构建的载荷喂给新版客户端，导致导航错乱。收益不足以承担这个风险。
 
 ## 5. 另一个不能忽略的来源：爬虫
 

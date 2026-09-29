@@ -113,14 +113,38 @@ https://www.bing.com/webmasters
 
 **为什么值得**：Bing 的索引同时供给 Copilot、ChatGPT 搜索、DuckDuckGo、Ecosia。对工具站来说 AI 搜索入口的流量正在变重要，成本却只有点两下。
 
-### 2.2 IndexNow —— 推荐（一次性推送全部 URL）
+### 2.2 IndexNow —— ✅ 已完成（2026-09-29）
 
 被 Bing / Yandex / Naver / Seznam / Yep 支持，主动推送比被动等爬虫快得多。
 
-做法：在站点根目录放一个 `<key>.txt` 密钥文件，然后 POST 一次 34 个 URL 的清单。
-**代价**：需要一次部署把密钥文件放上去（密钥文件内容就是 key 本身）。
+| 项 | 值 |
+|---|---|
+| 密钥文件 | `public/157af917f818673148ba27560a142e0b.txt`（32 字节 hex，**内容即 key，不带尾换行**） |
+| 线上地址 | https://chatmock.net/157af917f818673148ba27560a142e0b.txt → `200 text/plain` |
+| 推送脚本 | `scripts/indexnow.cjs` |
+| 推送结果 | `POST https://api.indexnow.org/indexnow` → **200 OK 全部接收**，34 条 URL |
 
-需要的话我可以生成 key + 推送脚本，你合并后部署即可。
+复现 / 追加推送：
+
+```bash
+node scripts/indexnow.cjs --dry     # 只打印将要推送的内容，不发请求（部署前可预演）
+node scripts/indexnow.cjs           # 默认从线上 sitemap 现取清单 → 自检 key → 推送
+```
+
+脚本的几个设计点（避免踩坑）：
+
+- **清单默认从线上 sitemap 现取**，不读本地文件 ⇒ 永远不会推一份过期的 URL 列表
+  （`--file` 可切回本地 `scripts/output/submit-urls.txt`）
+- **推送前自检 key 文件**：取不到或内容不一致就直接退出（exit 2）。IndexNow 唯一的
+  域名归属证明就是这个文件，跳过自检硬推只会拿到 403 / 422
+- **跨域 URL 先拦下**：只要有一条不属于 `chatmock.net`，整批会 422，所以本地先拦（exit 3）
+- 响应码按规范给出人话解释（200 全部接收 / 202 key 校验待完成 / 403 key 无效 / 429 过于频繁）
+
+> ⚠️ **不要当天反复推同一批**：会被 429，且对收录没有额外好处。**新增页面后再推增量即可。**
+> 单次上限 10,000 条，34 条远远用不上分批。
+>
+> 推送后到 Bing 网站管理员工具 → IndexNow 看提交记录（见 2.1）。Bing 的索引同时供给
+> Copilot、ChatGPT 搜索与 DuckDuckGo。
 
 ### 2.3 可选 / 不建议
 
@@ -148,15 +172,43 @@ https://www.bing.com/webmasters
 
 ---
 
-## 4. 现在还欠的两个动作
+## 4. 待办总览（2026-09-29 更新）
 
-1. **GA4 接线**（流量数据从 0 开始积累，晚一天丢一天数据）
-   - analytics.google.com 建 GA4 属性 → 数据流 → 拿 `G-XXXXXXX`
-   - Vercel 项目 → Settings → Environment Variables → `NEXT_PUBLIC_GA_ID=G-XXXXXXX`
-   - Redeploy 一次即生效（已验证：填了才渲染 gtag，未填零副作用）
-   - 导出转化事件 `export_png` 已埋好，接线后自动开始回传
+### 4.1 只有账号持有者能做的
 
-2. **外链与初始曝光**：走已有的 ProductHunt 等 100+ 平台清单，与搜索引擎收录是两条独立线
+| # | 动作 | 状态 |
+|---|---|---|
+| 1 | **GA4 接线**（流量数据从 0 开始积累，晚一天丢一天数据） | ⬜ 未做 |
+| 2 | **GSC 建属性 + DNS TXT 验证 + 提交 sitemap + 分批手动索引** | ⬜ 未做（清单见第 1 节） |
+| 3 | **Bing 网站管理员工具**（Import from GSC 一键导入） | ⬜ 未做（2.1 节） |
+| 4 | **AdSense 点「验证」** | ⬜ 未做（验证件已就位，见手册 4.8） |
+| 5 | **决定 Vercel 套餐**（Hobby 禁商业用途且逐字列出 AdSense，广告上线前必须升 Pro 或迁站） | ⬜ 未决 |
+
+GA4 细节：
+- analytics.google.com 建 GA4 属性 → 数据流 → 拿 `G-XXXXXXX`
+- Vercel 项目 → Settings → Environment Variables → `NEXT_PUBLIC_GA_ID=G-XXXXXXX`
+- Redeploy 一次即生效（已验证：填了才渲染 gtag，未填零副作用）
+- 导出转化事件 `export_png` 已埋好，接线后自动开始回传
+
+### 4.2 广告位上线前的两个前置条件（都在 AdSense 手册里）
+
+1. **接 CMP 同意管理平台**——面向 EEA/UK/瑞士投放广告，Google 强制要求已认证且接 IAB TCF 的 CMP；缺了不封号但会降级成 Limited Ads（收入可腰斩）。免费解法：AdSense 后台「隐私权和消息」→ GDPR 消息。详见手册 4.9
+2. **确认托管套餐合规**——同 4.1 第 5 项
+
+### 4.3 独立的另一条线
+
+**外链与初始曝光**：走已有的 ProductHunt 等 100+ 平台清单，与搜索引擎收录是两条独立线。
+
+---
+
+## 5. 已完成（留档）
+
+| 动作 | 完成时间 | 备注 |
+|---|---|---|
+| 站点地图可访问、34 条 URL | 上线时 | `app/sitemap.ts` |
+| `robots.txt` 含 Sitemap 声明 | 上线时 | `app/robots.ts` |
+| **IndexNow 接入与首次推送** | 2026-09-29 | 见 2.2 节，200 全部接收 |
+| AdSense 验证件（`ads.txt` + 代码段） | 2026-09-26 | 见手册 4.8，等 Google 审核 |
 
 ---
 
