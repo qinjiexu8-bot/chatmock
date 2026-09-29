@@ -1,9 +1,15 @@
-import Link from "next/link";
-
 /**
  * 可见面包屑导航（与各页 JSON-LD BreadcrumbList 对应）。
  * 纯服务端组件，无交互。
+ *
+ * prefetch={false}：面包屑在**每个页面的初始视口内**，默认预取会让每条上层链接
+ * 每 PV 各发一次 `?_rsc=`（`max-age=0, must-revalidate`，缓存省不掉）。它属于
+ * "页面 chrome"，不是正文里的转化入口，故与 header 同一策略关掉视口预取。
+ * hover / touchstart 的预取不受影响（见 link.js：onMouseEnter 无条件 prefetch），
+ * 鼠标点击的即时性不变。规则：chrome 关，正文 CTA（如首页 hero）留。
  */
+import Link from "next/link";
+
 export default function Breadcrumb({
   items,
 }: {
@@ -20,7 +26,7 @@ export default function Breadcrumb({
               </span>
             ) : null}
             {item.href ? (
-              <Link href={item.href} className="hover:text-primary transition">
+              <Link href={item.href} prefetch={false} className="hover:text-primary transition">
                 {item.name}
               </Link>
             ) : (

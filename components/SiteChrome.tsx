@@ -5,6 +5,25 @@ import Link from "next/link";
 import { livePages, site } from "@/lib/seo";
 import { PlatformIcon } from "@/components/PlatformIcon";
 
+/**
+ * 站内链接的预取策略（2026-09-29 实测拍板 —— 动这里的 prefetch 之前先读完）
+ *
+ * next/link 默认在链接**进入视口**时抓取完整 RSC 载荷（`?_rsc=`）。该响应头是
+ * `cache-control: max-age=0, must-revalidate` ⇒ 客户端 router cache 之外无法复用，
+ * **每个 PV 都是一次真实边缘请求**。实测：桌面 header 这 6 条（4 个生成器 +
+ * Examples + Blog）就是全站复访请求的大头 —— 复访 8 条里占 6 条（75%）。
+ *
+ * `prefetch={false}` 的确切语义（读 next@15.5.25 `dist/client/link.js` 确认）：
+ *   视口预取    if (!isVisible || !prefetchEnabled) return      → **被关掉**
+ *   hover       onMouseEnter 里无条件 prefetch()，**不看 prefetchEnabled** → 保留
+ *   touchstart  同样无条件                                      → 保留（移动端点前仍预加载）
+ * 所以这里关掉的只是"没人搭理时也预取"。真实代价仅 3 条路径：键盘 Tab+Enter、
+ * 右键新标签、中键点击（鼠标 hover 后再点，预取早已完成）。
+ *
+ * 取舍：桌面 header 里的链接**一律关**（logo / 4 个生成器 / Examples / Blog / CTA，
+ * 每个 PV 必发 6 条）；汉堡菜单与 More 下拉里的链接**保持默认**——它们只在用户显式
+ * 点开后才进 DOM，属于明确意图且打开即点，预取换来的是即点即开，值得留。
+ */
 export function SiteHeader({ current }: { current?: string }) {
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
@@ -30,7 +49,7 @@ export function SiteHeader({ current }: { current?: string }) {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* 第一行：桌面 3 列网格（logo / 导航 / CTA）；移动 logo + 汉堡 */}
         <div className="grid h-14 lg:h-16 grid-cols-[1fr_auto] lg:grid-cols-[1fr_auto_1fr] items-center gap-3">
-          <Link href="/" className="group inline-flex items-center gap-2 select-none">
+          <Link href="/" prefetch={false} className="group inline-flex items-center gap-2 select-none">
             <span className="font-script text-primary text-[1.3rem] lg:text-[1.45rem] leading-relaxed transition-transform duration-200 ease-out group-hover:-rotate-2 group-hover:scale-[1.03]">
               {site.name}
             </span>
@@ -39,7 +58,7 @@ export function SiteHeader({ current }: { current?: string }) {
           {/* 桌面导航 */}
           <nav className="hidden lg:flex items-center gap-1 text-[13.5px] text-black/60">
             {livePages.slice(0, 4).map((p) => (
-              <Link key={p.slug} href={`/${p.slug}`} className={navLinkClass(p.slug)}>
+              <Link key={p.slug} href={`/${p.slug}`} prefetch={false} className={navLinkClass(p.slug)}>
                 {p.name}
               </Link>
             ))}
@@ -90,10 +109,10 @@ export function SiteHeader({ current }: { current?: string }) {
                 </>
               ) : null}
             </div>
-            <Link href="/examples" className={navLinkClass("examples")}>
+            <Link href="/examples" prefetch={false} className={navLinkClass("examples")}>
               Examples
             </Link>
-            <Link href="/blog" className={navLinkClass("blog")}>
+            <Link href="/blog" prefetch={false} className={navLinkClass("blog")}>
               Blog
             </Link>
           </nav>
@@ -102,6 +121,7 @@ export function SiteHeader({ current }: { current?: string }) {
           <span className="hidden lg:flex justify-end">
             <Link
               href={`/${livePages[0]?.slug ?? "whatsapp-chat-generator"}`}
+              prefetch={false}
               className="inline-flex items-center h-10 px-4 rounded-full bg-primary text-primary-foreground text-[13px] font-medium hover:opacity-90 transition"
             >
               Start creating →
