@@ -10,7 +10,7 @@ const SLUG = "android-sms-generator";
 const CANONICAL = `/${SLUG}`;
 
 export const metadata: Metadata = {
-  title: "Free Android SMS Generator — Google Messages Mockup | ChatMock",
+  title: "Free Android SMS Generator — Google Messages Mockup",
   description:
     "Create realistic Android SMS and Google Messages mockups in your browser. Material blue bubbles, Read receipts, Android status bar and dark mode, then export a high-resolution PNG. Free, no signup, no watermark.",
   alternates: { canonical: CANONICAL },

@@ -10,7 +10,7 @@ const SLUG = "whatsapp-call-generator";
 const CANONICAL = `/${SLUG}`;
 
 export const metadata: Metadata = {
-  title: "Free WhatsApp Call Log Generator — No Signup | ChatMock",
+  title: "Free WhatsApp Call Log Generator — No Signup",
   description:
     "Create realistic WhatsApp call log mockups in your browser. Incoming, outgoing and missed calls with direction arrows, durations and the bottom tab bar. Free, no signup, no watermark.",
   alternates: { canonical: CANONICAL },
