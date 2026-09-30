@@ -528,7 +528,7 @@ export const examples: ExampleItem[] = [
   {
     id: "gc-flatmates",
     platformId: "group-chat",
-    topic: "everyday",
+    topic: "group",
     title: "Flatmates shopping list",
     description:
       "Three flatmates split the weekly shop with coloured names and quick receipts — the mundane group thread every household knows.",
@@ -545,6 +545,248 @@ export const examples: ExampleItem[] = [
         m("e2", "p_priya", "We're out of coffee too. The good one.", "11:22"),
         m("e3", "self", "Got it. Doing the shop at 6, anyone home?", "11:25", "read"),
         m("e4", "p_taylor", "I will be — leave the bags, I'll unpack", "11:26"),
+      ],
+    }),
+  },
+  // ------------------------------------------------ 2026-09 补齐（每平台 +1，group 分区加厚）
+  {
+    id: "wa-parcel",
+    platformId: "whatsapp",
+    topic: "everyday",
+    title: "Neighbour parcel handover",
+    description:
+      "A doorstep co-ordination thread between neighbours — short, polite and full of real timings, with the blue read ticks proving the message was actually seen.",
+    conversation: conv("whatsapp", {
+      title: "Nadia",
+      subtitle: "online",
+      participants: [self(), other("p1", "Nadia")],
+      messages: [
+        m("e1", "p1", "Hi! A parcel for you came to us by mistake — the courier mixed up the numbers.", "17:42"),
+        m("e2", "self", "Oh thank you, I was wondering where it went.", "17:48", "read"),
+        m("e3", "p1", "No trouble at all. I'm in all evening if you want to grab it.", "17:49"),
+        m("e4", "self", "Perfect — I'll come by around 8.", "17:51", "read"),
+        m("e5", "p1", "Door's the one with the blue plant pot 👋", "17:52"),
+      ],
+    }),
+  },
+  {
+    id: "ig-repost",
+    platformId: "instagram-dm",
+    topic: "creator",
+    title: "Repost permission request",
+    description:
+      "A studio asking a creator to repost their work — the gradient outgoing bubbles and Seen marker make it read exactly like a real Instagram inbox.",
+    conversation: conv("instagram-dm", {
+      title: "Cove Studio",
+      subtitle: "",
+      dateSeparator: "Today",
+      deliveryText: "Seen",
+      participants: [self(), other("p1", "Cove Studio")],
+      messages: [
+        m("e1", "p1", "Hi! We featured your rooftop set in our story this morning.", "09:12"),
+        m("e2", "p1", "Would you be happy for us to repost two of the frames to the grid? Full credit, of course.", "09:13"),
+        m("e3", "self", "That's lovely, thank you! Yes, go ahead — just tag my handle 🙌", "09:40"),
+        m("e4", "p1", "Tagged and linked. Sending the crops over shortly.", "09:44"),
+      ],
+    }),
+  },
+  {
+    id: "im-shift",
+    platformId: "text-message",
+    topic: "team",
+    title: "Shift swap on iMessage",
+    description:
+      "Two colleagues trading a Saturday shift in the iPhone Messages look — green and grey bubbles, no in-bubble timestamps, and the Delivered line closing the thread.",
+    conversation: conv("text-message", {
+      title: "Owen",
+      subtitle: "",
+      dateSeparator: "Today 9:41",
+      deliveryText: "Delivered",
+      participants: [self(), other("p1", "Owen")],
+      messages: [
+        m("e1", "p1", "Any chance you could take my Saturday close? My sister's flight lands that afternoon.", "08:20"),
+        m("e2", "self", "I can, if you take my Tuesday open in return.", "08:26"),
+        m("e3", "p1", "Deal. I'll tell the rota manager now.", "08:28"),
+        m("e4", "self", "Perfect — handover notes coming your way this evening.", "08:31"),
+      ],
+    }),
+  },
+  {
+    id: "ms-craft",
+    platformId: "messenger",
+    topic: "creator",
+    title: "Craft fair stall prep",
+    description:
+      "Two makers sharing a stall at a weekend market — Messenger's capsule bubbles, the Active now subtitle and a Seen marker under the final reply.",
+    conversation: conv("messenger", {
+      title: "Iris",
+      subtitle: "Active now",
+      dateSeparator: "Today 9:41",
+      deliveryText: "Seen",
+      participants: [self(), other("p1", "Iris")],
+      messages: [
+        m("e1", "p1", "Stall map came through — we're unit 14, right by the entrance.", "13:05"),
+        m("e2", "self", "Great spot. I'll bring the tablecloth and the folding stand.", "13:11"),
+        m("e3", "p1", "Perfect, I've got the price signs and the banner.", "13:14"),
+        m("e4", "self", "Let's meet at 7:30 to set up before the gates open.", "13:16"),
+      ],
+    }),
+  },
+  {
+    id: "dc-hobby",
+    platformId: "discord",
+    topic: "everyday",
+    title: "Late-night music server",
+    description:
+      "A hobby Discord server past midnight: coloured usernames, grouped messages with inline timestamps, and the dark surface that is the app's native tone.",
+    conversation: conv("discord", {
+      title: "producers",
+      subtitle: "12 members online",
+      dateSeparator: "Today",
+      participants: [
+        self(),
+        other("p1", "alex_wav", "#eb459e"),
+        other("p2", "lofi_mara", "#57f287"),
+      ],
+      messages: [
+        m("e1", "p2", "Anyone got a clean 808 kit they'd actually recommend?", "00:14"),
+        m("e2", "p1", "The free one from last week's thread is genuinely good.", "00:17"),
+        m("e3", "self", "Second that — it sits nicely under vocals.", "00:19"),
+        m("e4", "p2", "Grabbing it now. Cheers both 🙏", "00:23"),
+      ],
+    }),
+  },
+  {
+    id: "tg-language",
+    platformId: "telegram",
+    topic: "everyday",
+    title: "Language exchange plan",
+    description:
+      "Telegram's doodle wallpaper and double ticks behind a casual study swap — two people trading Spanish and English practice slots over a coffee.",
+    conversation: conv("telegram", {
+      title: "Carla",
+      subtitle: "last seen recently",
+      dateSeparator: "Today",
+      participants: [self(), other("p1", "Carla")],
+      messages: [
+        m("e1", "p1", "¿Seguimos con el intercambio el jueves?", "19:02"),
+        m("e2", "self", "Thursday works! Same café, 6pm?", "19:05", "read"),
+        m("e3", "p1", "Perfecto. Esta vez empiezo yo en español 😄", "19:06"),
+        m("e4", "self", "Deal — I'll bring the question list.", "19:08", "read"),
+      ],
+    }),
+  },
+  {
+    id: "sc-story",
+    platformId: "snapchat",
+    topic: "creator",
+    title: "Story takeover plan",
+    description:
+      "Snapchat's yellow header, lavender outgoing bubbles and a Delivered line — two creators splitting a joint story takeover into shifts.",
+    conversation: conv("snapchat", {
+      title: "Kai",
+      subtitle: "",
+      dateSeparator: "Today",
+      deliveryText: "Delivered",
+      participants: [self(), other("p1", "Kai")],
+      messages: [
+        m("e1", "self", "Still on for the story takeover on Friday?", "11:05"),
+        m("e2", "p1", "Yes! I'll take the morning, you do the evening stretch", "11:09"),
+        m("e3", "self", "Works. Sending you the three clips tonight", "11:11"),
+        m("e4", "p1", "Perfect, I'll build the sticker pack 🎨", "11:14"),
+      ],
+    }),
+  },
+  {
+    id: "as-roster",
+    platformId: "android-sms",
+    topic: "team",
+    title: "Volunteer rota",
+    description:
+      "Google Messages with the Material blue bubble, a clean Android status bar and a Read marker — a community group locking in the weekend rota.",
+    conversation: conv("android-sms", {
+      title: "Riverside Volunteers",
+      subtitle: "Mobile",
+      dateSeparator: "Today",
+      deliveryText: "Read",
+      participants: [self(), other("p1", "Riverside Volunteers")],
+      messages: [
+        m("e1", "p1", "Saturday rota: gates at 8, two people on the stall, one on parking.", "10:04"),
+        m("e2", "self", "I can do the gates and stay on the stall until noon.", "10:19"),
+        m("e3", "p1", "Brilliant — that covers the early rush. Thank you!", "10:22"),
+      ],
+    }),
+  },
+  {
+    id: "wc-catchup",
+    platformId: "whatsapp-call",
+    topic: "everyday",
+    title: "Catching up with friends",
+    description:
+      "A WhatsApp call log mixing answered, missed and video entries across two days — the supporting prop that makes a chat scene feel lived-in.",
+    conversation: conv("whatsapp-call", {
+      title: "Calls",
+      subtitle: "",
+      participants: [
+        self(),
+        other("p_leo", "Leo"),
+        other("p_nina", "Nina"),
+        other("p_omar", "Omar"),
+      ],
+      messages: [
+        m("c1", "p_leo", "18 min", "21:40", undefined, "outgoing", true),
+        m("c2", "p_nina", "", "19:05", undefined, "missed"),
+        m("c3", "p_omar", "6 min", "19:07", undefined, "incoming"),
+        m("c4", "p_leo", "24 min", "Yesterday", undefined, "incoming"),
+      ],
+    }),
+  },
+  {
+    id: "gc-reunion",
+    platformId: "group-chat",
+    topic: "group",
+    title: "Ten-year reunion thread",
+    description:
+      "Four friends rebuilding a group chat for a reunion: coloured sender names, overlapping replies and the pause before someone finally volunteers to sort the venue.",
+    conversation: conv("group-chat", {
+      title: "Class of '16",
+      subtitle: "You, Beth, Chris, Dani",
+      participants: [
+        self(),
+        other("p_beth", "Beth", "#e542a3"),
+        other("p_chris", "Chris", "#02a698"),
+        other("p_dani", "Dani", "#dc691a"),
+      ],
+      messages: [
+        m("e1", "p_beth", "Ten years already?! We're doing this properly.", "20:11"),
+        m("e2", "p_chris", "I'm in. Same weekend as the summer one?", "20:14"),
+        m("e3", "self", "Works for me. I can look at venues this week.", "20:16", "read"),
+        m("e4", "p_dani", "Do it. I'll sort the playlist, obviously 🎶", "20:21"),
+        m("e5", "p_beth", "Chris, you're on photos this time.", "20:23"),
+      ],
+    }),
+  },
+  {
+    id: "gc-neighbours",
+    platformId: "group-chat",
+    topic: "group",
+    title: "Residents' group chat",
+    description:
+      "The building WhatsApp group in action: four neighbours, coloured names and the small logistics — bins, lifts, deliveries — that make a group mockup believable.",
+    conversation: conv("group-chat", {
+      title: "Maple Court",
+      subtitle: "You, Tom, Ayesha, Greg",
+      participants: [
+        self(),
+        other("p_tom", "Tom", "#e542a3"),
+        other("p_ayesha", "Ayesha", "#02a698"),
+        other("p_greg", "Greg", "#dc691a"),
+      ],
+      messages: [
+        m("e1", "p_tom", "Bin collection moves to Thursday this week, by the way.", "08:31"),
+        m("e2", "p_ayesha", "Thanks for the heads-up — I'd have missed it.", "08:44"),
+        m("e3", "self", "Also: the lift is being serviced 10–12 on Friday.", "08:47", "read"),
+        m("e4", "p_greg", "Noted. I'll move my delivery slot.", "08:52"),
       ],
     }),
   },

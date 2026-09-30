@@ -48,7 +48,7 @@ const PLATFORMS = [
   { slug: "fake-text-message-generator", img: true, delivery: true },
   { slug: "instagram-dm-generator", img: true, delivery: true },
   { slug: "discord-chat-generator", img: true, participants: true, memberAvatars: true },
-  { slug: "telegram-chat-generator", img: true, receipt: true },
+  { slug: "telegram-chat-generator", img: true, receipt: true, wallpaper: true },
   { slug: "snapchat-chat-generator", img: true, delivery: true },
   { slug: "whatsapp-call-generator", callLog: true },
   { slug: "android-sms-generator", img: true, delivery: true },
@@ -86,7 +86,8 @@ async function testPlatform(browser, p) {
     await page.goto(`http://localhost:3000/${p.slug}`, { waitUntil: "load" });
     await page.getByRole("button", { name: "+ Me" }).first().waitFor({ state: "visible" });
 
-    const panel = page.locator('div[class*="max-h-[78vh]"]');
+    // 编辑面板的定位不再靠 max-h-[78vh]（移动端改造后是分栏 + max-h-[72vh]）：
+    // 这个变量本来就没被任何断言用过，直接删掉，免得以后被误当成可信锚点。
     const taCount = () => page.locator("textarea").count();
     const before = await taCount();
 
@@ -110,6 +111,30 @@ async function testPlatform(browser, p) {
     await page.waitForTimeout(120);
     const darkCls = await page.getByRole("button", { name: "dark" }).getAttribute("class");
     report(`${tag} dark-mode`, /bg-black\/5/.test(darkCls || ""), "按钮进入激活态");
+
+    // 3b) 暗色壁纸必须同时有「涂鸦 tile」和「渐变」两层。
+    // Telegram 的壁纸是代码画的（lib/doodle.ts），不是贴图；图层写丢会直接
+    // 退化成纯色背景，真机质感当场崩掉，而产物尺寸断言完全发现不了。
+    // 曾经的写法同时给了 background 简写和 backgroundImage 长写，靠属性顺序
+    // 侥幸生效 —— 这里就是把"侥幸"钉成断言。
+    if (p.wallpaper) {
+      const wp = await page.locator("[data-export-root]").evaluate((root) => {
+        const el = [...root.querySelectorAll("div")].find((d) =>
+          getComputedStyle(d).backgroundImage.includes("url(")
+        );
+        if (!el) return null;
+        const cs = getComputedStyle(el);
+        return { image: cs.backgroundImage, size: cs.backgroundSize };
+      });
+      report(
+        `${tag} dark-wallpaper`,
+        !!wp &&
+          wp.image.includes("url(") &&
+          wp.image.includes("linear-gradient(") &&
+          /280px 280px, cover/.test(wp.size),
+        wp ? `size=${wp.size} doodle=${wp.image.includes("url(")} gradient=${wp.image.includes("linear-gradient(")}` : "未找到壁纸元素"
+      );
+    }
     await page.getByRole("button", { name: "light" }).click();
 
     // 4) 图片消息（有该功能的平台）

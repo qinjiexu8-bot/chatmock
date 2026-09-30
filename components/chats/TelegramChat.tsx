@@ -94,8 +94,12 @@ function Avatar({
 
 function wallpaper(mode: ThemeMode): React.CSSProperties {
   if (mode === "dark") {
+    // 只写 backgroundImage + backgroundSize，不要同时写 background 简写：
+    // 两者同时出现时 React 会在重渲染时报「conflicting style property」，
+    // 而且简写会把 background-image 重置掉，谁生效取决于属性书写顺序 —— 
+    // 截图工具站最怕这种"看起来一样、实际靠巧合"的写法。
+    // 亮色分支本来就是这个写法，两边保持一致。
     return {
-      background: `linear-gradient(160deg, #141f2b 0%, #0e1621 55%, #0b1219 100%)`,
       backgroundImage: `${doodleTile("#7d8e98", 0.14)}, linear-gradient(160deg, #141f2b 0%, #0e1621 55%, #0b1219 100%)`,
       backgroundSize: "280px 280px, cover",
     };

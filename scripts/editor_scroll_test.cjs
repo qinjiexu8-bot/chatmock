@@ -11,7 +11,9 @@ const { chromium } = require("playwright-core");
   await page.goto("http://localhost:3000/whatsapp-chat-generator", { waitUntil: "networkidle" });
 
   // 编辑面板 = 带 max-h 的滚动容器（左栏内）
-  const panel = page.locator('div[class*="max-h-[78vh]"]');
+  // 用 overflow-y-auto + overscroll-contain 组合定位滚动容器，
+  // 不绑定具体的高度上限（移动端分栏改造后上限已从 78vh 改为 72vh）
+  const panel = page.locator('div[class*="overscroll-contain"]').first();
   console.log("面板定位数:", await panel.count());
 
   // 连点 18 次 "+ Alex"

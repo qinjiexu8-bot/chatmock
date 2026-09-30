@@ -21,6 +21,14 @@ import {
   type Conversation,
   type PlatformId,
 } from "@/lib/types";
+import {
+  clearConversation,
+  loadConversation,
+  loadPrefs,
+  saveConversation,
+  savePrefs,
+  type SaveStatus,
+} from "@/lib/persistence";
 
 interface Props {
   platformId: PlatformId;
@@ -134,6 +142,75 @@ export default function GeneratorShell({ platformId }: Props) {
   const [busy, setBusy] = useState(false);
   const exportRef = useRef<HTMLDivElement>(null);
 
+  // 移动端把编辑器与预览拆成两栏（<lg 生效）。竖屏手机上单列堆叠时首屏几乎
+  // 只有编辑器，改文字根本看不到结果，只能上下滚 —— 这是这类工具在移动端的
+  // 主要流失点。默认落在"编辑"，预览一键可达。
+  const [mobileTab, setMobileTab] = useState<"edit" | "preview">("edit");
+  const [saveStatus, setSaveStatus] = useState<SaveStatus | "idle">("idle");
+  const [restored, setRestored] = useState(false);
+
+  // 平台切换兜底：正常路由跳转会把整棵页面重挂，万一被 React 复用实例，
+  // 这四行保证不出现"地址是 Telegram、画面还是上一个平台会话"的那一帧。
+  const [boundPlatform, setBoundPlatform] = useState(platformId);
+  if (boundPlatform !== platformId) {
+    setBoundPlatform(platformId);
+    setConversation(defaultConversation(platformId));
+    setRestored(false);
+  }
+
+  // ---------------- 草稿本地持久化 ----------------
+  // 两个 effect 的顺序不能换、hydrated 门控不能省：先"恢复"再"保存"。
+  // 一旦换序或去掉门控，挂载瞬间的保存 effect 会拿着初始的默认会话把已存在
+  // 的草稿覆盖掉 —— 用户的对话就这么没了。
+  const hydrated = useRef(false);
+
+  useEffect(() => {
+    const stored = loadConversation(platformId);
+    if (stored) setConversation(stored);
+    setRestored(stored !== null);
+    const prefs = loadPrefs();
+    if (typeof prefs.scale === "number") setScale(prefs.scale);
+    if (typeof prefs.frame === "boolean") setFrame(prefs.frame);
+    hydrated.current = true;
+  }, [platformId]);
+
+  useEffect(() => {
+    if (!hydrated.current) return;
+    // debounce 400ms：localStorage 是同步 API，逐击键写会明显拖慢输入
+    const t = setTimeout(
+      () => setSaveStatus(saveConversation(platformId, conversation)),
+      400
+    );
+    return () => clearTimeout(t);
+  }, [platformId, conversation]);
+
+  // 缩放倍率与手机外框是跨平台的全局偏好（不随平台清空）
+  useEffect(() => {
+    if (!hydrated.current) return;
+    savePrefs({ scale, frame });
+  }, [scale, frame]);
+
+  // ---------------- 移动端切栏：保住编辑器滚动位置 ----------------
+  // 移动端编辑器是"封顶高度 + 内部滚动"，而 display:none 会把 scrollTop 归零。
+  // 不手动接管的话，用户从预览切回编辑会回到顶部，又要从头往下滚 —— 等于把
+  // "改字看不到预览"换了个形式复现。
+  const editorScrollRef = useRef<HTMLDivElement>(null);
+  const editorScrollTop = useRef(0);
+
+  const switchMobileTab = (tab: "edit" | "preview") => {
+    if (tab === mobileTab) return;
+    if (mobileTab === "edit" && editorScrollRef.current) {
+      editorScrollTop.current = editorScrollRef.current.scrollTop;
+    }
+    setMobileTab(tab);
+  };
+
+  useEffect(() => {
+    if (mobileTab === "edit" && editorScrollRef.current) {
+      editorScrollRef.current.scrollTop = editorScrollTop.current;
+    }
+  }, [mobileTab]);
+
   const download = useCallback(async () => {
     if (!exportRef.current) return;
     setBusy(true);
@@ -157,7 +234,10 @@ export default function GeneratorShell({ platformId }: Props) {
   }, [conversation.title, scale, theme.slug]);
 
   const reset = useCallback(() => {
+    // 先清掉落库的草稿再回到默认：即便随后的保存写失败，草稿也确实是没了
+    clearConversation(platformId);
     setConversation(defaultConversation(platformId));
+    setRestored(false);
   }, [platformId]);
 
   // 预览自适应：小屏容器 < 预览宽（390 无框 / 带框更宽）时按比例缩放显示。
@@ -174,7 +254,9 @@ export default function GeneratorShell({ platformId }: Props) {
       const w = node.offsetWidth || 390;
       const h = node.offsetHeight || 780;
       setChatSize({ w, h });
-      setFitScale(Math.min(1, box.clientWidth / w));
+      // 预览面板被隐藏时 clientWidth 为 0，直接算会把 fitScale 压成 0
+      // （切回预览就是一片空白），所以 0 宽度时保持上一次的缩放。
+      if (box.clientWidth > 0) setFitScale(Math.min(1, box.clientWidth / w));
     };
     measure();
     const ro = new ResizeObserver(measure);
@@ -219,24 +301,70 @@ export default function GeneratorShell({ platformId }: Props) {
         </div>
       </div>
 
+      {/* ---------------- 移动端分栏切换（lg 以上两栏并排，不需要这个） ---------------- */}
+      <div className="lg:hidden flex gap-1 border-b border-black/[0.08] bg-[#f8f9fd] px-3 py-2">
+        {(
+          [
+            ["edit", "Edit"],
+            ["preview", "Preview"],
+          ] as const
+        ).map(([id, label]) => (
+          <button
+            key={id}
+            type="button"
+            onClick={() => switchMobileTab(id)}
+            aria-pressed={mobileTab === id}
+            className={`flex-1 h-8 rounded-full text-[12.5px] transition ${
+              mobileTab === id
+                ? "bg-primary text-primary-foreground font-medium"
+                : "text-black/60 hover:bg-black/5 hover:text-black"
+            }`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr]">
         {/* ---------------- 左：编辑面板 ----------------
             桌面端滚动容器 lg:absolute inset-0：脱离文档流后 grid 行高完全
             由右侧预览列决定，面板精确铺满预览列高度（底边对齐），内容超出
-            时在面板内部滚动，不会把页面越撑越长。移动端单列堆叠，仍用
-            max-h-[78vh] 封顶。 */}
-        <div className="border-b lg:border-b-0 lg:border-r border-black/[0.08] bg-[#f8f9fd] lg:relative">
-          <div className="max-h-[78vh] lg:absolute lg:inset-0 lg:max-h-none overflow-y-auto overscroll-contain p-5">
+            时在面板内部滚动，不会把页面越撑越长。移动端单列堆叠，改用
+            分栏切换（上面的 Edit / Preview），封顶 72vh 让上下两条工具条
+            始终留在首屏之内。 */}
+        <div
+          className={`border-b lg:border-b-0 lg:border-r border-black/[0.08] bg-[#f8f9fd] lg:relative ${
+            mobileTab === "preview" ? "hidden lg:block" : ""
+          }`}
+        >
+          <div
+            ref={editorScrollRef}
+            className="max-h-[72vh] lg:absolute lg:inset-0 lg:max-h-none overflow-y-auto overscroll-contain p-5"
+          >
             <EditorPanel
               conversation={conversation}
               setConversation={setConversation}
               theme={theme}
             />
+            {/* 持久化状态：用户得知道刷新/误关标签不会丢，以及本地存储被禁用时为什么没生效 */}
+            <p className="mt-4 text-[11.5px] leading-relaxed text-black/45">
+              {saveStatus === "partial"
+                ? "Draft saved without images — this browser's storage is full."
+                : saveStatus === "failed"
+                  ? "This browser blocked local storage, so your draft is not being saved."
+                  : restored
+                    ? "Draft restored from this browser, and kept up to date as you edit."
+                    : "Your edits are saved in this browser only. Nothing is uploaded."}
+            </p>
           </div>
         </div>
 
       {/* ---------------- 右：预览 + 导出 ---------------- */}
-      <div className="flex flex-col bg-white/60">
+      <div
+        className={`flex-col bg-white/60 ${
+          mobileTab === "edit" ? "hidden lg:flex" : "flex"
+        }`}
+      >
         <div className="flex flex-wrap items-center gap-2 px-5 py-3 border-b border-black/[0.08] bg-white/70">
           <button
             onClick={download}

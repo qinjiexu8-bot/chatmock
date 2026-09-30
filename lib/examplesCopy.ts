@@ -24,7 +24,7 @@ export const examplePageCopy: Record<string, ExamplePageCopy> = {
       "Flex-anchored timestamps that never spill outside the bubble, at any message length",
     ],
     useCases:
-      "Creator collab threads, product sign-offs and family-plan scenes are the three WhatsApp scenarios people rebuild most often — which is why the gallery covers all three, including one in dark mode.",
+      "Creator collab threads, product sign-offs and small everyday logistics are the three WhatsApp scenarios people rebuild most often — which is why the gallery covers all three, including one in dark mode.",
     faqs: [
       {
         q: "Are these real WhatsApp screenshots?",
@@ -36,7 +36,7 @@ export const examplePageCopy: Record<string, ExamplePageCopy> = {
       },
       {
         q: "Can I switch the example to dark mode?",
-        a: "Yes — one of the two examples on this page already uses dark mode, and in the generator a single Appearance toggle flips the whole mockup between light and dark.",
+        a: "Yes — one of the three examples on this page already uses dark mode, and in the generator a single Appearance toggle flips the whole mockup between light and dark.",
       },
     ],
   },
@@ -50,7 +50,7 @@ export const examplePageCopy: Record<string, ExamplePageCopy> = {
       "Editable delivery text — Seen, Seen just now, or cleared entirely",
     ],
     useCases:
-      "Client check-ins and family coordination threads are the most-requested Messenger scenes: both read as believable weekly-life conversations without naming any real brand or person.",
+      "Client check-ins, family coordination and craft-fair logistics are the most-requested Messenger scenes — all of them read as believable weekly-life conversations without naming any real brand or person.",
     faqs: [
       {
         q: "Does the Seen marker update automatically?",
@@ -76,7 +76,7 @@ export const examplePageCopy: Record<string, ExamplePageCopy> = {
       "Mixed light and dark scenes so group threads work in both tones",
     ],
     useCases:
-      "Trip logistics and household planning are the two classic group scenes — they show pacing, colour variety and the quiet moment where someone confirms with a receipt.",
+      "Trip logistics, household planning, reunion threads and building-wide logistics are the four classic group scenes — between them they show pacing, colour variety and the quiet moment where someone finally commits.",
     faqs: [
       {
         q: "How many participants can I add?",
@@ -94,7 +94,7 @@ export const examplePageCopy: Record<string, ExamplePageCopy> = {
   },
   "text-message": {
     intro:
-      "The iPhone Messages look is the most recognisable chat UI in the world: green and grey bubbles, the Delivered line, and 9:41 in the status bar. Both examples were rendered live with our iPhone text message generator, including the exact bubble geometry and receipt placement.",
+      "The iPhone Messages look is the most recognisable chat UI in the world: green and grey bubbles, the Delivered line, and 9:41 in the status bar. All three examples were rendered live with our iPhone text message generator, including the exact bubble geometry and receipt placement.",
     designNotes: [
       "Authentic green outgoing / grey incoming bubbles with iOS corner radii",
       "Delivered or Read line under the last outgoing bubble, fully editable",
@@ -102,7 +102,7 @@ export const examplePageCopy: Record<string, ExamplePageCopy> = {
       "SMS and iMessage pacing — short bursts that read like real thumbs",
     ],
     useCases:
-      "Launch-day approvals and evening-plan threads are the two most reused iMessage scenes: compact, fast-moving and instantly legible even at thumbnail size.",
+      "Launch-day approvals, evening-plan threads and shift swaps are the three most reused iMessage scenes: compact, fast-moving and instantly legible even at thumbnail size.",
     faqs: [
       {
         q: "Green or blue bubbles — which will I get?",
@@ -128,7 +128,7 @@ export const examplePageCopy: Record<string, ExamplePageCopy> = {
       "Light and dark renders so the thread matches your video's grade",
     ],
     useCases:
-      "Brand-partnership replies and weekend-plan threads cover the two Instagram extremes: the professional creator inbox and the casual friend catch-up.",
+      "Brand-partnership replies, repost requests and weekend-plan threads cover the whole Instagram range: the professional creator inbox at one end, the casual friend catch-up at the other.",
     faqs: [
       {
         q: "Can I show the Seen status under my reply?",
@@ -146,7 +146,7 @@ export const examplePageCopy: Record<string, ExamplePageCopy> = {
   },
   discord: {
     intro:
-      "Discord mockups follow different rules from phone chats: a channel header instead of a contact, row-based messages, and coloured usernames that carry a role. The examples here are rendered by our Discord chat generator, from #general triage to an announcements-style scene.",
+      "Discord mockups follow different rules from phone chats: a channel header instead of a contact, row-based messages, and coloured usernames that carry a role. The examples here are rendered by our Discord chat generator, from #general triage and an announcements-style scene to a hobby server past midnight.",
     designNotes: [
       "Row-based message layout with compact avatars and inline timestamps",
       "Per-member username colours that read like role colours",
@@ -172,7 +172,7 @@ export const examplePageCopy: Record<string, ExamplePageCopy> = {
   },
   telegram: {
     intro:
-      "Telegram's chat look is distinctive: the doodle wallpaper behind translucent bubbles, double ticks for delivery, and a floating capsule header. Both examples are live renders from our Telegram chat generator, with the wallpaper drawn in code rather than pasted as an image.",
+      "Telegram's chat look is distinctive: the doodle wallpaper behind translucent bubbles, double ticks for delivery, and a floating capsule header. All three examples are live renders from our Telegram chat generator, with the wallpaper drawn in code rather than pasted as an image.",
     designNotes: [
       "SVG doodle wallpaper tile shared by both light and dark scenes",
       "Floating iOS-style capsule header with the avatar on the right",
@@ -180,7 +180,7 @@ export const examplePageCopy: Record<string, ExamplePageCopy> = {
       "Bubble tails on the first message of each group, flex-anchored timestamps",
     ],
     useCases:
-      "Trip planning and sprint handoffs show Telegram's two common lives: the friendly travel thread and the tidy remote-work channel.",
+      "Trip planning, sprint handoffs and a language-exchange meet-up show Telegram's three common lives: the friendly travel thread, the tidy remote-work channel and the study swap.",
     faqs: [
       {
         q: "Is the wallpaper part of the export?",
@@ -206,7 +206,7 @@ export const examplePageCopy: Record<string, ExamplePageCopy> = {
       "Short-burst pacing that mirrors how the app is actually used",
     ],
     useCases:
-      "Beach-day plans and library cram sessions are the two scenes people ask for most — casual, friendly and unmistakably Snapchat at a glance.",
+      "Beach-day plans, library cram sessions and story takeovers are the three scenes people ask for most — casual, friendly and unmistakably Snapchat at a glance.",
     faqs: [
       {
         q: "Does the yellow header stay in dark mode?",
@@ -224,7 +224,7 @@ export const examplePageCopy: Record<string, ExamplePageCopy> = {
   },
   "android-sms": {
     intro:
-      "Android messages have their own grammar: Google's Material blue, a clean status bar, and a Read marker under RCS. Both examples were rendered by our Android SMS generator, which draws the Android status bar the way a real screenshot does — clock on the left, icons on the right, no camera cutout — unlike the iPhone pages.",
+      "Android messages have their own grammar: Google's Material blue, a clean status bar, and a Read marker under RCS. All three examples were rendered by our Android SMS generator, which draws the Android status bar the way a real screenshot does — clock on the left, icons on the right, no camera cutout — unlike the iPhone pages.",
     designNotes: [
       "Material Design bubbles with the large 20px radius and Google blue",
       "Android status bar: clock on the left, signal and battery on the right",
@@ -232,7 +232,7 @@ export const examplePageCopy: Record<string, ExamplePageCopy> = {
       "Carrier label and subtitle line for a believable contacts entry",
     ],
     useCases:
-      "Courier updates and appointment confirmations are the most-recreated SMS scenes — short, transactional and instantly believable on a Material canvas.",
+      "Courier updates, appointment confirmations and volunteer rotas are the most-recreated SMS scenes — short, practical and instantly believable on a Material canvas.",
     faqs: [
       {
         q: "Which app does this look like?",
@@ -258,7 +258,7 @@ export const examplePageCopy: Record<string, ExamplePageCopy> = {
       "Yesterday-style date entries mixed with same-day times",
     ],
     useCases:
-      "Weekly sync logs and calls-with-home threads work as supporting props next to a chat scene — one screen of context that makes the story feel real.",
+      "Weekly sync logs, calls-with-home threads and a friends' catch-up log all work as supporting props next to a chat scene — one screen of context that makes the story feel real.",
     faqs: [
       {
         q: "Can I mix calls and chats in one mockup?",
