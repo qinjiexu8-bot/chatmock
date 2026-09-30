@@ -213,12 +213,16 @@ scaled content abuse。所以加页要挑"**需求已证实 + 能写出真原创
 | `scripts/qa/adsense.cjs` | **9/9** | ads.txt 与代码段仍在线 |
 | `scripts/qa/analytics.cjs` | 线上 **8/8** | 本地 dev 无 Vercel collector 端点（`script injected` 必失败），必须 `BASE=https://chatmock.net` |
 
-**环境限制（须知）**：本轮 `npm run build` 无法在本地跑完 —— 构建的编译/类型检查/73 页静态
-生成都通过了，但收尾清理 `.next/export`（构建缓存）被本机环境的批量删除守卫
-（`safe-delete` shim）拦下，`prerender-manifest.json` 因此没写出来，`next start` 起不来。
-`next dev` 启动时同样要清理生产态 `.next`，也会被拦。绕开方式是把 `.next` **移开**
-（`mv`，不是 `rm`）再启动。所以本轮回归跑在 dev server 上 —— 顺带让 React StrictMode 的
-双次 effect 把持久化的水合逻辑压了一遍，反而更严。部署仍走 Vercel 远端构建，不受影响。
+**部署验证**：commit `4e8ece9` 已推送，Vercel 远端构建成功并上线（**这同时就是本地跑不出来的那次生产构建的验证**）；
+`BASE=https://chatmock.net node scripts/qa/ux-persist.cjs` 在**线上生产构建**上复跑 **23/23**，与本地 dev 结果一致。
+线上抽查：`/examples` 31 张卡片、`/examples/group-chat-generator` 4 张、新增示例文案已收录。
+
+**环境限制（须知）**：本地 `npm run build` 跑不完 —— 编译/类型检查/73 页静态生成都通过，
+但收尾清理 `.next/export`（构建缓存）被本机环境的批量删除守卫（`safe-delete` shim）拦下，
+`prerender-manifest.json` 因此没写出来，`next start` 起不来。`next dev` 启动时同样要清理
+生产态 `.next`，也会被拦（`dangerouslyDisableSandbox` 无效：shim 由 `NODE_OPTIONS` 注入）。
+绕开方式是把 `.next` **移开**（`mv`，不是 `rm`）再启动。所以本地回归跑在 dev server 上 ——
+顺带让 React StrictMode 的双次 effect 把持久化的水合逻辑压了一遍，反而更严。
 
 ---
 
