@@ -440,6 +440,58 @@ BASE=https://chatmock.net node scripts/qa/adsense.cjs
 
 ---
 
+### 4.10 面板显示"Ads.txt 未找到"怎么排查（2026-10-04）
+
+**结论先行：这一个几乎不会是文件侧的问题，先看面板的「最后更新时间」。**
+AdSense 的 ads.txt 状态是**定期抓取的快照**，不是实时探测。如果快照时间点早于你部署
+ads.txt 的时间点，面板就会一直挂着"未找到"，**不会因为你后来放对了文件而自动补上**。
+
+**第一步：三条 curl 自证（30 秒，先证明文件没问题）**
+
+```bash
+curl -sSI https://chatmock.net/ads.txt | head -8      # 期望 200 + content-type: text/plain
+curl -sS  https://chatmock.net/ads.txt                 # 期望与 public/ads.txt 逐字符一致
+curl -sS -A "Googlebot/2.1" -o /dev/null -w "%{http_code}\n" https://chatmock.net/ads.txt
+```
+
+再加两条完整性检查：`/robots.txt` 不得 Disallow 它；`www` 子域跳根域即可（307 正常，无需单独放一份）。
+
+**第二步：把「最后更新时间」和 ads.txt 的提交时间对一下**
+
+```bash
+git log --diff-filter=A --format="%h %ad" --date=format:'%Y-%m-%d %H:%M:%S' -- public/ads.txt
+# 与 AdSense 面板上的「最后更新时间」比：面板时间早于部署时间 → 就是陈旧快照
+```
+
+本站在 2026-09-26 的真实情况：ads.txt 首次提交 **22:57:18**，而面板快照停在
+**23:04**（只差 7 分钟，Vercel 那份构建还在路上）；此后 8 天面板没再刷新过。
+文件侧实测**全部正常**（200 / `text/plain; charset=utf-8` / 59 字节 / Googlebot 可抓 / robots 不挡 / www 307），
+`BASE=https://chatmock.net node scripts/qa/adsense.cjs` 的 `ads.txt served` 与 `ads.txt content exact` 两条也 PASS。
+
+**第三步：在 AdSense 后台手动触发重新抓取**
+
+AdSense → **网站** → 点 `chatmock.net` 那一行 → 概览页的 **Ads.txt** 卡片 → 点**「检查」**
+（部分版本在站点行右侧 `⋮` 里，叫"检查 ads.txt"）。这是唯一能推动状态刷新的动作，
+**代码侧没有任何可改的东西**。
+
+**影响澄清（别被"未找到"吓到）**
+
+| 问题 | 答案 |
+|---|---|
+| 会让站点审核不通过吗？ | **不会。** ads.txt 与内容审核是两条独立流程 |
+| 会让广告投不出去吗？ | **不会。** 审核通过、广告位挂上照样出广告 |
+| 那它影响什么？ | 程序化买方能否确认你的"授权卖方"身份。缺失时 Google 会把你的库存标为**未授权**，部分需求方不买或按低价买 —— 是**收入打折**，不是功能故障 |
+| 现在实际损失？ | **0**。站点还没投任何广告位，尚未产生需授权的库存 |
+
+**不要做的事**：不要去改 ads.txt 的内容"讨好"爬虫。现在是标准的最小正确形态
+（一条 `DIRECT` 卖方行），加 `OWNERDOMAIN` / `MANAGERDOMAIN` 之类只会引入出错面。
+也不要为了"让它被更快发现"而去加 CDN 重定向或换路由 —— 静态文件已经是 Google 首选的形态。
+
+**卡超过一周怎么办**：先确认第二步的时间对不上（那就是纯等待/手动触发的问题）；
+若点了"检查"后仍长期不变，走 AdSense 帮助中心联系支持，附上第一步的 curl 结果作为证据。
+
+---
+
 ## 第 5 章 内容规格（对抗 low value content）
 
 这是过审的唯一硬门槛，不能省。
