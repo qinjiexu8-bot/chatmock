@@ -138,6 +138,28 @@ export default async function PlatformExamplesPage({
           </div>
         </section>
 
+        {/* ---------------- 构图取舍 ---------------- */}
+        <section className="pt-14">
+          <div className="hairline" />
+          <div className="py-10 max-w-3xl">
+            <h2 className="font-display text-[22px] sm:text-[24px] font-semibold tracking-tight text-foreground">
+              Why these compositions work
+            </h2>
+            <div className="mt-6 space-y-7">
+              {copy.composition.map((c) => (
+                <div key={c.heading}>
+                  <h3 className="text-[15.5px] font-semibold text-foreground">
+                    {c.heading}
+                  </h3>
+                  <p className="mt-1.5 text-[14.5px] leading-relaxed text-muted-foreground">
+                    {c.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* ---------------- 设计细节 ---------------- */}
         <section className="pt-14">
           <div className="hairline" />

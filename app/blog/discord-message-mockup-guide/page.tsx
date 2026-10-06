@@ -112,7 +112,7 @@ export default function Post() {
             reference</Link> lists the values we use.
           </p>
 
-          <h2>Building the screenshot, step by step</h2>
+          <h2>Staging the channel view</h2>
           <ol>
             <li>
               <strong>Name the channel.</strong> Type it into the <em>Contact → Name</em>{" "}
@@ -148,7 +148,78 @@ export default function Post() {
               a <code>#</code>, nothing else.</li>
           </ul>
 
-          <h2>Where the line is</h2>
+          <h2>The channel header and the topic line</h2>
+          <p>
+            Where a phone app puts a contact, Discord puts a channel. The header leads with a{" "}
+            <code>#</code>, then the channel name, then a topic line underneath — and that topic
+            line is doing more work than most people give it credit for. A believable topic reads
+            like a small house rule or a piece of channel context: what the channel is for, or a
+            constraint people agreed on. Keep it lowercase, short, and specific to the room.
+          </p>
+          <p>
+            The hash belongs in the channel name, not the topic. If your scene shows{" "}
+            <code>#general</code>, the topic sits beside it as plain text. And the header carries
+            member and search affordances, not a phone-style back arrow with a contact avatar —
+            that is an iMessage header pasted onto a Discord frame, and it is one of the easiest
+            mistakes to spot because the top of the screen is where the eye starts.
+          </p>
+          <p>
+            A useful habit is to write the topic before the messages. It forces you to decide what
+            the room is, which then shapes who speaks and how. A channel about a game update and a
+            channel about a community event produce very different conversations, and the topic is
+            the cheapest way to communicate that context to the viewer in a single line.
+          </p>
+
+          <h2>How username colours actually distribute</h2>
+          <p>
+            Discord colours come from roles, which means a real channel is mostly monochrome with
+            a few accents rather than a rainbow. Most members share the near-white default, while
+            moderators, boosters and other role-holders carry stronger colours. In a six-person
+            log, seeing four or five default names and one or two coloured ones is exactly the
+            distribution you would expect.
+          </p>
+          <p>
+            Two boundaries are easy to overstep. The colour belongs to the username only — the
+            message text stays the standard off-white, never tinted to match the name. And the
+            coloured circle beside a member is an avatar, not a name colour; a member can have a
+            tinted avatar while their name stays default. When every speaker has a vivid name and
+            a matching coloured avatar, the channel reads as a character lineup rather than a
+            room.
+          </p>
+          <p>
+            Colour also does narrative work if you let it. Giving one participant a distinct
+            colour makes them read as the moderator or the person with authority, so you can cast
+            a role without spelling it out. Let that person speak once or twice with their colour
+            doing the labelling, and leave everyone else at default.
+          </p>
+
+          <h2>Desktop form and conversation width</h2>
+          <p>
+            Part of why Discord mockups look off is the frame around the rows. Discord is
+            primarily a desktop app as well as a mobile one, and on desktop the message column is
+            not the full window — it sits between a channel list on the left and a member list on
+            the right. A row that fills an extremely wide canvas therefore reads as a
+            desktop-captured screen, while a narrow column reads as the mobile app.
+          </p>
+          <p>
+            This matters for export because Discord rows, unlike phone bubbles, are not capped to
+            a fraction of the width — they are meant to fill the column. So the thing controlling
+            your line length is the width you export at, not a bubble cap you can set. Decide
+            which device you want the screenshot to imply and pick the canvas width to match;
+            then keep the left inset of the rows consistent, because that inset is what makes a
+            grouped run align under its avatar rather than drifting.
+          </p>
+          <p>
+            If you are dropping the mockup into a video or a slide, the same logic as any other
+            platform applies: pick the export scale for the size it will be shown at, and keep
+            the frame off unless the shot calls for a physical device. The{" "}
+            <Link href="/discord-chat-generator">Discord chat generator</Link> exports a clean
+            PNG, and the{" "}
+            <Link href="/chat-screenshots-in-video-storytelling">video storytelling guide</Link>{" "}
+            covers how long to hold a screenshot on screen once you have it.
+          </p>
+
+          <h2>Keeping a mockup honest</h2>
           <p>
             A staged moderator conversation in a parody video is a creative device; the same
             screenshot presented as evidence that someone said something is not. We publish

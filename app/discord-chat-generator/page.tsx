@@ -30,32 +30,36 @@ export const metadata: Metadata = {
 
 const FAQ = [
   {
-    q: "Is this Discord chat generator free?",
-    a: "Yes — no signup, no email wall, no daily limit and no watermark on the export. Every editing feature, including role colours and image attachments, is free, and PNG export works at 1x, 2x and 3x.",
+    q: "Does the Discord chat generator cost anything?",
+    a: "No. There is no signup, no email wall, no limit on mockups and no watermark on the file — role colours, avatars and image attachments are all free to use.",
   },
   {
-    q: "Why do Discord messages not look like chat bubbles?",
-    a: "Because they are not. Discord renders messages as full-width rows: a 40px avatar, a coloured username with a timestamp, then the message text underneath. There is no left/right alignment and no bubble shape. Generators that show Discord as blue-and-grey bubbles are copying WhatsApp or iMessage, and the result looks wrong to anyone who uses the app.",
+    q: "Why are Discord messages not in bubbles?",
+    a: "Because the real app does not use them. Discord renders every message as a full-width row: a 40px avatar, a coloured username with a timestamp, then the text underneath, with no left/right alignment at all. Showing Discord as blue-and-grey bubbles means the generator copied WhatsApp or iMessage, and anyone who uses the app will spot it instantly.",
   },
   {
-    q: "Why are my own messages on the left too?",
-    a: "That is correct behaviour. Discord does not right-align your messages — everyone in the channel reads the same left-to-right column. Right-aligning your own messages is the single fastest tell of a fake Discord screenshot.",
+    q: "Why is my own message on the left as well?",
+    a: "That is how Discord actually behaves — everyone reads the same left-to-right column, and your messages are not pushed to the right. Right-aligning your own posts is the quickest way to expose a fake Discord screenshot.",
   },
   {
-    q: "Can I set custom username colours?",
-    a: "Yes. In the editor, each participant gets a colour, which mimics how Discord assigns role colours. The default palette includes the classic Discord greens, pinks, oranges and blurple; you can pick a different colour per member to match the roles in your scene.",
+    q: "Can each person have their own role colour?",
+    a: "Yes. Every participant gets a colour that stands in for a Discord role, drawn from a palette that includes the familiar greens, pinks, oranges and blurple. Assign one per member to match the roles in your scene.",
   },
   {
-    q: "Is my conversation uploaded to a server?",
-    a: "No. The mockup is rendered entirely in your browser, and the PNG is generated on your device and saved straight to your downloads. Channel names, usernames and messages never leave your computer — you can disconnect from the internet after loading the page and keep working.",
+    q: "What happens to the avatar on a run of messages?",
+    a: "Discord groups consecutive messages from the same person: the avatar and username appear once at the top, and the following messages indent beneath them with no repeated name. The renderer applies that grouping automatically so a fast back-and-forth does not look like a wall of headers.",
   },
   {
-    q: "What resolution can I export?",
-    a: "1x (390px wide), 2x (780px) or 3x (1170px). For thumbnails and blog posts, 2x is usually the sweet spot; use 3x when the screenshot will be zoomed into or printed.",
+    q: "Does the channel name or my messages ever reach a server?",
+    a: "Never. The channel is rendered inside your browser and the PNG is encoded on your own device, so the channel name, the usernames and the messages stay there. Cut your connection after loading the page and the editor will carry on without noticing.",
   },
   {
-    q: "Can I use the mockups commercially?",
-    a: "Yes, for legitimate creative work: videos, thumbnails, presentations, teaching material, fiction and design. You may not use them to deceive, defraud, harass, impersonate anyone or fabricate evidence. The Acceptable Use Policy has the full boundary.",
+    q: "What does the timestamp next to a username look like?",
+    a: "It reads in Discord's own style — something like Today at 9:32 — and sits beside the username rather than inside or under the message. That placement is one of the small things that separates a realistic row layout from a sloppy one.",
+  },
+  {
+    q: "Can I use Discord mockups commercially?",
+    a: "For legitimate work — videos, thumbnails, presentations, teaching, fiction, design — yes. Deceiving someone, impersonating a person or community, or fabricating evidence is not permitted, and the Acceptable Use Policy lays out the line.",
   },
 ];
 
@@ -122,10 +126,10 @@ export default function DiscordGeneratorPage() {
             PNG at 1x, 2x or 3x.
           </p>
           <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1.5 text-[13.5px] text-black/55">
-            <span>✓ No account required</span>
-            <span>✓ No watermark, ever</span>
-            <span>✓ Nothing leaves your device</span>
-            <span>✓ Works on mobile</span>
+            <span>✓ Free, no signup, no limits</span>
+            <span>✓ No watermark on the PNG</span>
+            <span>✓ Row layout, not bubbles</span>
+            <span>✓ Role colours per member</span>
           </div>
         </div>
 
@@ -137,28 +141,30 @@ export default function DiscordGeneratorPage() {
           <h2>How to create a Discord conversation mockup in four steps</h2>
           <ol>
             <li>
-              <strong>Name the channel.</strong> Type the channel name into{" "}
-              <em>Contact → Name</em> — it renders as <code># general</code> style in the
-              header, with your topic line next to it. Use a single lowercase word with
-              dashes for the most authentic look, the way real servers are named.
+              <strong>Name the channel.</strong> Put the channel in <em>Contact → Name</em> and
+              it renders with a <code>#</code> prefix in the header, with the topic line beside
+              it. A short lowercase word with dashes looks the most like a real server.
             </li>
             <li>
-              <strong>Add the members.</strong> Each participant gets a username and a colour
-              that mimics Discord role colours. Three to five speakers is the sweet spot for
-              a convincing scene — real servers have many lurkers and few talkers.
+              <strong>Add the members.</strong> Give each participant a username and a colour
+              standing in for a Discord role — greens, pinks, oranges and blurple are all in
+              the palette. Three to five speakers is the sweet spot, since real servers carry
+              many lurkers and few talkers.
             </li>
             <li>
-              <strong>Write the conversation.</strong> Every message has a sender dropdown,
-              so you can weave the dialogue between members. Discord groups consecutive
-              messages from the same person: the avatar and username appear once, then the
-              following messages indent underneath. The renderer reproduces that grouping
-              automatically.
+              <strong>Write the messages.</strong> A sender dropdown on each message lets the
+              conversation weave between members. Discord&apos;s grouping rule does the visual
+              work: consecutive lines from one person share a single 40px avatar and username
+              at the top, with the rest indented beneath and no repeated header — and your own
+              posts stay on the left like everyone else&apos;s.
             </li>
             <li>
-              <strong>Export.</strong> Pick 1x, 2x or 3x and hit <em>Download PNG</em>.
-              Exports are plain screen captures by default — a real screenshot never
-              includes the phone body. Tick <em>Phone frame</em> only when you want a
-              device-mockup look for a thumbnail, slide or design.
+              <strong>Export.</strong> Discord is a desktop-shaped interface, so export at
+              the width your channel really renders rather than thinking in phone sizes: 1x
+              for a quick check, 2x for most uses, 3x when the dense row layout has to stay
+              legible at large sizes. There is no handset shell by default, because a real
+              Discord capture has none — turn <em>Phone frame</em> on only if you
+              deliberately want the device look.
             </li>
           </ol>
 
@@ -261,29 +267,30 @@ export default function DiscordGeneratorPage() {
             hand and why the details above matter.
           </p>
           <p>
-            As everywhere on this site, the line is intent. Illustrating, parodying, teaching
-            and designing are fine. Using a fabricated conversation to deceive someone, harass
-            a person, impersonate a community or fabricate evidence is not — and there are no
-            templates here for fake bank, government, medical or legal notices. The{" "}
-            <Link href="/acceptable-use">Acceptable Use Policy</Link> has the full boundary.
+            Intent governs everything on this site. Parody, illustration, teaching and design
+            are all fine uses of a mockup; a fabricated conversation used to deceive someone,
+            to harass a person, to impersonate a community, or to fake evidence is not, and we
+            do not want that traffic. ChatMock offers no bank, government, medical or legal
+            templates — the{" "}
+            <Link href="/acceptable-use">Acceptable Use Policy</Link> holds the whole boundary.
           </p>
 
-          <h2>Why it runs entirely in your browser</h2>
+          <h2>The channel stays on your device</h2>
           <p>
-            Everything is rendered locally with plain HTML and CSS, and the PNG is generated
-            on your device. Nothing is transmitted, stored or logged — which is why the editor
-            keeps working if you switch off your wifi after loading the page, and why there is
-            no database of staged conversations anywhere on our side.
+            The server name, channel name, usernames and messages are all rendered with plain
+            HTML and CSS in your browser, and the PNG is generated locally. Nothing is sent or
+            logged, so a conversation full of role colours and channel names never leaves the
+            machine it was typed on — pull the plug after loading and it keeps working.
           </p>
 
           <h2>Other generators</h2>
           <p>
-            ChatMock covers the platforms people actually search for, one at a time: the{" "}
-            <Link href="/whatsapp-chat-generator">WhatsApp chat generator</Link>, the{" "}
-            <Link href="/fake-text-message-generator">iPhone text message generator</Link>,
-            the <Link href="/group-chat-generator">group chat generator</Link> and the{" "}
-            <Link href="/messenger-chat-generator">Messenger chat generator</Link> are all
-            live. See the <Link href="/#generators">generator index</Link> for the full list.
+            Discord is the odd one out among the ChatMock tools, so it is worth contrasting:
+            the <Link href="/group-chat-generator">group chat generator</Link> handles
+            multi-person threads that do use bubbles and coloured names, and the{" "}
+            <Link href="/telegram-chat-generator">Telegram chat generator</Link> shows what a
+            two-state checkmark looks like where Discord has none. The{" "}
+            <Link href="/blog">blog</Link> compares the layouts in more depth.
           </p>
 
           <p>

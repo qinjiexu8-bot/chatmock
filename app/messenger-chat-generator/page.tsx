@@ -30,32 +30,36 @@ export const metadata: Metadata = {
 
 const FAQ = [
   {
-    q: "Is this Messenger chat generator free?",
-    a: "Yes — no signup, no email wall, no daily limit and no watermark on the export. PNG download at 1x, 2x or 3x resolution is free, as is every editing feature on the page.",
+    q: "Does the Messenger chat generator cost anything?",
+    a: "Nothing. There is no account, no email wall, no daily ceiling and no watermark stamped on the export — every control in the editor, the Seen line included, is open and free.",
   },
   {
-    q: "What does the Seen status mean and can I change it?",
-    a: "In Messenger, Seen appears under your last outgoing message once the other person has read it. In the editor, the Delivery field controls that line: write Seen, leave a time, or clear it entirely to show a conversation the other person has not opened yet. The line only ever appears under the final outgoing message, the same rule the real app follows.",
+    q: "What does the Seen line actually track?",
+    a: "In Messenger, Seen appears under your last outgoing message once the recipient has opened the thread. The Delivery field drives that line: write Seen, add a time, or clear it. It only ever attaches to the final message you sent, never to earlier ones — the same rule the real app follows.",
   },
   {
-    q: "Why are there no timestamps inside the bubbles?",
-    a: "Messenger does not work that way. Time labels sit under each group of messages as small grey text, not inside the bubbles. Generators that stamp every bubble get this wrong, and it is one of the quickest tells of a fake screenshot.",
+    q: "Why is there no clock inside the bubbles?",
+    a: "Because Messenger does not draw one there. Time labels sit beneath each group of messages as small grey text instead of inside the bubbles. Tools that stamp a timestamp into every bubble are easy to spot, and it is one of the quickest tells of a staged screenshot.",
   },
   {
-    q: "Why does the avatar appear next to only some messages?",
-    a: "Because that is the real behaviour: your contact's avatar hangs beside the last bubble of each of their message groups, not next to every bubble. Repeating the avatar on every message is a common mistake in low-quality generators.",
+    q: "Why does the avatar sit beside only some messages?",
+    a: "That is the genuine behaviour, not a flaw: your contact's picture hangs next to the last bubble of each of their groups rather than beside every single message. Repeating it on every bubble is a mistake low-effort generators make constantly.",
   },
   {
-    q: "Is my conversation uploaded to a server?",
-    a: "No. The mockup is rendered entirely on your device, and the PNG is generated in your browser and saved directly to your downloads. Names, messages and uploaded images never leave your computer or phone — you can disconnect from the internet after loading the page and keep working.",
+    q: "Does anything I type reach a Facebook or Messenger server?",
+    a: "No. The thread is drawn by your own browser and the PNG is encoded on your own device before it lands in your downloads. Names, messages and any picture you load never travel over the network, so you can cut your connection after the page opens and keep working offline.",
   },
   {
-    q: "What resolution can I export?",
-    a: "1x (390px wide), 2x (780px) or 3x (1170px). For YouTube thumbnails, blog posts and presentations, 2x is usually the right balance of sharpness and file size. Use 3x for print or when the screenshot will be zoomed into.",
+    q: "Why do the bubbles look like capsules without tails?",
+    a: "Real Messenger bubbles are 18px capsules with no tails at all; inside a run of messages the first and last bubble narrow to 6px on the sender's side so the group appears to stack. Copying an iMessage tail or rounding every corner to the same value is what makes most fakes look wrong.",
   },
   {
-    q: "Can I use the mockups commercially?",
-    a: "Yes, for legitimate creative work: videos, presentations, teaching material, fiction and design. You may not use them to deceive, defraud, harass, impersonate anyone or fabricate evidence. See the Acceptable Use Policy for the full boundary.",
+    q: "What colour is the outgoing bubble in dark mode?",
+    a: "The same #0084ff blue as in light mode — Messenger keeps the sender bubble identical across themes rather than darkening it. Only the background and the incoming bubbles change, which is a detail generators that simply invert the palette get wrong.",
+  },
+  {
+    q: "Can I use Messenger mockups in commercial projects?",
+    a: "For legitimate work — videos, presentations, teaching, fiction, design — yes. What you may not do is present a fabricated thread as real, harass or impersonate anyone, or fake evidence, and the Acceptable Use Policy sets out the whole boundary.",
   },
 ];
 
@@ -121,10 +125,10 @@ export default function MessengerGeneratorPage() {
             and dark mode, and export at 1x, 2x or 3x.
           </p>
           <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1.5 text-[13.5px] text-black/55">
-            <span>✓ No account required</span>
-            <span>✓ No watermark, ever</span>
-            <span>✓ Nothing leaves your device</span>
-            <span>✓ Works on mobile</span>
+            <span>✓ No account, no email, no card</span>
+            <span>✓ Nothing stamped on your export</span>
+            <span>✓ Tail-less capsule bubbles</span>
+            <span>✓ Thread never leaves the browser</span>
           </div>
         </div>
 
@@ -136,29 +140,31 @@ export default function MessengerGeneratorPage() {
           <h2>How to create a Messenger mockup in four steps</h2>
           <ol>
             <li>
-              <strong>Set the contact.</strong> Type a name into <em>Contact → Name</em> and
-              upload an avatar if you want one. The avatar shows in the header and hangs
-              beside your contact&apos;s message groups — without a photo, ChatMock draws a
-              blue-gradient initial circle like the real default.
+              <strong>Set the contact.</strong> Type the name into <em>Contact → Name</em> and
+              add a header line such as <code>Active now</code>. Drop in an avatar and it shows
+              beside the name and next to the last bubble of each of their groups; leave it out
+              and ChatMock draws the blue-gradient initial circle.
             </li>
             <li>
-              <strong>Write the conversation.</strong> Add messages with{" "}
-              <em>+ Alex</em> or <em>+ Me</em>, flip each one between the two sides, reorder
-              with the arrows. Uploading an image turns that message into a photo bubble with
-              a caption.
+              <strong>Write the thread.</strong> Add rows with <em>+ Alex</em> or <em>+ Me</em>{" "}
+              and switch a message&apos;s side with the sender toggle. Messenger stacks a run
+              from one person by squaring the corners where the group starts and ends, and the
+              contact&apos;s picture hangs beside that group&apos;s final bubble only — never
+              beside every line. Photos attach straight to a bubble with a caption.
             </li>
             <li>
-              <strong>Set the Seen status.</strong> Under <em>Contact → Delivery</em>, write{" "}
-              <code>Seen</code>, a time, or clear the field. The line appears under your last
-              outgoing message only. Detail worth knowing: a conversation that ends on{" "}
-              <em>your</em> message with no Seen line reads as &ldquo;they never opened
-              it&rdquo; — useful for specific scenes.
+              <strong>Set the Seen line.</strong> <em>Contact → Delivery</em> drives the small
+              grey Seen note under your final outgoing message; type <code>Seen</code>, a time,
+              or clear the field. Messenger only ever labels the last message you sent, so a
+              thread with no Seen line reads as one the other person has not opened.
             </li>
             <li>
-              <strong>Export.</strong> Pick 1x, 2x or 3x and hit <em>Download PNG</em>.
-              Exports are plain screen captures by default — a real screenshot never
-              includes the phone body. Tick <em>Phone frame</em> only when you want a
-              device-mockup look for a thumbnail, slide or design.
+              <strong>Export.</strong> Choose the multiplier that matches the destination —
+              1x for a rough draft, 2x for a blog header or thumbnail, 3x for anything that
+              will be enlarged — then press <em>Download PNG</em>. <em>Phone frame</em> stays
+              off unless you switch it on, which hands you the flat, phone-free rectangle a
+              real capture produces; turning it on wraps the thread in a device outline for
+              mockup shots.
             </li>
           </ol>
 
@@ -254,20 +260,21 @@ export default function MessengerGeneratorPage() {
             thread is that the audience knows the conversation is illustrative.
           </p>
           <p>
-            The line, as always, is intent. Illustrating, parodying, teaching and designing
-            are fine. Using a fabricated conversation to deceive someone, harass a person,
-            impersonate someone or fabricate evidence is not — and this site deliberately
-            offers no templates for fake bank, government, medical or legal notices. The{" "}
-            <Link href="/acceptable-use">Acceptable Use Policy</Link> has the full boundary.
+            The intent behind the image is what decides. A thread composed to illustrate,
+            parody, teach or design sits on the right side of it; the same thread dressed up as
+            a genuine exchange, used to mislead, to harass, to pass as another person, or to
+            manufacture evidence, does not — and this site offers no bank, government, medical
+            or legal notice templates. Read the{" "}
+            <Link href="/acceptable-use">Acceptable Use Policy</Link> for the whole rule.
           </p>
 
-          <h2>Why it runs entirely in your browser</h2>
+          <h2>Handled entirely on your own device</h2>
           <p>
-            Everything is rendered locally with plain HTML and CSS, and the PNG is generated
-            on your device — nothing is transmitted, stored or logged. That is also why the
-            editor keeps working if you switch off your wifi after loading the page, and why
-            there is no gallery of other people&apos;s staged conversations anywhere on our
-            servers.
+            The contact&apos;s name, the thread and the Seen line never cross the network — a
+            Messenger mockup here is painted by your browser with plain HTML and CSS, and the
+            PNG is encoded locally before it is saved to your downloads. Switch your wifi off
+            after the page loads and the editor keeps going, which is the simplest proof that
+            nothing is being sent anywhere.
           </p>
 
           <h2>Other generators</h2>
@@ -276,8 +283,9 @@ export default function MessengerGeneratorPage() {
             <Link href="/whatsapp-chat-generator">WhatsApp chat generator</Link>, the{" "}
             <Link href="/fake-text-message-generator">iPhone text message generator</Link>{" "}
             and the <Link href="/group-chat-generator">group chat generator</Link> with
-            coloured sender names are all live. See the{" "}
-            <Link href="/#generators">generator index</Link> for the full list.
+            coloured sender names are all live. Once you have a thread you like, the{" "}
+            <Link href="/examples">examples page</Link> is the quickest way to see how it
+            compares with the other platforms.
           </p>
 
           <h2>Frequently asked questions</h2>

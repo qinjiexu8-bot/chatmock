@@ -43,6 +43,20 @@ function buildCopy(): Map<string, OgCopy> {
     sub: "ChatMock Blog",
   });
 
+  // 静态信息页：OG 图按需引用，slug 必须在此登记，否则 force-static 下会 404。
+  map.set("about", {
+    title: "About ChatMock",
+    sub: "An independent, browser-based mockup project",
+  });
+  map.set("contact", {
+    title: "Contact ChatMock",
+    sub: "Bug reports · UI corrections · Business enquiries",
+  });
+  map.set("terms", {
+    title: "Terms of Service",
+    sub: "ChatMock — free, browser-based chat mockups",
+  });
+
   return map;
 }
 

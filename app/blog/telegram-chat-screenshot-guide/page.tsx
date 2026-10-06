@@ -104,18 +104,19 @@ export default function Post() {
             shows complete scenes in both modes if you want a reference before editing.
           </p>
 
-          <h2>Building the screenshot, step by step</h2>
+          <h2>Assembling the Telegram screen</h2>
           <ol>
             <li>
-              <strong>Set the contact.</strong> Type the name, then a status line —
-              <code>last seen recently</code> is the most common in real screenshots and
+              <strong>Set the name and the status line.</strong> Type the name, then a status
+              line — <code>last seen recently</code> is the most common in real screenshots and
               safer than <code>online</code>, which implies the person is in the app right
               now.
             </li>
             <li>
-              <strong>Write the conversation.</strong> Same advice as any platform: uneven
-              reply lengths, a texter and a replier, the story beat in the last bubble.
-              Three to eight messages carries a scene; more reads as staged.
+              <strong>Write an uneven exchange.</strong> Real threads mix a long paragraph with
+              one-word replies; when every bubble is the same length the wallpaper stops looking
+              like a backdrop and starts looking like a form. Three to eight rows carries a
+              scene.
             </li>
             <li>
               <strong>Set the checks.</strong> One check for sent, two for read. Leave most
@@ -141,7 +142,80 @@ export default function Post() {
             <li>Group-chat features (coloured sender names) in a one-to-one chat.</li>
           </ul>
 
-          <h2>Where the line is</h2>
+          <h2>How the wallpaper is made: drawn, not pasted</h2>
+          <p>
+            Every Telegram screenshot carries a doodle wallpaper behind the bubbles, and the
+            way that pattern is produced decides how good the export looks. There are two
+            approaches: paste a bitmap tile as an image, or draw the pattern in code. A pasted
+            tile is quick, but it has a fixed resolution, so at a 3x export it softens, and it
+            tends to reveal its own seams where the tile repeats unless the artwork was built
+            to wrap cleanly.
+          </p>
+          <p>
+            The Telegram pages here draw the pattern as a vector tile instead, which is what the{" "}
+            <Link href="/examples/telegram-chat-generator">Telegram examples</Link> use. A
+            code-drawn tile stays crisp at any export scale, because it is re-rendered at the
+            target size rather than enlarged, and the same tile can be recoloured for both
+            modes instead of shipping two separate images. That last point matters: the light
+            wallpaper is a pale grey-blue and the night-mode wallpaper is a deep blue-night
+            tone, but the doodle underneath is identical — only the tint changes.
+          </p>
+          <p>
+            The practical effect a viewer sees is that the pattern shows through the gaps
+            between bubbles at a consistent faintness, and it never turns into visible stripes
+            of a repeated photo. If your mockup&apos;s wallpaper looks like a flat colour in
+            one area and a pattern in another, that is the signature of a badly tiled image.
+          </p>
+
+          <h2>Day dividers and date pills: where they belong</h2>
+          <p>
+            Telegram separates two kinds of time information, and mixing them up is a common
+            tell. The small time tucked into a bubble is the per-message timestamp. The larger,
+            centred, floating chip is the day divider or date pill — the thing that reads
+            &ldquo;Yesterday&rdquo; or a date. The pill does not describe a message; it
+            describes a gap between groups of messages.
+          </p>
+          <p>
+            That means a pill belongs exactly once at each seam where the conversation resumes
+            on a new day, sitting between the last message of the previous day and the first of
+            the next. It should never be dropped between two messages sent minutes apart, and
+            it should never replace a timestamp inside a bubble. A conversation that stays
+            inside a single day does not need a pill at all.
+          </p>
+          <p>
+            Treat the pill as a scene device rather than decoration. One pill near the top tells
+            the viewer the thread is older than it looks; a second pill further down, with a
+            shorter exchange below it, tells them the conversation resumed after a silence
+            without a word of dialogue. Because it floats over the wallpaper rather than
+            sitting in a solid bar, it also keeps Telegram&apos;s airy feel — the same reason
+            the header is a capsule rather than a welded-on bar.
+          </p>
+
+          <h2>Why night mode is steel blue, not a dimmed green</h2>
+          <p>
+            The single most revealing Telegram detail is what happens to the outgoing bubble in
+            dark mode. In light mode it is the signature pale green <code>#eeffde</code>; in
+            night mode it abandons green altogether and becomes a steel blue{" "}
+            <code>#2b5278</code>, with incoming bubbles a dark slate{" "}
+            <code>#182533</code> against a blue-night background <code>#0e1621</code>.
+          </p>
+          <p>
+            People assume night mode is the light theme turned down, so they keep a green
+            bubble and just reduce its brightness. That produces a muddy colour that belongs to
+            neither theme and reads as wrong immediately. The real night palette is a different
+            scheme built around cool blue-greys, and the green simply does not belong in it. The
+            read check marks stay green-adjacent (a lighter green than the light theme uses) but
+            everything structural moves to blue.
+          </p>
+          <p>
+            The test is quick: put the light and dark versions side by side and ask whether the
+            dark one looks like the light one dimmed or like a separate design. For Telegram the
+            answer should be the latter. If your dark outgoing bubble is still greenish, you
+            have built a dimmed light theme, not night mode — and anyone who uses the app after
+            dark will feel it before they can name it.
+          </p>
+
+          <h2>What this generator refuses to be</h2>
           <p>
             Telegram&apos;s association with crypto communities makes fake channel posts a
             favourite of scam scripts, which is exactly why staged screenshots should stay

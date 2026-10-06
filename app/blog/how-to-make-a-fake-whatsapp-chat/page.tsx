@@ -143,7 +143,113 @@ export default function Post() {
             thing.
           </p>
 
-          <h2>Where the line is</h2>
+          <h2>Three scenes, line by line</h2>
+          <p>
+            Abstract advice about &ldquo;natural rhythm&rdquo; is hard to act on, so here are
+            three everyday scenes laid out line by line, with the reason the pacing is arranged
+            that way. All three are the kind of benign logistics and small-talk threads the{" "}
+            <Link href="/examples">examples gallery</Link> uses.
+          </p>
+          <p>
+            <strong>The plans thread.</strong> One side opens with a question, the other
+            confirms, then a small practical detail, then a one-word close:
+          </p>
+          <ul>
+            <li>&ldquo;still on for sat?&rdquo;</li>
+            <li>&ldquo;yeah — 7 at the usual place&rdquo;</li>
+            <li>&ldquo;i&apos;ll bring the speakers&rdquo;</li>
+            <li>&ldquo;perfect&rdquo;</li>
+          </ul>
+          <p>
+            The rhythm here is fast and even, because plans get settled quickly. Note that the
+            longest bubble is not the opener but the practical detail, and that the thread ends
+            on a single word — real logistics rarely sign off with a paragraph. This is the
+            shape to use when you need a screenshot that simply reads as normal.
+          </p>
+          <p>
+            <strong>The left-on-read thread.</strong> Someone raises something mildly awkward,
+            sends a fuller message, then resolves it themselves before anyone answers:
+          </p>
+          <ul>
+            <li>&ldquo;quick q about the invoice&rdquo;</li>
+            <li>&ldquo;no rush but could you check the total when you get a sec?&rdquo;</li>
+            <li>&ldquo;actually never mind, sorted it 🙂&rdquo;</li>
+          </ul>
+          <p>
+            The pacing is deliberately lopsided: three messages from one side, nothing from the
+            other. The third message walking back the second is the whole point, and it is why
+            the double text exists in the first place. Ending on a friendly self-resolution is
+            what keeps the scene light rather than pointed.
+          </p>
+          <p>
+            <strong>The check-in thread.</strong> A short hello, a gap, then an answer much
+            later:
+          </p>
+          <ul>
+            <li>&ldquo;you around this week?&rdquo;</li>
+            <li>&ldquo;free thurs if that works&rdquo;</li>
+            <li>&ldquo;thurs is good&rdquo;</li>
+          </ul>
+          <p>
+            What makes this one work is the uneven timing rather than the words. In the editor,
+            set the first message to two grey ticks and the last to blue so the screenshot
+            carries the silence visually instead of stating it. Three lines is enough; adding
+            more turns a check-in into a plan.
+          </p>
+
+          <h2>Using the three tick states as a storytelling tool</h2>
+          <p>
+            WhatsApp is unusual in having three distinct receipt states, and each one says
+            something different. A single grey tick means the message left your phone but has
+            not reached theirs — their phone is off or offline. Two grey ticks mean it arrived
+            but has not been opened. Two blue ticks mean it was read. That is a small grammar,
+            and it lets a screenshot say things that the words do not.
+          </p>
+          <p>
+            The most-used beat is the blue tick with no reply: a message that is read and then
+            ignored. To stage it, give the last outgoing bubble blue ticks and end the thread
+            there. The second beat is the opposite — a message stuck at one grey tick, which
+            reads as a phone that is switched off or out of signal, useful when the story is
+            about someone being unreachable rather than unwilling. Two grey ticks is the
+            neutral, unremarkable state, and most of a believable thread should sit there.
+          </p>
+          <p>
+            The trap is uniformity. A conversation where every outgoing message is blue-read
+            looks staged, because in real life most messages linger at two grey ticks for hours.
+            Pick the one or two messages whose state carries meaning, set those deliberately, and
+            leave the rest grey. If you want a second opinion on which states a real thread
+            shows, the{" "}
+            <Link href="/whatsapp-chat-generator">WhatsApp generator</Link> exposes all three so
+            you can compare them side by side before exporting.
+          </p>
+
+          <h2>Pairing a group thread with a one-to-one</h2>
+          <p>
+            Plenty of stories need two screens: a group where something is announced or argued
+            out in public, and a private thread where it is actually discussed. Building both is
+            straightforward, but the pair only works if the viewer believes they belong to the
+            same phone.
+          </p>
+          <p>
+            The mechanics matter. Build the group scene with the{" "}
+            <Link href="/group-chat-generator">group chat generator</Link> and the private scene
+            with the <Link href="/whatsapp-chat-generator">WhatsApp generator</Link>, then hold
+            the two consistent: reuse the same participant names, the same light or dark mode,
+            and the same wallpaper, so the two images look like two screens from one account
+            rather than two unrelated mockups. If the group has five members, the private thread
+            should be with one of those five, not a new name.
+          </p>
+          <p>
+            Remember that ticks mean something heavier in a group. Two blue ticks in a
+            one-to-one means one person read it; in a group they mean everyone did, which is
+            rare, so most group messages should sit at two grey ticks. Keeping the group a little
+            unreliable and the private thread precise mirrors how these things actually happen,
+            and it is the detail that makes a two-image scene hold together. The{" "}
+            <Link href="/group-chat-screenshot-guide">group chat guide</Link> goes deeper on
+            multi-person staging.
+          </p>
+
+          <h2>The boundary the tool will not cross</h2>
           <p>
             A fabricated conversation used to illustrate, parody or teach is a creative
             device as old as fiction. The same image used to deceive someone — fake evidence,

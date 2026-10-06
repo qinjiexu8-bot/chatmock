@@ -30,32 +30,36 @@ export const metadata: Metadata = {
 
 const FAQ = [
   {
-    q: "Is this Instagram DM generator free?",
-    a: "Yes — no signup, no email wall, no daily limit and no watermark on the export. Every editing feature, including image messages and dark mode, is free, and PNG export works at 1x, 2x and 3x resolution.",
+    q: "Is the Instagram DM generator free?",
+    a: "It is. There is no signup, no email step, no limit on how many DMs you mock up and no watermark on the export — gradient bubbles, the Seen marker and dark mode are all included at no cost.",
   },
   {
-    q: "Why is the outgoing bubble a gradient?",
-    a: "Because that is how Instagram renders your own messages. Since the platform unified its chat themes, outgoing DM bubbles use a purple-to-pink gradient rather than a flat colour. Generators that use a plain blue or grey bubble for the sender side do not look like Instagram.",
+    q: "Why is the sender's bubble a gradient?",
+    a: "Because Instagram draws your own messages that way. Since the platform unified its chat themes, outgoing DMs fade from purple to pink instead of using a flat colour, and a plain blue or grey sender bubble reads as some other app entirely.",
   },
   {
-    q: "What does the Seen indicator look like?",
-    a: "Under your last outgoing message, Instagram shows a tiny version of the recipient's avatar next to the word Seen. This generator reproduces exactly that — a small round avatar plus the label — and the label text is editable if you want a different state or want to remove it.",
+    q: "What does the Seen marker look like?",
+    a: "Under your last outgoing message Instagram places a tiny copy of the recipient's avatar beside the word Seen. This editor reproduces exactly that — a small round photo plus the label — and the label text can be edited or cleared if your scene needs a different state.",
   },
   {
-    q: "Why are there no timestamps next to each message?",
-    a: "Instagram does not label individual messages. Time markers appear occasionally between message groups as small centred grey text. Stamping every bubble is the fastest way to make an Instagram DM screenshot look fake.",
+    q: "Why is there no timestamp beside each DM?",
+    a: "Instagram does not label individual messages. Time markers appear now and then between groups of messages as small centred grey text. Stamping a time onto every bubble is the quickest way to make a DM screenshot read as fake.",
   },
   {
-    q: "Is my conversation uploaded to a server?",
-    a: "No. The mockup is rendered entirely on your device, and the PNG is generated in your browser and saved straight to your downloads. Usernames, messages and uploaded images never leave your computer or phone — you can disconnect from the internet after loading the page and keep working.",
+    q: "Does the gradient survive dark mode?",
+    a: "Yes — the purple-to-pink fade stays in both light and dark themes, which is a detail generators that merely invert their palette miss. It is also the clearest way to tell an Instagram DM apart from a Messenger thread at a glance.",
   },
   {
-    q: "What resolution can I export?",
-    a: "1x (390px wide), 2x (780px) or 3x (1170px). For thumbnails and posts, 2x is usually the sweet spot between sharpness and file size. Use 3x when the screenshot will be zoomed into or printed.",
+    q: "Does the text of my DM get uploaded anywhere?",
+    a: "Nowhere. The mockup is drawn in your browser and the PNG is encoded on your own device before it reaches your downloads. Usernames, messages and any image you add stay local, so switching off your wifi after the page opens changes nothing.",
   },
   {
-    q: "Can I use the mockups commercially?",
-    a: "Yes, for legitimate creative work: videos, thumbnails, presentations, teaching material, fiction and design. You may not use them to deceive, defraud, harass, impersonate anyone or fabricate evidence. The Acceptable Use Policy has the full boundary.",
+    q: "How should the username render?",
+    a: "As a handle in the header, sitting next to the avatar the way Instagram shows an account. Type the name without the @ if you prefer, upload a picture, or let ChatMock fall back to a gradient initial circle like the default avatar.",
+  },
+  {
+    q: "Am I allowed to use DM mockups commercially?",
+    a: "For legitimate creative work — videos, thumbnails, presentations, teaching, fiction, design — yes. Deceiving someone, impersonating a creator or a brand, or fabricating evidence is not acceptable, and the Acceptable Use Policy sets out that line.",
   },
 ];
 
@@ -120,10 +124,10 @@ export default function InstagramDmGeneratorPage() {
             bubbles, the tiny-avatar Seen indicator, dark mode, and export at 1x, 2x or 3x.
           </p>
           <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1.5 text-[13.5px] text-black/55">
-            <span>✓ No account required</span>
-            <span>✓ No watermark, ever</span>
-            <span>✓ Nothing leaves your device</span>
-            <span>✓ Works on mobile</span>
+            <span>✓ Completely free, no signup</span>
+            <span>✓ Export is watermark-free</span>
+            <span>✓ Purple-to-pink gradient bubbles</span>
+            <span>✓ Seen marker with mini avatar</span>
           </div>
         </div>
 
@@ -135,28 +139,29 @@ export default function InstagramDmGeneratorPage() {
           <h2>How to create an Instagram DM mockup in four steps</h2>
           <ol>
             <li>
-              <strong>Set the account.</strong> Type the username into{" "}
-              <em>Contact → Name</em> — it renders in the header next to the avatar, the way
-              Instagram shows the handle. Upload an avatar, or let ChatMock draw an
-              Instagram-colour gradient initial circle.
+              <strong>Set the account.</strong> Put the username in <em>Contact → Name</em> —
+              it sits in the header beside the avatar, exactly as Instagram prints a handle.
+              Upload a picture, or keep the Instagram-coloured gradient initial circle ChatMock
+              draws by default.
             </li>
             <li>
-              <strong>Write the conversation.</strong> Add messages with{" "}
-              <em>+ Alex</em> or <em>+ Me</em>, flip each one between the two sides, and
-              reorder with the arrows. Uploading an image turns that message into a rounded
-              media bubble with an optional caption.
+              <strong>Write the DMs.</strong> <em>+ Alex</em> and <em>+ Me</em> add messages and
+              the sender toggle swaps sides. Instagram stacks a run of messages from one person
+              without narrowing the corners, so the capsules simply repeat at a steady width.
+              Images render as rounded media bubbles with an optional caption.
             </li>
             <li>
-              <strong>Set the Seen indicator.</strong> Under <em>Contact → Delivery</em>, the
-              label defaults to <code>Seen</code>. It renders under your last outgoing
-              message with a tiny version of the recipient&apos;s avatar — clear the field to
-              show a conversation they have not opened yet.
+              <strong>Set the Seen marker.</strong> Under <em>Contact → Delivery</em> the label
+              defaults to <code>Seen</code>, and it draws under your last outgoing message next
+              to a miniature of the recipient&apos;s avatar. Empty the field and the thread
+              reads as one they have not opened.
             </li>
             <li>
-              <strong>Export.</strong> Pick 1x, 2x or 3x and hit <em>Download PNG</em>.
-              Exports are plain screen captures by default — a real screenshot never
-              includes the phone body. Tick <em>Phone frame</em> only when you want a
-              device-mockup look for a post, thumbnail or slide.
+              <strong>Export.</strong> Pick a multiplier first: 2x suits the tall, portrait
+              framing Instagram itself uses, 1x is enough for a quick draft and 3x covers
+              anything that will be blown up or printed. Leave <em>Phone frame</em> off for
+              an ordinary screenshot, and switch it on when the DM has to sit inside a phone
+              for a Story graphic or a slide.
             </li>
           </ol>
 
@@ -248,20 +253,20 @@ export default function InstagramDmGeneratorPage() {
             screenshot reads instantly, and small errors read just as fast.
           </p>
           <p>
-            The line, as everywhere on this site, is intent. Illustrating, parodying,
-            teaching and designing are fine. Using a fabricated conversation to deceive
-            someone, harass a person, impersonate a creator or brand, or fabricate evidence
-            is not — and there are no templates here for fake bank, government, medical or
-            legal notices. The <Link href="/acceptable-use">Acceptable Use Policy</Link> has
-            the full boundary.
+            Intent, not the image itself, decides whether a DM mockup is harmless. Parody,
+            illustration, teaching and design work are all welcome; a fabricated exchange used
+            to deceive, to harass someone, to impersonate a creator or a brand, or to invent
+            evidence is not. This site carries no templates for bank, government, medical or
+            legal notices — the{" "}
+            <Link href="/acceptable-use">Acceptable Use Policy</Link> explains the boundary.
           </p>
 
-          <h2>Why it runs entirely in your browser</h2>
+          <h2>Your handle never touches a server</h2>
           <p>
-            Everything is rendered locally with plain HTML and CSS, and the PNG is generated
-            on your device — nothing is transmitted, stored or logged. That is why the editor
-            keeps working with your wifi switched off, and why there is no database of staged
-            conversations anywhere on our side.
+            The username, the avatar and the whole DM thread stay inside the browser: the layout
+            is drawn with plain HTML and CSS and the PNG is generated on your own device. Turn
+            off your connection once the page has loaded and the editor carries on — proof that
+            no handle, message or photo was posted anywhere.
           </p>
 
           <h2>Other generators</h2>
@@ -273,7 +278,9 @@ export default function InstagramDmGeneratorPage() {
             <Link href="/messenger-chat-generator">Messenger chat generator</Link>, the{" "}
             <Link href="/discord-chat-generator">Discord chat generator</Link> and the{" "}
             <Link href="/telegram-chat-generator">Telegram chat generator</Link> are all
-            live. See the <Link href="/#generators">generator index</Link> for the full list.
+            live. Two worth a look from here: the Discord page, where messages have no
+            bubbles at all, and the Telegram page, where the checkmarks come in only two
+            states.
           </p>
 
           <p>

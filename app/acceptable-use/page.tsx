@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
+import { JsonLd, SiteFooter, SiteHeader } from "@/components/SiteChrome";
+import { abs, site } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Acceptable Use Policy",
@@ -13,6 +14,18 @@ export default function AcceptableUsePage() {
   return (
     <>
       <SiteHeader />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: "Acceptable Use Policy",
+          description:
+            "What ChatMock mockups may and may not be used for — illustration, parody, teaching and design, never deception or fabricated evidence.",
+          url: abs("/acceptable-use"),
+          isPartOf: { "@type": "WebSite", name: site.name, url: site.url },
+          publisher: { "@type": "Organization", name: site.orgName, url: site.url },
+        }}
+      />
       <main className="mx-auto max-w-3xl px-5 pt-12">
         <h1 className="font-display text-[32px] font-semibold tracking-tight text-foreground">
           Acceptable Use Policy

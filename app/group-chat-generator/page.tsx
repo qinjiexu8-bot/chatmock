@@ -30,32 +30,36 @@ export const metadata: Metadata = {
 
 const FAQ = [
   {
-    q: "How many participants can I add?",
-    a: "As many as you need. There is no hard cap — the editor grows a scrollable participant list, and each member gets a name and a colour. For realism, most convincing mockups use between three and eight active speakers, which is also how real group chats behave.",
+    q: "How many people can I put in one group?",
+    a: "As many as the scene calls for — there is no fixed ceiling, and the editor simply grows a scrollable member list with a name and a colour for each. For believability, three to eight active voices is the range most real group threads sit in.",
   },
   {
-    q: "Why do sender names have different colours?",
-    a: "Because the real app does it. WhatsApp assigns each group member a name colour from a fixed palette so messages are attributable at a glance. This generator uses the same behaviour — pick a colour per member, or accept the automatic assignment.",
+    q: "Why is every sender's name a different colour?",
+    a: "Because WhatsApp assigns each member a colour from a fixed palette so messages can be attributed at a glance, and this generator copies that rule: pick a colour per member or let the automatic assignment do it.",
   },
   {
-    q: "Why does my own name not appear on my messages?",
-    a: "That is correct behaviour, not a bug. In the real app, outgoing messages sit on the right without a name label — you know they are yours. Incoming messages carry the sender's name in their assigned colour. Generators that label your own bubbles are instantly recognisable as fakes.",
+    q: "Why is my own name missing from my messages?",
+    a: "That is correct, not a bug. Outgoing messages sit on the right with no label — you already know they are yours — while incoming messages carry the sender's name in their colour. Generators that name your own bubbles are recognised as fakes at once.",
   },
   {
-    q: "Is this group chat generator free?",
-    a: "Yes. Adding participants, unlimited messages, dark mode and PNG export at 1x, 2x or 3x are all free, with no signup, no email wall and no watermark on the output.",
+    q: "Why don't members have profile pictures in the thread?",
+    a: "Because real WhatsApp groups do not show them: the thread uses coloured names, not avatars, and adding photos there would immediately look fake. You can still set the group photo in the header — and if a scene really needs a face per speaker, the Discord chat generator accepts an avatar for every participant.",
   },
   {
-    q: "Is my conversation uploaded to a server?",
-    a: "No. Everything is rendered in your browser and the PNG is generated on your device. Nothing you type — the group name, the members, the messages — ever leaves your computer or phone. You can confirm this by disconnecting from the internet after loading the page; the editor keeps working.",
+    q: "What does a blue tick mean in a group?",
+    a: "Blue means every member has read the message, which is why genuine group threads usually sit at two grey ticks instead. A mockup where every message is blue-read tends to feel staged, so the editor lets you leave most of them delivered.",
   },
   {
-    q: "Can I use my own avatars for each member?",
-    a: "You can set the group photo (the header avatar), but the message list deliberately has no member avatars — in real WhatsApp groups, messages show coloured sender names, not profile photos, and rendering avatars there would make the mockup look fake. If your scene needs per-member photos, the Discord chat generator supports uploading an avatar for every participant.",
+    q: "Is the group chat generator free?",
+    a: "Completely. Participants, unlimited messages, dark mode and PNG download are all open with no signup and no email gate, and the exported file carries no watermark from us.",
   },
   {
-    q: "Can I use the mockups commercially?",
-    a: "Yes, for legitimate creative work: videos, presentations, teaching material, fiction and design. You may not use them to deceive, defraud, harass, impersonate anyone or fabricate evidence. The Acceptable Use Policy has the full boundary.",
+    q: "Do the member names and messages leave my device?",
+    a: "They do not. Everything is painted in your browser and the PNG is generated locally, so the group name, the members and the dialogue stay on your machine. Disconnect after loading the page and the editor will keep working as proof.",
+  },
+  {
+    q: "Can I sell or publish the group mockups?",
+    a: "The mockups are yours to use in legitimate work — a video, a course, a demo, a novel, a design. Faking evidence, impersonating a person or group, or otherwise deceiving people is off-limits; the Acceptable Use Policy has the details.",
   },
 ];
 
@@ -122,10 +126,10 @@ export default function GroupChatGeneratorPage() {
             2x or 3x.
           </p>
           <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1.5 text-[13.5px] text-black/55">
-            <span>✓ No account required</span>
-            <span>✓ No watermark, ever</span>
-            <span>✓ Nothing leaves your device</span>
-            <span>✓ Works on mobile</span>
+            <span>✓ Free with unlimited members</span>
+            <span>✓ No watermark anywhere</span>
+            <span>✓ Names coloured per participant</span>
+            <span>✓ Works on any phone or laptop</span>
           </div>
         </div>
 
@@ -137,28 +141,30 @@ export default function GroupChatGeneratorPage() {
           <h2>How to create a group chat mockup in four steps</h2>
           <ol>
             <li>
-              <strong>Name the group.</strong> Type the group name into{" "}
-              <em>Contact → Name</em>. Set the subtitle to the member list — on the real app
-              this line reads like <code>You, Alex, Sam, Jordan</code>, and getting it right
-              matters more than most people expect, because it is the first thing the eye
-              checks under the group name.
+              <strong>Name the group.</strong> Enter the group title in{" "}
+              <em>Contact → Name</em> and set the subtitle to the member roll — on the real app
+              that line reads like <code>You, Alex, Sam, Jordan</code>, and it is the first
+              detail the eye checks under the title.
             </li>
             <li>
-              <strong>Add the members.</strong> Use <em>+ Add participant</em> to create as
-              many speakers as the scene needs. Each member gets a name and a colour from the
-              same palette the real app draws from. You is fixed — it is the perspective of
-              the screenshot.
+              <strong>Add the speakers.</strong> <em>+ Add participant</em> creates as many
+              members as the scene needs; each one takes a name and a colour drawn from
+              WhatsApp&apos;s own palette. <em>You</em> is fixed, because the screenshot is
+              written from your side of the thread.
             </li>
             <li>
-              <strong>Write the conversation.</strong> Every message has a sender dropdown, so
-              you can bounce the dialogue between members exactly the way a real group
-              conversation zigzags. Upload an image on any message to turn it into a photo
-              bubble with a caption.
+              <strong>Write the exchange.</strong> Every message carries a sender dropdown, so
+              dialogue can bounce between members the way a real group zigzags. The rule to
+              remember is the tick logic: blue only appears once <em>every</em> member has
+              read, which is why most group messages sit at two grey ticks. Any message can
+              hold a captioned photo.
             </li>
             <li>
-              <strong>Export.</strong> Choose 1x, 2x or 3x and hit <em>Download PNG</em>. Exports are plain screen captures by default — a real screenshot never
-              includes the phone body. Tick <em>Phone frame</em> only when you want a
-              device-mockup look for a thumbnail or slide.
+              <strong>Export.</strong> Set the scale — 1x for a quick look, 2x for the web,
+              3x for print — then press <em>Download PNG</em>. The frame stays off so you get
+              the clean, edge-to-edge capture a phone actually saves; enable{" "}
+              <em>Phone frame</em> only when the group shot has to read as a physical device
+              in a thumbnail or slide.
             </li>
           </ol>
 
@@ -216,20 +222,20 @@ export default function GroupChatGeneratorPage() {
             colours and names are for.
           </p>
           <p>
-            As with every tool on this site, the line is intent. Illustrating, parodying,
-            teaching and designing are fine. Using a fabricated group conversation to deceive
-            someone, harass a person, impersonate a group or fabricate evidence is not — and
-            there are no templates on this site for fake bank, government, medical or legal
-            notices. The <Link href="/acceptable-use">Acceptable Use Policy</Link> has the
-            full boundary.
+            Intent is the deciding factor here, as it is across ChatMock. Illustrated, parodied,
+            taught and designed conversations are all fine; a fabricated thread deployed to
+            deceive, to stalk or harass, to impersonate a group, or to fake evidence is not.
+            You will find no templates for bank, government, medical or legal notices here —
+            the full rule lives in the{" "}
+            <Link href="/acceptable-use">Acceptable Use Policy</Link>.
           </p>
 
-          <h2>Why it runs entirely in your browser</h2>
+          <h2>No server ever sees the group</h2>
           <p>
-            Your group name, members and messages are rendered locally with plain HTML and
-            CSS, and the PNG is generated on your device. Nothing is transmitted, which is why
-            the editor keeps working with your wifi switched off. It also means there is no
-            gallery of other people&apos;s staged conversations sitting on a server somewhere.
+            The group title, the member roll and every message are rendered with plain HTML and
+            CSS on your own machine, and the PNG is written to disk locally. Because no copy is
+            uploaded, there is no server-side record of your members or dialogue to leak — and
+            pulling the network cable after the page loads changes nothing at all.
           </p>
 
           <h2>Other generators</h2>
@@ -240,8 +246,8 @@ export default function GroupChatGeneratorPage() {
             <Link href="/fake-text-message-generator">iPhone text message generator</Link>{" "}
             covers iMessage-style threads, and the{" "}
             <Link href="/messenger-chat-generator">Messenger chat generator</Link> handles
-            Facebook conversations. See the{" "}
-            <Link href="/#generators">generator index</Link> for the full list.
+            Facebook conversations. If you are still deciding which format fits your scene,
+            the <Link href="/blog">blog</Link> walks through one-to-one versus group mockups.
           </p>
 
           <h2>Frequently asked questions</h2>

@@ -30,32 +30,36 @@ export const metadata: Metadata = {
 
 const FAQ = [
   {
-    q: "Is the whole Snapchat chat screen yellow?",
-    a: "No — and this is the most common mistake in fake Snapchat screenshots. The signature yellow (#fffc00) appears in the header bar and the app's main screens, but the conversation area itself is white in light mode and pure black in dark mode. This generator gets that split right.",
-  },
-  {
-    q: "Is this Snapchat chat generator free?",
-    a: "Yes — every feature is free, with no signup, no email wall, no daily limit and no watermark on your export. PNG download works at 1x, 2x and 3x resolution.",
+    q: "Is the whole Snapchat screen yellow?",
+    a: "No — and that misconception is the most frequent error in fake Snapchat shots. The signature yellow (#fffc00) fills the header and the app's main screens, but the conversation itself is white in light mode and black in dark mode, and this page keeps that split correct.",
   },
   {
     q: "Why does Delivered appear under my messages?",
-    a: "Snapchat shows a small grey Delivered label under outgoing messages once they reach the recipient's device — it is part of the interface, not an extra. The label is editable in the editor, so you can remove it or replace it for specific scenes.",
+    a: "Snapchat puts a small grey Delivered note below outgoing messages once they reach the other device — it is part of the interface rather than something extra. The editor lets you edit that label, drop it, or change it for a particular scene.",
   },
   {
-    q: "Is my conversation uploaded to a server?",
-    a: "No. The mockup is rendered entirely on your device, and the PNG is generated in your browser and saved directly to your downloads. Usernames, messages and uploaded images never leave your computer or phone — you can disconnect from the internet after loading the page and keep working.",
+    q: "If it is not yellow, what colour is my bubble?",
+    a: "Lavender, #d9a7f9, on the light theme and a deep purple in dark mode — the sender bubble is deliberately neither yellow nor blue. Getting this wrong is the second-most common Snapchat mistake after the all-yellow screen.",
   },
   {
-    q: "What resolution can I export?",
-    a: "1x (390px wide), 2x (780px) or 3x (1170px). For thumbnails and posts, 2x is usually the sweet spot between sharpness and file size. Use 3x when the screenshot will be zoomed into or printed.",
+    q: "Why is the header yellow but the icons black?",
+    a: "Because Snapchat keeps a bright #fffc00 header with black text and icons in both light and dark mode. The contrast is part of the look, and a mockup that swaps it for white icons on yellow no longer reads as Snapchat.",
   },
   {
-    q: "Can I add images inside the chat?",
-    a: "Yes. Any message can carry an image attachment with a caption. Uploaded images are read locally in your browser and rendered as rounded media bubbles.",
+    q: "Can I drop a photo into the conversation?",
+    a: "Yes. Any message can hold an image with a caption, read locally from your device and drawn as a rounded media bubble — no uploading to a third-party host and nothing leaving your browser.",
   },
   {
-    q: "Can I use the mockups commercially?",
-    a: "Yes, for legitimate creative work: videos, thumbnails, presentations, teaching material, fiction and design. You may not use them to deceive, defraud, harass, impersonate anyone or fabricate evidence. The Acceptable Use Policy has the full boundary.",
+    q: "Is the Snapchat chat generator free?",
+    a: "Every part of it is. No account, no email gate, no daily limit and no watermark on the output, and the PNG is downloadable at 1x, 2x or 3x.",
+  },
+  {
+    q: "Does a Snapchat mockup get sent to a server?",
+    a: "Not at all. The whole conversation is rendered in your browser and the PNG is generated on your own device before being saved to your downloads. Names, messages and images stay put, so you can disconnect from the internet after the page loads and keep working.",
+  },
+  {
+    q: "Can I use the mockups in commercial work?",
+    a: "For legitimate purposes — videos, thumbnails, presentations, teaching, fiction, design — yes. What you cannot do is pass a fabricated conversation off as real, harass or impersonate someone, or fake evidence; the Acceptable Use Policy explains where the line sits.",
   },
 ];
 
@@ -122,10 +126,10 @@ export default function SnapchatGeneratorPage() {
             1x, 2x or 3x.
           </p>
           <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1.5 text-[13.5px] text-black/55">
-            <span>✓ No account required</span>
-            <span>✓ No watermark, ever</span>
-            <span>✓ Nothing leaves your device</span>
-            <span>✓ Works on mobile</span>
+            <span>✓ Free, with nothing to install</span>
+            <span>✓ No watermark on the file</span>
+            <span>✓ True #fffc00 yellow header</span>
+            <span>✓ Lavender outgoing bubbles</span>
           </div>
         </div>
 
@@ -137,27 +141,29 @@ export default function SnapchatGeneratorPage() {
           <h2>How to create a Snapchat chat mockup in four steps</h2>
           <ol>
             <li>
-              <strong>Set the contact.</strong> Type the name into{" "}
-              <em>Contact → Name</em> — it renders in the yellow header. Upload an avatar, or
-              let ChatMock draw a yellow initial circle that reads like a Bitmoji placeholder.
+              <strong>Set the contact.</strong> Type the name into <em>Contact → Name</em> and
+              it lands in the black-on-yellow header. Upload an avatar, or take the yellow
+              initial circle ChatMock draws as a stand-in for a Bitmoji.
             </li>
             <li>
-              <strong>Write the conversation.</strong> Add messages with{" "}
-              <em>+ Emma</em> or <em>+ Me</em>, flip each one between the two sides, and
-              reorder with the arrows. Uploading an image turns that message into a rounded
-              media bubble with a caption.
+              <strong>Write the messages.</strong> Add lines with <em>+ Emma</em> or{" "}
+              <em>+ Me</em>, swap the side with the sender toggle and reorder with the arrows.
+              Snapchat gives each incoming message its own small avatar rather than grouping
+              them, so the left side stays busy; a photo becomes a rounded media bubble with a
+              caption.
             </li>
             <li>
-              <strong>Set the Delivered label.</strong> Under <em>Contact → Delivery</em>, the
-              label defaults to <code>Delivered</code>. It appears under your outgoing
-              messages in small grey text — clear it or replace it if your scene needs a
-              different state.
+              <strong>Set the Delivered label.</strong> <em>Contact → Delivery</em> seeds the
+              field with <code>Delivered</code>, which prints as small grey text beneath your
+              outgoing lines. Replace it or clear it whenever the scene calls for a different
+              state.
             </li>
             <li>
-              <strong>Export.</strong> Pick 1x, 2x or 3x and hit <em>Download PNG</em>.
-              Exports are plain screen captures by default — a real screenshot never
-              includes the phone body. Tick <em>Phone frame</em> only when you want a
-              device-mockup look for a thumbnail, post or slide.
+              <strong>Export.</strong> Snapchat mockups live in vertical feeds, so 2x is the
+              natural pick for a Story, a Reel cover or a TikTok frame; 1x is fine for a
+              rough layout and 3x only really matters for print. The export is a bare
+              rectangle until you enable <em>Phone frame</em>, which adds the handset outline
+              for thumbnail-style compositions.
             </li>
           </ol>
 
@@ -255,33 +261,33 @@ export default function SnapchatGeneratorPage() {
             frame.
           </p>
           <p>
-            The line, as everywhere on this site, is intent. Illustrating, parodying,
-            teaching and designing are fine. Using a fabricated conversation to deceive
-            someone, harass a person, impersonate someone or fabricate evidence is not — and
-            there are no templates here for fake bank, government, medical or legal notices.
-            The <Link href="/acceptable-use">Acceptable Use Policy</Link> has the full
-            boundary.
+            As on every page here, the deciding factor is intent. Snaps and chats composed to
+            illustrate, to parody, to teach or to design something are perfectly fine; a
+            made-up conversation turned loose to deceive someone, to harass them, to impersonate
+            a person, or to forge evidence is not. There are no bank, government, medical or
+            legal templates on ChatMock, and the{" "}
+            <Link href="/acceptable-use">Acceptable Use Policy</Link> covers the boundary in
+            full.
           </p>
 
-          <h2>Why it runs entirely in your browser</h2>
+          <h2>Composed locally, never uploaded</h2>
           <p>
-            Everything is rendered locally with plain HTML and CSS, and the PNG is generated
-            on your device — nothing is transmitted, stored or logged. That is why the editor
-            keeps working with your wifi switched off, and why there is no database of staged
-            conversations anywhere on our side.
+            The conversation, the yellow header and the Delivered label are all drawn by your
+            browser with plain HTML and CSS, and the PNG is encoded locally before it is saved.
+            Nothing is stored or transmitted, so once the page is loaded you can disconnect and
+            keep building mockups offline.
           </p>
 
           <h2>Other generators</h2>
           <p>
-            ChatMock covers the platforms people actually search for, one at a time: the{" "}
-            <Link href="/whatsapp-chat-generator">WhatsApp chat generator</Link>, the{" "}
-            <Link href="/fake-text-message-generator">iPhone text message generator</Link>,
-            the <Link href="/group-chat-generator">group chat generator</Link>, the{" "}
-            <Link href="/messenger-chat-generator">Messenger chat generator</Link>, the{" "}
-            <Link href="/discord-chat-generator">Discord chat generator</Link>, the{" "}
-            <Link href="/telegram-chat-generator">Telegram chat generator</Link> and the{" "}
-            <Link href="/instagram-dm-generator">Instagram DM generator</Link> are all live.
-            See the <Link href="/#generators">generator index</Link> for the full list.
+            Snapchat is the most colour-specific platform here, so it pays to compare it with
+            the others: the{" "}
+            <Link href="/instagram-dm-generator">Instagram DM generator</Link> is the closest
+            cousin, using its own purple-to-pink gradient instead of lavender, while the{" "}
+            <Link href="/fake-text-message-generator">iPhone text message generator</Link>{" "}
+            covers the plain iMessage look. Both are live, and so is the rest of the ChatMock
+            set — the <Link href="/examples">examples gallery</Link> is the fastest way to see
+            them side by side.
           </p>
 
           <h2>Frequently asked questions</h2>

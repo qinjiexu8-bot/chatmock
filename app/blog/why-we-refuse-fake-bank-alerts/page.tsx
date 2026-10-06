@@ -143,6 +143,80 @@ export default function Post() {
             matters. We would rather leave that search volume on the table.
           </p>
 
+          <h2>Where a forged notification sits in the chain</h2>
+          <p>
+            It helps to be precise about what a fake payment screenshot is <em>for</em>, because
+            the people who make them are not trying to fool a bank — they are trying to buy
+            minutes from a person. In the patterns that get reported most often across
+            marketplaces, rental listings and peer-to-peer sales, the screenshot is not the
+            scam; it is the lubricant. It arrives to answer one question — &ldquo;did you
+            send it?&rdquo; — so that the next step can happen: releasing the item, handing
+            over the keys, shipping before funds clear.
+          </p>
+          <p>
+            That is why the image is engineered the way it is. It does not need to survive a
+            fraud investigation; it needs to survive about thirty seconds of a stranger&apos;s
+            attention while they are standing in a doorway or holding a parcel. The social
+            pressure does the rest: once someone has been told &ldquo;I just sent it, check
+            again,&rdquo; contesting it feels rude, and rudeness is a surprisingly strong
+            lever. The forged notification is built to exploit exactly that moment, and a tool
+            that produces one in a couple of clicks — no watermark, no friction — is
+            industrialising the moment rather than just selling an image.
+          </p>
+          <p>
+            Seen this way, the question &ldquo;is the artefact harmful?&rdquo; answers itself.
+            The artefact has no life outside that moment. Nobody keeps a fake bank alert in a
+            scrapbook.
+          </p>
+
+          <h2>How platforms and banks actually catch it</h2>
+          <p>
+            The reassuring part is that the screenshot is not the record. A payment exists in
+            the ledger, not in an image, so the authoritative check is never the message someone
+            forwards you — it is your own balance in the official app, or a statement from the
+            bank. Banks settle transfers on their own systems, and pending entries appear there
+            whether or not anyone sent a screenshot. A PNG can imitate the notification; it
+            cannot put money in an account.
+          </p>
+          <p>
+            Beyond the ledger, detection tends to work at the level of the file and the flow
+            rather than the pixels. Platforms look at behaviour — accounts that repeatedly
+            produce or forward the same images, listings that generate disputes — and payment
+            apps surface pending-versus-cleared states precisely so a recipient does not have to
+            judge a picture in the moment. The details vary by bank, app and country, and none of
+            it is something a screenshot can speak to. The practical rule for anyone on the
+            receiving end is simply: verify in the app that holds the money, never in the message
+            that claims it moved.
+          </p>
+
+          <h2>&ldquo;I would only use it properly&rdquo; is not a design argument</h2>
+          <p>
+            The most common objection is personal: <em>I would not use it to defraud anyone, so
+            why not offer it?</em> It is a reasonable thing to say and it does not survive
+            contact with how a public tool actually works. You cannot audit intent at the point
+            of publication. A template that is indexed and ranked is found by whoever searches
+            for it, and the person who searched for a watermark-free fake bank alert is usually
+            not looking for a design exercise — that is the whole reason the search exists.
+          </p>
+          <p>
+            There is also an asymmetry the self-discipline argument misses. The honest uses of a
+            chat mockup are broad and shallow: illustration, parody, teaching, prototyping. The
+            honest uses of a pixel-perfect payment notification are close to nil, while its
+            dishonest use is its reason for existing. When a feature&apos;s honest demand is
+            near zero and its harm is concentrated, refusing it costs almost nothing and removes
+            a real instrument. We are not weighing a person&apos;s good intentions against their
+            alternatives; we are weighing two very different distributions of use.
+          </p>
+          <p>
+            The same logic is why the line is drawn by category rather than by quality. It is
+            not that a <em>bad</em> fake bank alert is fine and a good one is not — it is that
+            the notification itself is the harmful artefact, so no version of it gets built,
+            watermarked or otherwise. Every other conversation-shaped tool on this site stays
+            inside its honest band: unmistakably staged, and useful to the people who stage
+            things on purpose. The{" "}
+            <Link href="/acceptable-use">Acceptable Use Policy</Link> sets that out in full.
+          </p>
+
           <h2>For creators: the honest alternative</h2>
           <p>
             If you are writing a story that involves a payment, you do not need a fake bank

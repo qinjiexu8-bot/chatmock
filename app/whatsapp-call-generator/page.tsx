@@ -30,32 +30,36 @@ export const metadata: Metadata = {
 
 const FAQ = [
   {
-    q: "Is this WhatsApp call log generator free?",
-    a: "Yes — every feature is free, with no signup, no email wall, no daily limit and no watermark on your export. PNG download works at 1x, 2x and 3x resolution.",
+    q: "Is the WhatsApp call log generator free?",
+    a: "It is, and there is nothing to sign up for — no account, no email gate, no limit and no watermark on the PNG you export.",
   },
   {
-    q: "What do the arrows next to each call mean?",
-    a: "They show call direction the same way the real app does: a green arrow pointing up-right means an outgoing call you placed, a green arrow pointing down-left means an incoming call you received, and a red arrow means a missed call. In the real app, missed calls also turn the caller's name red — this generator reproduces that too.",
+    q: "What do the arrows beside each call mean?",
+    a: "They mirror the real app's direction grammar: a green arrow pointing up-right is an outgoing call, a green arrow pointing down-left is one you received, and a red arrow marks a missed call. Missed calls also turn the caller's name red, just as WhatsApp does.",
   },
   {
-    q: "Can I add a call duration?",
-    a: "Yes. Each row has an optional duration note (for example 12 min) rendered as small grey text under the direction line. The real app shows durations for completed calls, so adding a few makes the log look lived-in.",
+    q: "Can I give a call a duration?",
+    a: "Yes — each row takes an optional duration note such as 12 min, printed as small grey text under the direction line. Genuine logs show a duration for completed calls, so including a couple makes the list feel lived-in.",
   },
   {
     q: "Is the bottom tab bar included?",
-    a: "Yes. The Calls screen renders with the full five-tab bottom navigation (Status, Calls, Chats, Communities, Settings) with Calls highlighted in green — the same structure as the real app. Screenshots without the tab bar read as cropped rather than authentic.",
+    a: "Always. The Calls screen renders with its full five-tab navigation — Status, Calls, Chats, Communities, Settings — with Calls highlighted in green, the same arrangement as the real app. A screenshot with the bar cropped off reads as a crop rather than a capture.",
+  },
+  {
+    q: "Should the phone frame be on?",
+    a: "It starts off, so the export looks like a plain screen capture the way a real one does; enable Phone frame only when the log is going into a device-mockup composite. That default keeps the image honest unless you ask for the handset outline.",
+  },
+  {
+    q: "What kind of data fills a believable call log?",
+    a: "A convincing log mixes directions — a few outgoing, a couple incoming and the occasional missed call — plus short and long durations and times spread across the day. A list where every row points the same way looks staged, so vary them.",
   },
   {
     q: "Is my data uploaded to a server?",
-    a: "No. The mockup is rendered entirely on your device and the PNG is generated in your browser. Names, numbers and durations never leave your computer or phone — you can disconnect from the internet after loading the page and keep working.",
+    a: "Nothing leaves your device. The log is rendered in your browser and the PNG is generated there too before it is saved, so names, numbers and durations stay put. You can go offline after loading the page and the editor carries on.",
   },
   {
-    q: "What resolution can I export?",
-    a: "1x (390px wide), 2x (780px) or 3x (1170px). For thumbnails and blog posts, 2x is usually the sweet spot. Use 3x when the screenshot will be zoomed into or printed.",
-  },
-  {
-    q: "Can I use the mockups commercially?",
-    a: "Yes, for legitimate creative work: videos, presentations, teaching material, fiction and design. You may not use them to deceive, defraud, harass, impersonate anyone or fabricate evidence. The Acceptable Use Policy has the full boundary.",
+    q: "Can I use the call log mockups commercially?",
+    a: "For legitimate work — videos, presentations, training material, fiction, design — yes. Using a fabricated log to deceive someone, impersonate a person or fabricate evidence is not acceptable, and the Acceptable Use Policy has the full boundary.",
   },
 ];
 
@@ -122,10 +126,10 @@ export default function WhatsAppCallGeneratorPage() {
             bottom tab bar.
           </p>
           <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1.5 text-[13.5px] text-black/55">
-            <span>✓ No account required</span>
-            <span>✓ No watermark, ever</span>
-            <span>✓ Nothing leaves your device</span>
-            <span>✓ Works on mobile</span>
+            <span>✓ Free, no signup at all</span>
+            <span>✓ Watermark-free download</span>
+            <span>✓ Calls tab with 5-tab bar</span>
+            <span>✓ Red missed-call arrows</span>
           </div>
         </div>
 
@@ -137,25 +141,26 @@ export default function WhatsAppCallGeneratorPage() {
           <h2>How to create a WhatsApp call log mockup in four steps</h2>
           <ol>
             <li>
-              <strong>Keep the header as Calls.</strong> The page ships with the header
-              pre-filled as <code>Calls</code> — that is what the real tab is called, so
-              leave it unless your scene genuinely needs something else.
+              <strong>Leave the header as Calls.</strong> The page opens with the header already
+              set to <code>Calls</code>, which is the real tab name — change it only if the
+              scene genuinely needs something else.
             </li>
             <li>
-              <strong>Add the callers.</strong> Each participant in the editor is one caller.
-              Add as many as your log needs, each with a name and avatar. Three to six
-              entries is the range where a call log looks naturally used.
+              <strong>List the callers.</strong> Each participant becomes one row in the log: a
+              name and an avatar apiece. Between three and six entries is the range where a
+              call log looks naturally used rather than padded.
             </li>
             <li>
-              <strong>Set the calls.</strong> Each row has a sender (the caller), a direction
-              — Outgoing, Incoming or Missed — and a time. Add optional duration notes like{" "}
-              <code>12 min</code> for completed calls; real logs mix short and long
-              durations, and one or two missed calls make it believable.
+              <strong>Set each call.</strong> A row takes a caller, a direction — Outgoing,
+              Incoming or Missed — and a time, plus an optional duration like{" "}
+              <code>12 min</code>. Real logs mix directions and lengths, and one or two red
+              missed entries are what sell it.
             </li>
             <li>
-              <strong>Export.</strong> Pick 1x, 2x or 3x and hit <em>Download PNG</em>. The
-              phone frame is on by default; untick it when you are compositing the screenshot
-              into a larger design.
+              <strong>Export.</strong> Pick 2x for screens and 3x if the log will be printed,
+              then download. <em>Phone frame</em> begins off, giving you the flat rectangle a
+              real capture produces; switch it on when you want the log framed inside a
+              handset for a device mockup.
             </li>
           </ol>
 
@@ -240,19 +245,20 @@ export default function WhatsAppCallGeneratorPage() {
             visible.
           </p>
           <p>
-            The line, as everywhere on this site, is intent. Illustrating, parodying,
-            teaching and designing are fine. Using a fabricated call log to deceive someone,
-            harass a person, impersonate someone or fabricate evidence is not — and there are
-            no templates here for fake bank, government, medical or legal notices. The{" "}
-            <Link href="/acceptable-use">Acceptable Use Policy</Link> has the full boundary.
+            Intent is what decides, just as it does on every page of this site. Call logs
+            composed to illustrate, to parody, to teach or to design are fine; a fabricated log
+            used to deceive someone, to harass a person, to impersonate them, or to manufacture
+            evidence is not acceptable, and this page will not become a bank, government,
+            medical or legal notice factory. The{" "}
+            <Link href="/acceptable-use">Acceptable Use Policy</Link> spells out the boundary.
           </p>
 
-          <h2>Why it runs entirely in your browser</h2>
+          <h2>Local rendering, offline-proof</h2>
           <p>
-            Everything is rendered locally with plain HTML and CSS, and the PNG is generated
-            on your device — nothing is transmitted, stored or logged. That is why the editor
-            keeps working with your wifi switched off, and why there is no record of your
-            mockups anywhere on our side.
+            Caller names, numbers, directions and durations are laid out with plain HTML and CSS
+            inside your browser, and the PNG is generated on your own device before the download
+            starts. No row of the log is sent anywhere or kept on a server, so you can
+            disconnect after the page loads and keep editing.
           </p>
 
           <h2>Other generators</h2>
@@ -261,13 +267,11 @@ export default function WhatsAppCallGeneratorPage() {
             <Link href="/whatsapp-chat-generator">WhatsApp chat generator</Link> covers
             one-to-one threads with blue ticks and dark mode, and the{" "}
             <Link href="/group-chat-generator">group chat generator</Link> handles
-            multi-participant chats. iPhone,{" "}
-            <Link href="/messenger-chat-generator">Messenger</Link>,{" "}
-            <Link href="/discord-chat-generator">Discord</Link>,{" "}
-            <Link href="/telegram-chat-generator">Telegram</Link>,{" "}
-            <Link href="/instagram-dm-generator">Instagram</Link> and{" "}
-            <Link href="/snapchat-chat-generator">Snapchat</Link> are also live — see the{" "}
-            <Link href="/#generators">generator index</Link>.
+            multi-participant chats. The{" "}
+            <Link href="/android-sms-generator">Android SMS generator</Link> is the closest
+            cousin to this page in spirit — another list-style screen rather than a bubble
+            thread — and the{" "}
+            <Link href="/examples">examples gallery</Link> shows the whole set at once.
           </p>
 
           <h2>Frequently asked questions</h2>

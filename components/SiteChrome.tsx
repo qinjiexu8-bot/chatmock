@@ -215,14 +215,20 @@ export function SiteFooter({ trademark }: { trademark?: { name: string; owner: s
             <Link href="/blog" className="hover:text-black">
               Blog
             </Link>
-            <Link href="/acceptable-use" className="hover:text-black">
-              Acceptable Use
+            <Link href="/about" className="hover:text-black">
+              About
+            </Link>
+            <Link href="/contact" className="hover:text-black">
+              Contact
+            </Link>
+            <Link href="/terms" className="hover:text-black">
+              Terms
             </Link>
             <Link href="/privacy" className="hover:text-black">
               Privacy
             </Link>
-            <Link href="/about" className="hover:text-black">
-              About
+            <Link href="/acceptable-use" className="hover:text-black">
+              Acceptable Use
             </Link>
           </div>
           <span className="font-script text-primary text-[1.1rem]">{site.name}</span>

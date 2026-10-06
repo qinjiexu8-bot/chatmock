@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
+import { JsonLd, SiteFooter, SiteHeader } from "@/components/SiteChrome";
+import { abs, site } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -12,6 +13,18 @@ export default function PrivacyPage() {
   return (
     <>
       <SiteHeader />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: "Privacy Policy",
+          description:
+            "How ChatMock handles data: everything renders in your browser, no accounts, no uploads, and what little analytics we collect.",
+          url: abs("/privacy"),
+          isPartOf: { "@type": "WebSite", name: site.name, url: site.url },
+          publisher: { "@type": "Organization", name: site.orgName, url: site.url },
+        }}
+      />
       <main className="mx-auto max-w-3xl px-5 pt-12">
         <h1 className="font-display text-[32px] font-semibold tracking-tight text-foreground">
           Privacy Policy

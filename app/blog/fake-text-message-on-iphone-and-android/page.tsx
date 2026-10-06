@@ -170,7 +170,117 @@ export default function Post() {
             upload, no watermark.
           </p>
 
-          <h2>Where the line is</h2>
+          <h2>iPhone and Android, item by item</h2>
+          <p>
+            The two interfaces diverge in a handful of specific places, and once you can see
+            them side by side it becomes easy to tell which platform a screenshot was built
+            for. Here is the comparison the two generators implement, detail by detail.
+          </p>
+          <table>
+            <thead>
+              <tr>
+                <th>Detail</th>
+                <th>iPhone (iMessage)</th>
+                <th>Android (Google Messages)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Header</td>
+                <td>
+                  Contact name centred under a small round avatar, with a blue video-call icon
+                  on the right
+                </td>
+                <td>
+                  A blue letter-avatar circle beside the name, with a subtitle line and phone
+                  and video icons
+                </td>
+              </tr>
+              <tr>
+                <td>Outgoing colour</td>
+                <td>Apple blue, softer and slightly pastel</td>
+                <td>
+                  Google blue <code>#1a73e8</code>, the same blue in both modes
+                </td>
+              </tr>
+              <tr>
+                <td>Bubble radius</td>
+                <td>18px, fully rounded capsules</td>
+                <td>20px Material capsules</td>
+              </tr>
+              <tr>
+                <td>Last bubble in a run</td>
+                <td>A bottom corner tucks in to about 5px, marking the end of a burst</td>
+                <td>The sender-side corner squares to about 6px</td>
+              </tr>
+              <tr>
+                <td>Bubble width cap</td>
+                <td>About 72% of the column</td>
+                <td>About 75% of the column</td>
+              </tr>
+              <tr>
+                <td>Where the time sits</td>
+                <td>
+                  One centred &ldquo;iMessage&rdquo; and date line at the very top, and nothing
+                  inside the bubbles
+                </td>
+                <td>
+                  A centred date marker at the top; a per-message clock varies between Android
+                  messaging clients and OS versions, so the safe default is to leave it out
+                </td>
+              </tr>
+              <tr>
+                <td>Delivery marker</td>
+                <td>A small grey Delivered or Read line under the last outgoing message</td>
+                <td>A small grey Read label under the last outgoing message</td>
+              </tr>
+              <tr>
+                <td>Status bar</td>
+                <td>iPhone arrangement — and because a real screenshot never captures hardware, no camera cutout appears</td>
+                <td>Clock on the left, signal and battery on the right, no camera cutout</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Read as a set, the differences are small but they compound. A screenshot with
+            iMessage&apos;s pastel blue, an 18px radius and a single top date line is
+            unmistakably iPhone; swap in Google blue, a 20px capsule and the Android header
+            shape and you are on Google Messages. Mixing the two — Apple&apos;s blue on an
+            Android frame, or an Android letter avatar over an iMessage layout — is what makes
+            a mockup feel wrong to a viewer who cannot say why.
+          </p>
+
+          <h2>RCS versus SMS: what actually changes in a screenshot</h2>
+          <p>
+            The read receipt is the one place the underlying protocol shows up on screen, and it
+            is worth understanding because it decides whether a label is even plausible. Older
+            SMS is a plain store-and-forward service: your message reaches the recipient and the
+            network reports delivery at best, but there is no signal back to your screen that a
+            person opened it. RCS, the newer standard Google Messages uses, can carry read
+            receipts — but only when both parties are on capable phones and carriers and the
+            feature is enabled, which is why &ldquo;it depends&rdquo; is the honest answer.
+          </p>
+          <p>
+            For a mockup that means a simple rule. If you are staging a plain-SMS scene, ending
+            the thread on your own bubble with a Read label invites a close look at something the
+            protocol may not support — a Delivered-style marker, or no marker at all, stays
+            plausible. If you intend the thread to be an RCS conversation between two modern
+            Android phones, the small grey Read label is exactly right, and leaving it off is
+            equally valid because read receipts can simply be turned off.
+          </p>
+          <p>
+            The same logic applies to typing indicators and higher-resolution media: they belong
+            to the richer protocol, so a screenshot that shows them is implicitly claiming an
+            RCS conversation. None of this is visible in most viewers&apos; day-to-day use, which
+            is precisely why getting it right marks a mockup as thoughtful rather than
+            approximate. For a complete Android scene, the{" "}
+            <Link href="/android-sms-generator">Android SMS generator</Link> already renders the
+            Read label the RCS way, and the{" "}
+            <Link href="/android-sms-screenshot-guide">Android screenshot guide</Link> walks
+            through the rest of the frame.
+          </p>
+
+          <h2>Use it as a prop, not as proof</h2>
           <p>
             A staged text conversation used in a skit, a design review or a classroom exercise
             is a legitimate creative device. The same image used to manufacture evidence, to

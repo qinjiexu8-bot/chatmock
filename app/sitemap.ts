@@ -50,5 +50,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly" as const,
       priority: 0.4,
     },
+    {
+      url: abs("/contact"),
+      lastModified: now,
+      changeFrequency: "yearly" as const,
+      priority: 0.4,
+    },
+    {
+      url: abs("/terms"),
+      lastModified: now,
+      changeFrequency: "yearly" as const,
+      priority: 0.4,
+    },
   ];
 }

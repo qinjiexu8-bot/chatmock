@@ -30,36 +30,36 @@ export const metadata: Metadata = {
 
 const FAQ = [
   {
-    q: "Is this WhatsApp chat generator really free?",
-    a: "Yes. Every feature on this page is free, and we do not put a watermark on your export. There is no signup, no email wall and no daily limit. You can also export at 1x, 2x or 3x resolution at no cost.",
+    q: "Is the WhatsApp chat generator free to use?",
+    a: "It is, and it stays that way. Nothing on this page asks for an account, an email address or a card, there is no cap on how many mockups you build, and the PNG you export carries no watermark or branding from us.",
   },
   {
     q: "Do I need to install anything?",
-    a: "No. Everything runs directly in your browser tab using HTML and CSS — there is no app to download and no plugin to install. It works on Chrome, Safari, Firefox and Edge, on desktop and mobile.",
+    a: "No app and no extension — the editor is a single web page. Open it in Chrome, Safari, Firefox or Edge on a laptop or a phone and everything, from the contact avatar to the blue ticks, is drawn live inside the tab.",
   },
   {
-    q: "Is my conversation uploaded to a server?",
-    a: "No. The mockup is rendered entirely on your device, and the PNG is generated locally and downloaded as a file. Nothing you type — names, messages or uploaded avatars — ever leaves your browser. You can verify this by opening the page and disconnecting from the internet; the generator keeps working.",
+    q: "Where does the conversation go when I export it?",
+    a: "Straight to your own downloads folder and nowhere else. The thread is painted by your browser and the PNG is encoded on your own machine, so no copy of the names, messages or avatars is ever posted anywhere. Pull the network cable after the page has loaded and the editor carries on as if nothing happened.",
   },
   {
-    q: "What resolution can I export?",
-    a: "You can export at 1x (390px wide), 2x (780px) or 3x (1170px). For YouTube thumbnails, blog headers and slide decks, 2x is usually the right balance of sharpness and file size. Use 3x if the image will be printed or zoomed into.",
+    q: "What do the single, double and blue ticks mean?",
+    a: "WhatsApp has three states and this editor exposes every one of them: a single grey tick is sent, two grey ticks are delivered, and two blue ticks (#53bdeb) mean read. Plenty of mockup tools flatten all three into one look, which is exactly the kind of slip that makes a screenshot feel wrong.",
   },
   {
-    q: "Can I add images inside the chat bubbles?",
-    a: "Yes. Each message can carry an image attachment. Uploaded images are read locally with the FileReader API and displayed inside the bubble with WhatsApp's rounded corners, above any caption text you add.",
+    q: "Why is the iPhone header beige instead of WhatsApp green?",
+    a: "Because on iOS the chat header takes its tint from the wallpaper, not from the brand green — against the stock background it reads as a warm beige. Painting that bar bright green is the single most common mistake in WhatsApp mockups, and this page avoids it on purpose.",
   },
   {
-    q: "Can I make group chats?",
-    a: "Yes — use the dedicated group chat generator. It supports multiple participants with the coloured sender names WhatsApp uses in groups, per-member names and timestamps, and the same export options as this page.",
+    q: "Why are the bubble corners tighter than in other tools?",
+    a: "Real WhatsApp bubbles use an 8px corner radius. Many generators round them into a pill, closer to 16 or 18px, which looks fine on its own and instantly wrong beside the real app. Here you get the correct, tighter geometry.",
   },
   {
-    q: "Is it legal to make a fake WhatsApp chat?",
-    a: "Creating a staged chat image for parody, teaching, design or storytelling is legal in most places and is exactly what this tool is for. Problems start when a fabricated conversation is presented as real — using one as evidence, to impersonate someone, or as part of fraud can be a crime in many jurisdictions. We keep the tool on the legitimate side: no bank, government or legal-notice templates, and a clear Acceptable Use Policy.",
+    q: "Can I attach a photo to a message?",
+    a: "Yes. Any bubble can carry an image, read straight from your device and shown above whatever caption you type, with WhatsApp's own corner treatment. There is no separate upload step and nothing is sent to an image host.",
   },
   {
-    q: "Can I use the mockups commercially?",
-    a: "Yes, for legitimate purposes: YouTube videos, client presentations, app store screenshots, course material, fiction and design work. You may not use them to deceive, defraud, harass, impersonate or fabricate evidence. See our Acceptable Use Policy for the full boundary.",
+    q: "May I use the finished mockups in commercial work?",
+    a: "For honest uses — a video, a pitch deck, a course, a novel, a design comp — yes, freely. The limit is deception: offering a composed image as somebody's real correspondence is where it stops being acceptable, and our Acceptable Use Policy spells that boundary out in full.",
   },
 ];
 
@@ -127,10 +127,10 @@ export default function WhatsAppGeneratorPage() {
             light and dark mode, and export at 1x, 2x or 3x.
           </p>
           <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1.5 text-[13.5px] text-black/55">
-            <span>✓ No account required</span>
-            <span>✓ No watermark, ever</span>
-            <span>✓ Nothing leaves your device</span>
-            <span>✓ Works on mobile</span>
+            <span>✓ Free forever, no signup</span>
+            <span>✓ Watermark-free PNG</span>
+            <span>✓ Authentic beige iPhone header</span>
+            <span>✓ Three-state ticks drawn correctly</span>
           </div>
         </div>
 
@@ -144,28 +144,31 @@ export default function WhatsAppGeneratorPage() {
           <h2>How to create a WhatsApp chat mockup in four steps</h2>
           <ol>
             <li>
-              <strong>Set the contact.</strong> Type the name into the <em>Contact → Name</em>{" "}
-              field, write a status line such as <code>online</code> or{" "}
-              <code>last seen today at 20:14</code>, and upload an avatar if you want one.
-              Without an avatar, ChatMock draws a neutral grey initial circle, the same way
-              WhatsApp does for contacts without a profile photo.
+              <strong>Set the contact.</strong> Put the name in <em>Contact → Name</em> and add
+              a status line — <code>online</code>, <code>typing…</code> or{" "}
+              <code>last seen today at 20:14</code> — so the beige iOS header reads like a
+              real thread. Skip the avatar and ChatMock draws the neutral grey initial circle
+              WhatsApp uses for a contact with no photo.
             </li>
             <li>
-              <strong>Write the conversation.</strong> Use <em>+ Alex</em> or <em>+ Me</em> to
-              add messages. Each message can be flipped between the two sides with the sender
-              toggle, reordered with the arrows, and given its own timestamp. Uploading an
-              image turns that message into a photo bubble with a caption.
+              <strong>Write the messages.</strong> Use <em>+ Alex</em> and <em>+ Me</em> to
+              alternate speakers; each bubble can be flipped with the sender toggle and
+              reordered with the arrows. Consecutive messages from one side stack together —
+              only the first in a run keeps the little tail, the rest square off against it.
+              Any photo message can take a caption.
             </li>
             <li>
-              <strong>Set the read receipts.</strong> For outgoing messages you can pick{" "}
-              <em>Sent</em> (one grey tick), <em>Delivered</em> (two grey ticks) or{" "}
-              <em>Read</em> (two blue ticks). This detail is what most mockup tools get wrong,
-              and it is the first thing a viewer subconsciously checks.
+              <strong>Set the blue ticks.</strong> The read state of each outgoing message is
+              yours to choose: one grey tick for sent, two grey for delivered, two blue
+              (<code>#53bdeb</code>) for read. A thread left at two grey ticks is normal; a
+              wall of blue reads as staged.
             </li>
             <li>
-              <strong>Export.</strong> Choose 1x, 2x or 3x and hit <em>Download PNG</em>. Exports are plain screen captures by default — a real screenshot never
-              contains the phone body. Tick <em>Phone frame</em> only when you want a
-              device-mockup look for a thumbnail, slide or composite design.
+              <strong>Export.</strong> Press <em>Download PNG</em> and choose a scale: 1x for
+              a fast preview, 2x for screens and thumbnails, 3x when the image is headed for
+              a poster or printed packaging. Leave <em>Phone frame</em> unticked for an
+              ordinary capture, because a genuine screenshot never shows the handset itself;
+              tick it only if you want the framed-device look for a hero image.
             </li>
           </ol>
 
@@ -293,21 +296,23 @@ export default function WhatsAppGeneratorPage() {
             like without pasting a customer&apos;s real messages into a slide.
           </p>
           <p>
-            Where it crosses the line is intent. A mockup used to illustrate, parody or teach is
-            fine. The same image used to make someone believe something happened that did not —
-            to mislead a friend, to fake evidence, to impersonate a person or an institution —
-            is not, and we do not want that traffic. Our{" "}
-            <Link href="/acceptable-use">Acceptable Use Policy</Link> spells out the boundary,
-            and the tool itself refuses to be a bank-notice or legal-document factory.
+            What settles it is intent. A mockup that illustrates, parodies or teaches is doing
+            its job. The same picture used to convince someone that something happened which
+            did not — a borrowed identity, an invented piece of evidence, a staged reply
+            offered as real — is where it stops being acceptable, and we would rather not host
+            that traffic. Our{" "}
+            <Link href="/acceptable-use">Acceptable Use Policy</Link> draws the line in detail,
+            and this tool is deliberately useless as a bank-notice or legal-document factory.
           </p>
 
-          <h2>Why it runs entirely in your browser</h2>
+          <h2>Why nothing you type leaves this tab</h2>
           <p>
-            Two reasons. Privacy first: your conversation never travels to a server, so there is
-            no database of other people&apos;s staged chats to leak. Speed second: rendering
-            locally means the preview updates as you type, with no round trip, and the export
-            is generated by your own GPU. The side effect is that you can load this page and
-            then turn off your wifi — the generator keeps working perfectly.
+            The contact name, the status line and every message are drawn with plain HTML and
+            CSS inside your browser, and the PNG is rasterised on your own machine before it
+            lands in your downloads. There is no server in the loop, which is why you can load
+            the page, kill your connection and carry on editing as though nothing changed —
+            and why there is no gallery of other people&apos;s staged chats sitting anywhere
+            on our side.
           </p>
 
           <h2>Other generators</h2>
@@ -316,8 +321,9 @@ export default function WhatsAppGeneratorPage() {
             when the small details are right. Also live: the{" "}
             <Link href="/fake-text-message-generator">iPhone text message generator</Link>,{" "}
             the <Link href="/group-chat-generator">group chat generator</Link> and the{" "}
-            <Link href="/messenger-chat-generator">Messenger chat generator</Link>. See the{" "}
-            <Link href="/#generators">generator index</Link> for the full list.
+            <Link href="/messenger-chat-generator">Messenger chat generator</Link> — the{" "}
+            <Link href="/examples">examples gallery</Link> lines their finished PNGs up side
+            by side if you would rather look before you pick a platform.
           </p>
 
           <p>

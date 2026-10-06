@@ -30,32 +30,36 @@ export const metadata: Metadata = {
 
 const FAQ = [
   {
-    q: "Is this Telegram chat generator free?",
-    a: "Yes — every feature on this page is free, with no signup, no email wall, no daily limit and no watermark on your export. PNG download works at 1x, 2x and 3x resolution.",
+    q: "Is the Telegram chat generator free to use?",
+    a: "It is — no account, no email wall, no daily cap and no watermark on the file you download. Every switch on the page, from day dividers to dark mode, is open without payment.",
   },
   {
-    q: "What do the checkmarks mean?",
-    a: "Telegram uses only two states: a single check means the message was sent to the server, a double check means it was read. There is no separate 'delivered' state like on WhatsApp — the editor lets you pick all three, and the renderer maps 'delivered' and 'read' to the double check, matching the real app.",
+    q: "How many checkmark states does Telegram have?",
+    a: "Only two. A single check means the message reached the server and a double check means it was read; there is no separate delivered state as there is on WhatsApp. The editor still offers all three choices and maps delivered onto the double check, which is what the real client does.",
   },
   {
-    q: "Why is the outgoing bubble light green?",
-    a: "That is Telegram's signature. On the light iOS theme, your own bubbles are a pale green (#eeffde) while incoming bubbles are white; in dark mode your bubbles become steel blue (#2b5278). Generators that copy WhatsApp's colour scheme into a Telegram frame are immediately recognisable as fakes.",
+    q: "Why is the sender bubble pale green?",
+    a: "That is Telegram's signature: on the light theme your own bubbles are a soft green (#eeffde) and incoming ones are white. Generators that paste WhatsApp's colours into a Telegram frame give themselves away immediately.",
   },
   {
-    q: "Is my conversation uploaded to a server?",
-    a: "No. The mockup is rendered entirely on your device and the PNG is generated in your browser, then saved directly to your downloads. Nothing you type ever leaves your computer or phone — disconnect from the internet after loading the page and the editor keeps working.",
+    q: "What does the bubble turn into in dark mode?",
+    a: "Steel blue, #2b5278. Telegram does not simply darken the green — it switches the outgoing bubble to a deep blue-grey while the background drops to near-black, so the two themes do not look like the same image dimmed.",
   },
   {
-    q: "What resolution can I export?",
-    a: "1x (390px wide), 2x (780px) or 3x (1170px). For thumbnails and blog posts, 2x is usually the right balance of sharpness and file size. Use 3x for print or zoomed-in shots.",
+    q: "What is the day divider pill for?",
+    a: "Real Telegram threads label the date with a small centred pill — Yesterday, July 28, anything you like — and the editor exposes that text so long conversations can be split across days the way they are in the app.",
   },
   {
-    q: "Can I add images inside the chat?",
-    a: "Yes. Any message can carry an image attachment with a caption. Uploaded images are read locally in your browser and rendered inside the bubble with Telegram's rounded corners.",
+    q: "Can I place images inside the chat?",
+    a: "Yes. Any message can carry a picture with a caption, read locally from your device and rendered inside the bubble with Telegram's rounded corners.",
   },
   {
-    q: "Can I use the mockups commercially?",
-    a: "Yes, for legitimate creative work: videos, presentations, teaching material, fiction and design. You may not use them to deceive, defraud, harass, impersonate anyone or fabricate evidence. See the Acceptable Use Policy for the full boundary.",
+    q: "Does Telegram see the chat I compose here?",
+    a: "It cannot, because nothing is transmitted. The mockup is built and rasterised entirely on your own machine, so names, messages and images stay in the browser and the PNG lands only in your downloads. Turn off your connection after loading the page and it still works.",
+  },
+  {
+    q: "May I publish or sell the mockups?",
+    a: "For honest creative work — videos, courses, presentations, fiction, design — yes. Presenting a fabricated thread as genuine, impersonating someone or manufacturing evidence is not allowed, and the Acceptable Use Policy gives the full picture.",
   },
 ];
 
@@ -122,10 +126,10 @@ export default function TelegramGeneratorPage() {
             export at 1x, 2x or 3x.
           </p>
           <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1.5 text-[13.5px] text-black/55">
-            <span>✓ No account required</span>
-            <span>✓ No watermark, ever</span>
-            <span>✓ Nothing leaves your device</span>
-            <span>✓ Works on mobile</span>
+            <span>✓ Free and account-free</span>
+            <span>✓ Zero watermark on export</span>
+            <span>✓ Two-state ticks, like the app</span>
+            <span>✓ Doodle wallpaper drawn in code</span>
           </div>
         </div>
 
@@ -137,29 +141,30 @@ export default function TelegramGeneratorPage() {
           <h2>How to create a Telegram chat mockup in four steps</h2>
           <ol>
             <li>
-              <strong>Set the contact.</strong> Type a name into <em>Contact → Name</em>, add
-              a status line such as <code>online</code> or{" "}
-              <code>last seen 5 minutes ago</code>, and upload an avatar if you want one.
-              Without a photo, ChatMock draws a solid-colour initial circle like Telegram&apos;s
-              default avatars.
+              <strong>Set the contact.</strong> Enter the name in <em>Contact → Name</em> and
+              choose a status line — <code>online</code> or{" "}
+              <code>last seen 5 minutes ago</code> — for the white header. A photo is optional;
+              without one ChatMock uses the solid-colour initial circle Telegram shows by
+              default.
             </li>
             <li>
-              <strong>Write the conversation.</strong> Use <em>+ Alex</em> or <em>+ Me</em> to
-              add messages, flip each one between the two sides, and reorder with the arrows.
-              Uploading an image turns that message into a photo bubble with a caption.
+              <strong>Write the chat.</strong> <em>+ Alex</em> and <em>+ Me</em> add bubbles,
+              the sender toggle moves a message across, and the arrows reorder them. Like
+              WhatsApp, a run from one sender keeps the tail on its first bubble only; a
+              caption can ride along with any image.
             </li>
             <li>
-              <strong>Set the checkmarks.</strong> For outgoing messages pick{" "}
-              <em>Sent</em> (single check) or <em>Read</em> (double green check). Remember
-              that Telegram has no delivered state — a conversation where every message sits
-              at a single check reads as &ldquo;they have not opened the app&rdquo;, which is
-              a useful look for specific scenes.
+              <strong>Set the checks.</strong> Telegram knows just two states, so pick a single
+              check for sent or a double green check for read — there is no delivered step to
+              set. A long thread left at single checks reads as unopened, which is its own
+              useful scene.
             </li>
             <li>
-              <strong>Export.</strong> Choose 1x, 2x or 3x and hit <em>Download PNG</em>.
-              Exports are plain screen captures by default — a real screenshot never
-              includes the phone body. Tick <em>Phone frame</em> only when you want a
-              device-mockup look for a thumbnail, slide or design.
+              <strong>Export.</strong> Reach for 3x when a Telegram shot is going onto
+              merchandise or a large poster, 2x for the web and video thumbnails, and 1x when
+              you are only checking the layout. <em>Phone frame</em> stays off for a clean
+              screenshot edge — switch it on if you need the device shell around the chat for
+              a marketing composite.
             </li>
           </ol>
 
@@ -254,19 +259,20 @@ export default function TelegramGeneratorPage() {
             when a &ldquo;Telegram&rdquo; screenshot has the wrong green.
           </p>
           <p>
-            As everywhere on this site, the line is intent. Illustrating, parodying, teaching
-            and designing are fine. Using a fabricated conversation to deceive someone,
-            harass a person, impersonate someone or fabricate evidence is not — and there are
-            no templates here for fake bank, government, medical or legal notices. The{" "}
-            <Link href="/acceptable-use">Acceptable Use Policy</Link> has the full boundary.
+            The intent behind a thread is what matters, here as much as anywhere on ChatMock.
+            Using one to illustrate, to parody, to teach or to design is acceptable; using one
+            to deceive a person, to harass them, to pose as somebody else, or to fabricate
+            evidence is not. The site holds no bank, government, medical or legal notice
+            templates, and the{" "}
+            <Link href="/acceptable-use">Acceptable Use Policy</Link> spells the boundary out.
           </p>
 
-          <h2>Why it runs entirely in your browser</h2>
+          <h2>Built and encoded on your machine</h2>
           <p>
-            Everything is rendered locally with plain HTML and CSS, and the PNG is generated
-            on your device — nothing is transmitted, stored or logged. That is why the editor
-            keeps working with your wifi switched off, and why there is no gallery of staged
-            conversations sitting on our servers.
+            Names, status lines and checkmarks are painted with plain HTML and CSS inside the
+            tab, and the PNG is rasterised on your own device before it downloads. No part of
+            the thread is transmitted or retained, which is why the editor is perfectly happy
+            with the network switched off.
           </p>
 
           <h2>Other generators</h2>
@@ -277,7 +283,9 @@ export default function TelegramGeneratorPage() {
             the <Link href="/group-chat-generator">group chat generator</Link>, the{" "}
             <Link href="/messenger-chat-generator">Messenger chat generator</Link> and the{" "}
             <Link href="/discord-chat-generator">Discord chat generator</Link> are all live.
-            See the <Link href="/#generators">generator index</Link> for the full list.
+            Telegram sits closest to WhatsApp of that group, so if you need the three-state
+            ticks instead of two, switch to the{" "}
+            <Link href="/whatsapp-chat-generator">WhatsApp page</Link>.
           </p>
 
           <p>

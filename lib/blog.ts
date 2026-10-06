@@ -79,6 +79,86 @@ export const blogPosts: BlogPostMeta[] = [
     date: "2026-09-10",
     readMinutes: 6,
   },
+  {
+    slug: "messenger-chat-mockup-guide",
+    title: "How to Make a Realistic Facebook Messenger Screenshot",
+    description:
+      "Messenger's identity is geometry, not colour: capsule bubbles, grouped avatars and a Seen line under one message only. A guide to building a Messenger mockup that survives a close look.",
+    date: "2026-10-06",
+    readMinutes: 7,
+  },
+  {
+    slug: "group-chat-screenshot-guide",
+    title: "How to Make a Group Chat Screenshot With Multiple Participants",
+    description:
+      "Group chats are the hardest mockups to fake: several senders, coloured names, grouped bubbles and natural pacing. How to stage a multi-person thread that reads as real.",
+    date: "2026-10-06",
+    readMinutes: 7,
+  },
+  {
+    slug: "snapchat-chat-screenshot-guide",
+    title: "How to Make a Snapchat Chat Screenshot (Without the Usual Mistakes)",
+    description:
+      "Snapchat's colour logic runs backwards from what most generators assume: a yellow header over a white chat surface. The details that make a Snapchat mockup believable.",
+    date: "2026-10-06",
+    readMinutes: 6,
+  },
+  {
+    slug: "whatsapp-call-log-screenshot-guide",
+    title: "How to Make a WhatsApp Call Log Screenshot",
+    description:
+      "The Calls tab is a list, not a conversation — which is why so many call-log mockups look wrong. Directions, durations, missed calls and the five-tab bottom bar, explained.",
+    date: "2026-10-06",
+    readMinutes: 6,
+  },
+  {
+    slug: "android-sms-screenshot-guide",
+    title: "How to Make a Google Messages Screenshot on Android",
+    description:
+      "Material bubbles, Google blue, a left-aligned clock and an RCS Read marker: how Android messaging mockups differ from their iPhone cousins, and the details that sell them.",
+    date: "2026-10-06",
+    readMinutes: 7,
+  },
+  {
+    slug: "how-to-spot-a-fake-screenshot",
+    title: "How to Spot a Fake Chat Screenshot: 9 Details That Give It Away",
+    description:
+      "Wrong bubble radius, a green iPhone header, a timestamp on every line. A practical checklist for telling a staged chat screenshot from a real one — and why it is getting harder.",
+    date: "2026-10-06",
+    readMinutes: 8,
+  },
+  {
+    slug: "screenshot-metadata-and-authenticity",
+    title: "Screenshot Metadata and Authenticity: What a PNG Actually Proves",
+    description:
+      "Can a screenshot prove a conversation happened? What EXIF, PNG chunks and file timestamps do and do not record — and why screenshots are the weakest evidence people trust most.",
+    date: "2026-10-06",
+    readMinutes: 7,
+  },
+  {
+    slug: "is-it-legal-to-use-mockups-in-ads",
+    title: "Is It Legal to Use Chat Mockups in Ads and Marketing?",
+    description:
+      "Staged conversations in advertising touch disclosure rules, platform brand guidelines and consumer law. A plain-English look at where marketing use crosses a line.",
+    date: "2026-10-06",
+    readMinutes: 8,
+  },
+  {
+    slug: "ui-recreation-ethics-and-trademarks",
+    title: "Recreating App Interfaces: Where Trademark and Fair Use Lines Sit",
+    description:
+      "Design mockups routinely redraw other companies' interfaces. What trademark law actually protects, how nominative use works, and why the honest answer is about context, not pixels.",
+    date: "2026-10-06",
+    readMinutes: 8,
+  },
+  {
+    slug: "chat-mockups-in-teaching-and-research",
+    title: "Using Chat Mockups in Teaching, Research and Prototyping",
+    description:
+      "Staged conversations are a serious tool in classrooms, user research and product prototyping — as long as participants know what they are looking at. How practitioners use them well.",
+    date: "2026-10-06",
+    readMinutes: 7,
+  },
 ];
 
 export function getPost(slug: string): BlogPostMeta | undefined {

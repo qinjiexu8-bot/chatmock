@@ -169,6 +169,71 @@ export default function Post() {
             staged. Protect that, and the format keeps working for you.
           </p>
 
+          <h2>Pacing: how long a screenshot should stay on screen</h2>
+          <p>
+            A screenshot that is genuinely part of the story has to be <em>read</em>, and reading
+            sets the pacing. That is the first rule, and it overrides any fixed number of
+            seconds you might have seen quoted. A four-message exchange takes less time to read
+            than a seven-message one, and a screenshot with two short bubbles needs less dwell
+            than one carrying a paragraph. Hold the frame long enough for the viewer to finish
+            reading and land on the beat — and not one beat longer.
+          </p>
+          <p>
+            The three reveal techniques each pace differently. A <strong>static insert</strong>
+            is the simplest to time because the voiceover leads: cut the screenshot in, let the
+            narration carry the viewer through the messages, and cut on the last word. A{" "}
+            <strong>simulated scroll</strong> depends on motion, so it has to move slowly enough
+            that the messages are readable as they pass — scroll faster than people read and the
+            effect turns from &ldquo;snooping&rdquo; into a blur. A <strong>phone in hand</strong>{" "}
+            shot can be shorter, because the movement and the physicality carry attention even
+            before the text is parsed.
+          </p>
+          <p>
+            The common editing mistake is lingering. Once the reveal lands, every extra second
+            invites the viewer to start examining the interface instead of following the story —
+            and examining the interface is exactly what you do not want a sceptical audience
+            doing. Cut on the beat, then bring the reaction or the next narration in.
+          </p>
+
+          <h2>Resolution and scaling: choosing 1x, 2x or 3x</h2>
+          <p>
+            The three export scales are not interchangeable, and the right choice follows from
+            how the image will be used. At <strong>1x</strong> you get a rough storyboard frame —
+            fine for placing shots, too soft once the screenshot fills a screen. At{" "}
+            <strong>2x</strong> you get the sweet spot for video and slides: sharp on a retina
+            display without a heavy file, and roughly 780px wide, which is plenty for a
+            full-screen insert even on a vertical video. At <strong>3x</strong> you are buying
+            headroom — print, or a shot that gets enlarged in the edit.
+          </p>
+          <p>
+            The reason to think about this before you shoot is the <em>punch-in</em>. Editors
+            routinely zoom a still to add energy, and a zoom is a virtual upscale: a 1x export
+            pushed to 200% goes soft around the text, while a 3x export pushed to the same size
+            still looks clean. If your treatment includes any scaling on the screenshot, export a
+            scale higher than the final size needs and let the downscale do the work. And keep
+            status bar and text size consistent across inserts, so two mockups cut together read
+            as one phone rather than a resized image.
+          </p>
+
+          <h2>Why audiences believe: realism comes from restraint</h2>
+          <p>
+            It is tempting to assume a screenshot becomes more convincing as you add detail. The
+            opposite is closer to the truth. Real phone screenshots are boring and partial: a few
+            messages, uneven pacing, one loose end. What makes a staged conversation land is not
+            the volume of interface detail but the set of constraints you respect — each message
+            one beat, the reveal at the end, the same bubble geometry throughout, no detail that
+            contradicts the app.
+          </p>
+          <p>
+            Over-built mockups fail in a specific way. Per-message timestamps appear on an app
+            that does not show them; every outgoing bubble is read; the bubbles are the same
+            length because they were padded to look tidy. Each of those is an extra claim about
+            the world, and an extra claim is another place to be caught being wrong. The mockups
+            that survive scrutiny are the ones that make the fewest claims and get all of them
+            right — which is also the discipline that keeps a staged scene on the right side of
+            the line drawn by the <Link href="/acceptable-use">Acceptable Use Policy</Link>.
+          </p>
+
           <h2>A pre-publish checklist</h2>
           <ul>
             <li>Is the staging labelled (caption, voiceover or context) as a dramatisation?</li>

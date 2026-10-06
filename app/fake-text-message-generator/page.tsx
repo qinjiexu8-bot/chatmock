@@ -30,36 +30,36 @@ export const metadata: Metadata = {
 
 const FAQ = [
   {
-    q: "Is this iPhone text message generator free?",
-    a: "Yes — completely. There is no signup, no email wall, no daily limit and no watermark on your export. PNG download at 1x, 2x or 3x resolution costs nothing.",
+    q: "Is the iPhone text message generator free?",
+    a: "Yes, in full. No signup, no email requirement, no cap on how many mockups you make and no watermark on the result — every control, dark mode included, is yours to use.",
   },
   {
-    q: "Does it make blue iMessage bubbles or green SMS bubbles?",
-    a: "This generator renders iMessage-style blue bubbles, which is what most people mean when they search for an iPhone text screenshot. The green SMS variant follows a different layout and is planned as its own page — we would rather ship one correct style than one approximation of two.",
+    q: "Does it produce blue iMessage bubbles or green SMS bubbles?",
+    a: "This page renders the iMessage blue, which is what most people picture when they ask for an iPhone text screenshot. The green SMS style follows a different set of rules, so it is planned as its own page rather than a colour swap here.",
   },
   {
-    q: "Why are there no timestamps on each message?",
-    a: "Because the real app does not show them. iOS Messages displays a single timestamp header at the top of a conversation, then a small Delivered or Read line under the last outgoing message — not a time inside every bubble. Generators that stamp each bubble get this wrong, and it is one of the fastest tells of a fake screenshot.",
+    q: "Why is there no time on each message?",
+    a: "iOS Messages does not print one. The app shows a single timestamp at the top of the thread and a small Delivered or Read note under the last outgoing bubble, nothing per message. A clock inside every bubble is the fastest giveaway of a fake iPhone screenshot.",
   },
   {
-    q: "Is my conversation uploaded anywhere?",
-    a: "No. The mockup is rendered on your device with plain HTML and CSS, and the PNG is generated in your browser and saved straight to your downloads. Names, messages and uploaded images never leave your computer or phone. You can verify this by loading the page and then disconnecting from the internet — everything keeps working.",
+    q: "What can I type in the Delivered line?",
+    a: "Any text you like — Delivered, Read, Sending, or nothing at all. Clearing it is how a thread looks the instant after your contact replies, and that one small choice makes a screenshot noticeably more believable.",
   },
   {
-    q: "What resolution can I export?",
-    a: "1x (390px wide), 2x (780px) or 3x (1170px). For YouTube thumbnails, blog posts and presentations, 2x is the sweet spot. Use 3x for print or when the screenshot will be zoomed into on screen.",
+    q: "So you can make fake text messages?",
+    a: "That is exactly what the tool is for. Type a contact, add the bubbles, set the Delivered line and download a PNG at up to 3x. It runs entirely in the browser, so nothing you enter is uploaded and the result holds up in video edits, decks and mockups.",
   },
   {
-    q: "Can I change what the Delivered line says?",
-    a: "Yes. The delivery field accepts any text — Delivered, Read, Sending, or empty if you want no status line at all, which is how a conversation looks right after the contact replies.",
+    q: "Is anything sent to a server while I build an iMessage?",
+    a: "Nothing. The conversation is composed with plain HTML and CSS on your device and the PNG is encoded there too, then saved to your downloads. Names, messages and pictures never cross the network — load the page, go offline, and it keeps working.",
   },
   {
-    q: "Can you make fake text messages?",
-    a: "Yes — that is exactly what this page does. Enter a contact name, type the conversation bubble by bubble, choose blue iMessage styling, adjust the Delivered/Read line and export a PNG at up to 3x resolution. It runs entirely in your browser: nothing you type is uploaded, and the result is indistinguishable from a real screenshot in video edits, slide decks and mockups.",
+    q: "Why is there no bubble around a photo message?",
+    a: "Because iOS drops the padding for image messages: a photo fills its own rounded frame with no coloured background behind it, unlike a text bubble. This generator matches that, so a picture message does not look like a text message with a photo glued on.",
   },
   {
-    q: "Can I use the mockups commercially?",
-    a: "Yes, for legitimate creative work: videos, presentations, course material, fiction and design. You may not use them to deceive, defraud, harass, impersonate anyone, or fabricate evidence. See the Acceptable Use Policy for the full boundary.",
+    q: "Is commercial use allowed?",
+    a: "For honest purposes — videos, presentations, course material, fiction, design — yes. You may not use a composed thread to deceive, harass, impersonate or fabricate evidence; our Acceptable Use Policy covers the full boundary.",
   },
 ];
 
@@ -125,10 +125,10 @@ export default function TextMessageGeneratorPage() {
             2x or 3x.
           </p>
           <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1.5 text-[13.5px] text-black/55">
-            <span>✓ No account required</span>
-            <span>✓ No watermark, ever</span>
-            <span>✓ Nothing leaves your device</span>
-            <span>✓ Works on mobile</span>
+            <span>✓ Free, no signup needed</span>
+            <span>✓ No watermark, no branding</span>
+            <span>✓ 18px iOS bubbles with tails</span>
+            <span>✓ Delivered / Read line included</span>
           </div>
         </div>
 
@@ -140,29 +140,29 @@ export default function TextMessageGeneratorPage() {
           <h2>How to create an iPhone text message mockup in four steps</h2>
           <ol>
             <li>
-              <strong>Set the contact.</strong> Type a name into{" "}
-              <em>Contact → Name</em> and upload an avatar if you want one. Without a photo,
-              ChatMock draws a neutral grey initial circle, matching how iOS renders contacts
-              with no picture.
+              <strong>Set the contact.</strong> Type the name into{" "}
+              <em>Contact → Name</em>; the header takes the plain centred iOS layout. Add an
+              avatar, or let ChatMock fall back to the grey initial circle iOS shows for a
+              contact with no picture.
             </li>
             <li>
-              <strong>Write the conversation.</strong> Add messages with{" "}
-              <em>+ Alex</em> or <em>+ Me</em>, flip each one between the two sides, and
-              reorder with the arrows. Uploading an image turns that message into a photo
-              bubble — on iOS, photo messages have no background padding, which is exactly how
-              this generator renders them.
+              <strong>Write the messages.</strong> <em>+ Alex</em> and <em>+ Me</em> add
+              bubbles; the sender toggle moves one to the other side and the arrows reorder the
+              thread. iOS keeps the narrowed tail on the last bubble of a run, so grouping
+              happens on its own. A photo message drops the coloured background entirely — no
+              padding, just the rounded image — which is exactly how iOS draws it.
             </li>
             <li>
-              <strong>Set the delivery line.</strong> Under <em>Contact → Delivery</em> you can
-              write <code>Delivered</code>, <code>Read</code>, <code>Sending</code> — or clear
-              it entirely. The line only appears under the last outgoing message, the same
-              rule the real app follows. Delete it when the other person has just replied;
-              that detail alone makes a screenshot noticeably more convincing.
+              <strong>Set the delivery line.</strong> <em>Contact → Delivery</em> accepts{" "}
+              <code>Delivered</code>, <code>Read</code>, <code>Sending</code>, or nothing at
+              all; the text sits beneath your final outgoing bubble and nowhere else. Clearing
+              it is the trick for a thread the other person has just answered.
             </li>
             <li>
-              <strong>Export.</strong> Pick 1x, 2x or 3x and hit <em>Download PNG</em>. Exports are plain screen captures by default — a real screenshot never
-              includes the phone body. Tick <em>Phone frame</em> if you want a
-              device-mockup look instead of a full-screen capture.
+              <strong>Export.</strong> Choose your scale and download: 2x is plenty for a web
+              page or a thumbnail, while 3x is the one to reach for if the shot will be
+              printed on a case, a poster or a handout. <em>Phone frame</em> begins off, to
+              match a real iOS screenshot, and is only there for device composites.
             </li>
           </ol>
 
@@ -286,21 +286,20 @@ export default function TextMessageGeneratorPage() {
             the audience understands the conversation is illustrative.
           </p>
           <p>
-            Where it crosses the line is intent. A mockup used to illustrate, parody or teach
-            is fine; the same image used to make someone believe something happened that did
-            not — to fake evidence, to impersonate a person or institution, to mislead — is
-            not, and we do not want that traffic. The{" "}
-            <Link href="/acceptable-use">Acceptable Use Policy</Link> spells out the boundary,
-            and the site deliberately offers no templates for bank, government, medical or
-            legal notices.
+            What separates a stage prop from a forgery is intent. Illustrating, parodying,
+            teaching or designing with a mockup is fine; using one to make someone believe
+            something that never happened — faking evidence, impersonating a person or an
+            institution, misleading a reader — is not, and we do not host that. No bank,
+            government, medical or legal templates exist on this site, and the{" "}
+            <Link href="/acceptable-use">Acceptable Use Policy</Link> sets the boundary out.
           </p>
 
-          <h2>Why it runs entirely in your browser</h2>
+          <h2>Rendered inside the browser, start to finish</h2>
           <p>
-            Privacy first: your conversation never touches a server, so there is no database
-            of staged chats to leak. Speed second: rendering locally means the preview updates
-            as you type and the export is generated by your own machine. You can load this
-            page, turn off your wifi, and keep working — that is the proof.
+            The contact, the bubbles and the Delivered line are composed with plain HTML and CSS
+            in your browser, and the PNG is encoded on your own hardware before it reaches your
+            downloads. Nothing is transmitted or logged, so you can load the page, go offline,
+            and keep working exactly as before.
           </p>
 
           <h2>Other generators</h2>
@@ -310,8 +309,9 @@ export default function TextMessageGeneratorPage() {
             including dark mode, blue ticks and image messages — and so are the{" "}
             <Link href="/group-chat-generator">group chat generator</Link> with coloured
             sender names and the{" "}
-            <Link href="/messenger-chat-generator">Messenger chat generator</Link>. See the{" "}
-            <Link href="/#generators">generator index</Link> for the full list.
+            <Link href="/messenger-chat-generator">Messenger chat generator</Link>. If you
+            would rather browse finished results before choosing, the{" "}
+            <Link href="/examples">examples page</Link> gathers them in one place.
           </p>
 
           <p>
