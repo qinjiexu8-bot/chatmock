@@ -334,12 +334,14 @@ BASE=https://chatmock.net node scripts/qa/adsense.cjs
 `EEXIST` 包成 `CODEBUDDY_BROKER_DENY`（带 `{recursive:true}` 则正常）。Next.js 启动时会对
 `.next` 做非递归 mkdir，于是 `next dev` 从第二次起全部路由 500。
 
-**绕法**：用一个只把 mkdir 变幂等、不碰任何安全机制的 preload 补丁启动：
+**绕法**：用一个只把 mkdir 变幂等、不碰任何安全机制的 preload 补丁启动（补丁已入库）：
 
 ```bash
-NODE_OPTIONS="$NODE_OPTIONS --require /tmp/next-mkdir-compat.cjs" npm run dev
+NODE_OPTIONS="$NODE_OPTIONS --require ./scripts/dev/next-mkdir-compat.cjs" npm run dev
 ```
 
-（补丁内容见 `docs/` 内说明或 `/tmp/next-mkdir-compat.cjs`；它**不**卸载 safe-delete 守卫、
-**不**放宽路径权限，只修正 EEXIST 这一个 errno 的语义。）部署走 Vercel 远端构建，不受影响。
+（`--require` 只认绝对路径或 `./` 开头的路径，写裸相对路径会 `MODULE_NOT_FOUND`。）
+它**不**卸载 safe-delete 守卫、**不**放宽路径权限，只修正 `EEXIST` 这一个 errno 的语义
+（最短复现与原理写在补丁头部注释里）。**不要**为此去 `unset NODE_OPTIONS`。
+部署走 Vercel 远端构建，不受影响。
 
